@@ -27,7 +27,6 @@ export default function TextInput(props: TextInputProps) {
       bg-gray-100
       text-gray-800
       placeholder:text-gray-400
-      invalid:text-red border-red
       focus:border-orange-500
       '
       />

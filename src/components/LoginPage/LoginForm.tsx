@@ -10,7 +10,9 @@ export function LoginForm() {
   return (
     <form className="w-[22.5rem] flex flex-col gap-4 items-center justify-center">
       <TextInput label="Email" type={"email"} placeholder="email@exemple.com" />
+
       <TextInput label="Password" type={"password"} placeholder="********" />
+
       <Button variant="orange" size="lg">
         Login
       </Button>
