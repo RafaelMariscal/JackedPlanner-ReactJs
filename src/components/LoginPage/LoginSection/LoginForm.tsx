@@ -1,15 +1,20 @@
-import { AppleLogo } from "../../assets/icons/AppleLogo";
-import { FacebookLogo } from "../../assets/icons/FacebookLogo";
-import { GithubLogo } from "../../assets/icons/GithubLogo";
-import { GoogleLogo } from "../../assets/icons/GoogleLogo copy";
+import { AppleLogo } from "../../../assets/icons/AppleLogo";
+import { FacebookLogo } from "../../../assets/icons/FacebookLogo";
+import { GithubLogo } from "../../../assets/icons/GithubLogo";
+import { GoogleLogo } from "../../../assets/icons/GoogleLogo copy";
+import { Button } from "../Button";
+import TextInput from "../TextInput";
 import { BrandButton } from "./BrandButton";
-import { Button } from "./Button";
-import TextInput from "./TextInput";
+
 
 export function LoginForm() {
   return (
     <form className="max-w-[22.5rem] w-full flex flex-col gap-4 items-center justify-center">
-      <TextInput label="Email" type={"email"} placeholder="email@exemple.com" />
+      <TextInput
+        label="Email"
+        type={"email"}
+        placeholder="email@exemple.com"
+      />
 
       <TextInput label="Password" type={"password"} placeholder="********" />
 

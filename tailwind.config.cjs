@@ -43,7 +43,8 @@ module.exports = {
         sans: 'poppins, sans-serif',
       },
       backgroundImage: {
-        'background-polygons': "url('/src/assets/Backgroundbackground.png')"
+        'background-polygons': "url('/src/assets/PolygonsBackground.png')",
+        'dashboard-image': "url('/src/assets/DashboardImg.png')",
       }
     },
   },

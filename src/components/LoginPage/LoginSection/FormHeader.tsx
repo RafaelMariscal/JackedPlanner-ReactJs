@@ -1,5 +1,5 @@
-import { Logo } from "../../assets/Logo";
-import { Anchor } from "./Anchor";
+import { Logo } from "../../../assets/Logo";
+import { Anchor } from "../Anchor";
 
 export function FormHeader() {
   return (
