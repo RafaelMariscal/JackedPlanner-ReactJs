@@ -41,6 +41,9 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: 'poppins, sans-serif',
+      },
+      backgroundImage: {
+        'background-polygons': "url('/src/assets/Backgroundbackground.png')"
       }
     },
   },

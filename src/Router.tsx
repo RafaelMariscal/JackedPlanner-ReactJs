@@ -16,7 +16,6 @@ export function Router() {
         <Route path='shop' element={<Shop />} />
         <Route path='settings' element={<Settings />} />
       </Route>
-
     </Routes>
   )
 }
