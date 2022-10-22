@@ -8,7 +8,7 @@ import TextInput from "./TextInput";
 
 export function LoginForm() {
   return (
-    <form className="w-[22.5rem] flex flex-col gap-4 items-center justify-center">
+    <form className="max-w-[22.5rem] w-full flex flex-col gap-4 items-center justify-center">
       <TextInput label="Email" type={"email"} placeholder="email@exemple.com" />
 
       <TextInput label="Password" type={"password"} placeholder="********" />
