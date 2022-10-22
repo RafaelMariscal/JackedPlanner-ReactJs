@@ -4,7 +4,7 @@ import { LinkedinLogo } from "../../assets/icons/LinkedinLogo";
 
 export function ContactLinks() {
   return (
-    <div className="flex flex-col gap-3 text-gray-100 font-medium">
+    <div className="font-normal text-sm text-gray-100  flex flex-col gap-3">
       <a href="https://www.instagram.com/rafaelmariscal_/"
         className="flex gap-3 hover:underline underline-offset-4"
       >

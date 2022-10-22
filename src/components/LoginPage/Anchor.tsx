@@ -8,6 +8,8 @@ export function Anchor(props: AnchorProps) {
   return (
     <a
       className={`
+        text-gray-100
+        font-medium
         [&>span]:text-orange-500
         transition-all
         duration-150
