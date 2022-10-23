@@ -1,7 +1,7 @@
 
 export function GoalsSection() {
   return (
-    <div className="py-10 flex items-center justify-center gap-28">
+    <div id="aboutUs" className="py-10 flex items-center justify-center gap-28">
       <div className="flex flex-col gap-3">
         <h2 className="font-semibold text-xl text-gray-800 max-w-md">
           The Jacked Planner was designed looking for one simple goal:

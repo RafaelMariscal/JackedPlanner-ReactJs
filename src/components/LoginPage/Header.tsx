@@ -12,14 +12,14 @@ export function Header() {
         px-4 
         flex items-center justify-between
       ">
-        <Anchor href="GetPro">
+        <Anchor href="#getPro">
           Get <span>PRO</span> for more features
         </Anchor>
         <div className="flex gap-6">
-          <Anchor href="AboutUs">
+          <Anchor href="#aboutUs">
             About<span>Us</span>
           </Anchor>
-          <Anchor href="GetPro">
+          <Anchor href="#getPro">
             Get<span>PRO</span>
           </Anchor>
         </div>

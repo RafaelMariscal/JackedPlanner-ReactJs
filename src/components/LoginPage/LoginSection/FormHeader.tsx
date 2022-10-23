@@ -16,11 +16,11 @@ export function FormHeader() {
           Organize your workout routine ang <span>GET HUGE</span>!
         </h2>
         <div className="text-lg leading-6 flex gap-4">
-          <Anchor href="GetPro">
-            Get <span>Pro</span>
-          </Anchor>
-          <Anchor href="GetPro">
+          <Anchor href="#aboutUs">
             About <span>Us</span>
+          </Anchor>
+          <Anchor href="#getPro">
+            Get <span>Pro</span>
           </Anchor>
         </div>
       </div >
