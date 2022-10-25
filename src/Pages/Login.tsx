@@ -1,5 +1,6 @@
 import { ContactLinks } from "../components/LoginPage/ContactLinks";
 import { FeaturesSection } from "../components/LoginPage/FeaturesSection";
+import { Footer } from "../components/LoginPage/Footer";
 import { GoalsSection } from "../components/LoginPage/GoalsSection";
 import { Header } from "../components/LoginPage/Header";
 import { LoginSection } from "../components/LoginPage/LoginSection/Index";
@@ -15,6 +16,7 @@ export function Login() {
       <FeaturesSection />
       <ProCallSection price={4.99} />
       <ProUserAdvantages price={4.99} />
+      <Footer />
     </div>
   )
 }
