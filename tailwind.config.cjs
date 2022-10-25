@@ -49,6 +49,7 @@ module.exports = {
       backgroundImage: {
         'background-polygons': "url('/src/assets/PolygonsBackground.png')",
         'dashboard-image': "url('/src/assets/DashboardImg.png')",
+        'price-slash': "url('/src/assets/PriceSlash.png')",
       },
       keyframes: {
         strech: {

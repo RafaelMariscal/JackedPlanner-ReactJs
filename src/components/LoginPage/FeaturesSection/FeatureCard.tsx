@@ -55,12 +55,3 @@ export const FeatureCard = {
   Icon: Icon,
   Label: Label
 }
-
-
-
-
-////////        FAZER A ANIMAÇÃO SER FLUIDA
-////////            PROVAVELMENTE COM KEYFRAME!!
-////////
-////////
-////////        

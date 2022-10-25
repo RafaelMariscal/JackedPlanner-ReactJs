@@ -5,9 +5,10 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'orange' | 'light' | 'dark';
   size?: 'md' | 'lg';
   children: ReactNode;
+  className?: string;
 }
 
-export function Button({ variant = 'orange', size = 'md', children, ...props }: ButtonProps) {
+export function Button({ className, variant = 'orange', size = 'md', children, ...props }: ButtonProps) {
   return (
     <button
       className={clsx(
@@ -20,7 +21,8 @@ export function Button({ variant = 'orange', size = 'md', children, ...props }: 
         {
           'h-9': size === 'md',
           'h-12 text-lg': size === 'lg',
-        }
+        },
+        className
       )}
       {...props}
     >

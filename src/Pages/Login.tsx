@@ -3,6 +3,7 @@ import { FeaturesSection } from "../components/LoginPage/FeaturesSection";
 import { GoalsSection } from "../components/LoginPage/GoalsSection";
 import { Header } from "../components/LoginPage/Header";
 import { LoginSection } from "../components/LoginPage/LoginSection/Index";
+import { ProCallSection } from "../components/LoginPage/ProCallSection";
 
 export function Login() {
   return (
@@ -11,6 +12,7 @@ export function Login() {
       <LoginSection />
       <GoalsSection />
       <FeaturesSection />
+      <ProCallSection price={4.99} />
     </div>
   )
 }
