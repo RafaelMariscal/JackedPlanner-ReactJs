@@ -13,7 +13,7 @@ export function ProCallSection({ price }: ProCallSectionProps) {
   ]
 
   return (
-    <div className="relative">
+    <div id="getPro" className="relative">
       <div className="
       px-4 mt-9 m-auto h-[17.5rem] w-full max-w-[1020px] bg-gray-800
       flex items-center justify-around
@@ -37,7 +37,10 @@ export function ProCallSection({ price }: ProCallSectionProps) {
               month
             </span>
           </p>
-          <Button variant="dark" size="lg" className="font-normal hover:drop-shadow-[0rem_0rem_.2rem_#FE9016]">
+          <Button
+            variant="dark" size="lg"
+            className="font-normal hover:drop-shadow-[0rem_0rem_.2rem_#FE9016]"
+          >
             Get <span className="font-semibold text-orange-500">PRO</span>
           </Button>
         </div>

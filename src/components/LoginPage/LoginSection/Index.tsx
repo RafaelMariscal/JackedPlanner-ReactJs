@@ -4,7 +4,7 @@ import { LoginForm } from "./LoginForm";
 
 export function LoginSection() {
   return (
-    <div>
+    <div id="login">
       <div className="
         w-screen h-fit py-6 px-4 overflow-hidden 
         bg-background-polygons bg-no-repeat bg-cover bg-center

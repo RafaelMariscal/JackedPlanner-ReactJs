@@ -1,3 +1,4 @@
+import { FormEvent } from "react";
 import { AppleLogo } from "../../../assets/icons/AppleLogo";
 import { FacebookLogo } from "../../../assets/icons/FacebookLogo";
 import { GithubLogo } from "../../../assets/icons/GithubLogo";
@@ -6,19 +7,23 @@ import { Button } from "../Button";
 import TextInput from "../TextInput";
 import { BrandButton } from "./BrandButton";
 
+function handleSubmit(event: FormEvent) {
+
+}
 
 export function LoginForm() {
+
+
   return (
-    <form className="max-w-[22.5rem] w-full flex flex-col gap-4 items-center justify-center">
-      <TextInput
-        label="Email"
-        type={"email"}
-        placeholder="email@exemple.com"
+    <form id="loginForm" onSubmit={() => handleSubmit}
+      className="max-w-[22.5rem] w-full flex flex-col gap-4 items-center justify-center"
+    >
+      <TextInput label="Email" type="email" placeholder="email@exemple.com"
       />
 
-      <TextInput label="Password" type={"password"} placeholder="********" />
+      <TextInput label="Password" type="password" placeholder="********" />
 
-      <Button variant="orange" size="lg">
+      <Button variant="orange" size="lg" type="submit">
         Login
       </Button>
 
