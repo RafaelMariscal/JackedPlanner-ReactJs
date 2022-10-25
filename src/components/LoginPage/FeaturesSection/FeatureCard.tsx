@@ -1,21 +1,20 @@
 import { clsx } from 'clsx'
-import { ButtonHTMLAttributes, ReactNode } from 'react';
+import { ReactNode } from 'react';
 
-export interface FeatureCardRootProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface FeatureCardRootProps {
   children: ReactNode;
   className?: string;
 }
 function Root({ children, className, ...props }: FeatureCardRootProps) {
   return (
-    <button type='button'
-      className={clsx(
-        "w-16 h-16 p-4 overflow-hidden bg-gray-800 drop-shadow-[.5rem_.5rem_0_#FE9016] flex items-center justify-start gap-3 hover:w-fit",
-        className
-      )}
+    <div className={clsx(
+      "w-16 h-16 p-4 max-w-fit overflow-hidden bg-gray-800 drop-shadow-[.5rem_.5rem_0_#FE9016] flex items-center justify-start gap-3 animate-return hover:animate-strech",
+      className
+    )}
       {...props}
     >
       {children}
-    </button >
+    </div >
   )
 }
 
@@ -56,3 +55,12 @@ export const FeatureCard = {
   Icon: Icon,
   Label: Label
 }
+
+
+
+
+////////        FAZER A ANIMAÇÃO SER FLUIDA
+////////            PROVAVELMENTE COM KEYFRAME!!
+////////
+////////
+////////        

@@ -39,12 +39,26 @@ module.exports = {
       },
     },
     extend: {
+      animation: {
+        strech: 'strech 200ms ease-in-out forwards',
+        return: 'return 200ms ease-in-out forwards'
+      },
       fontFamily: {
         sans: 'poppins, sans-serif',
       },
       backgroundImage: {
         'background-polygons': "url('/src/assets/PolygonsBackground.png')",
         'dashboard-image': "url('/src/assets/DashboardImg.png')",
+      },
+      keyframes: {
+        strech: {
+          '0%': { width: '4rem' },
+          '100%': { width: '100%' }
+        },
+        return: {
+          '0%': { width: '100%' },
+          '100%': { width: '4rem' }
+        }
       }
     },
   },
