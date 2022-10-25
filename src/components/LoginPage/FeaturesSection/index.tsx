@@ -8,8 +8,8 @@ import { FeatureCard } from "./FeatureCard";
 
 export function FeaturesSection() {
   return (
-    <div className="flex item justify-around max-w-[1125px] m-auto">
-      <div className="max-w-md flex flex-col gap-4">
+    <div className="flex items-center justify-around max-w-[1020px] m-auto">
+      <div className="max-w-lg pl-4 flex-1 flex flex-col gap-4">
         <h2 className="font-bold text-xl text-gray-800">STANDARD ACCOUNT</h2>
         <div className="flex flex-col gap-6">
           <div className="flex items-center gap-4">
@@ -60,7 +60,7 @@ export function FeaturesSection() {
             </FeatureCard.Root>
           </div>
         </div>
-        <p className="font-semibold">
+        <p className="font-semibold mt-1">
           A propper user expirence for FREE! Use these 5 features and start your Jacked Planner!
         </p>
         <div className="flex items-center justify-center gap-6">
@@ -73,7 +73,9 @@ export function FeaturesSection() {
         </div>
       </div>
 
-      <img src="/src/assets/Snatching.png" alt="" />
+      <div className="w-full">
+        <img src="/src/assets/Snatching.png" alt="" className="m-auto" />
+      </div>
     </div>
   )
 }

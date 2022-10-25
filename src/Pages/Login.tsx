@@ -23,9 +23,5 @@ export function Login() {
 
 
 
-/////////////       [ ] Pro User Advanteges
-/////////////
-/////////////       [ ] Footer
-/////////////
 /////////////       [ ] GoToTop button
 /////////////
