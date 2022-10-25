@@ -4,7 +4,7 @@ interface ProCallSectionProps {
   price: number
 }
 
-export function ProCallSection(props: ProCallSectionProps) {
+export function ProCallSection({ price }: ProCallSectionProps) {
   const acessList = [
     'All the Jacked Planners in the community',
     'Save unlimited Training Slips',
@@ -26,7 +26,7 @@ export function ProCallSection(props: ProCallSectionProps) {
           <img src="/src/assets/LogoPro.png" alt="" className="w-[18.75rem]" />
           <p className="font-medium text-gray-100 text-4xl relative"
           >
-            Only ${props.price}<span
+            Only ${price}<span
               className="
             text-gray-100 text-sm ml-3
             before:content-['......'] before:text-transparent before:bg-price-slash 
