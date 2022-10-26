@@ -1,4 +1,3 @@
-import { ContactLinks } from "../components/LoginPage/ContactLinks";
 import { FeaturesSection } from "../components/LoginPage/FeaturesSection";
 import { Footer } from "../components/LoginPage/Footer";
 import { GoalsSection } from "../components/LoginPage/GoalsSection";
@@ -11,7 +10,7 @@ import { ProUserAdvantages } from "../components/LoginPage/ProUserAdvantages";
 export function Login() {
   return (
     <div className="overflow-x-hidden">
-      <GoTop href="#login" />
+      <GoTop href="#header" />
       <Header />
       <LoginSection />
       <GoalsSection />

@@ -5,10 +5,10 @@ import { ButtonHTMLAttributes, ReactNode } from 'react';
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'orange' | 'light' | 'dark';
   size?: 'md' | 'lg';
-  href?: string;
-  children: ReactNode;
-  className?: string;
   login?: boolean
+  href?: string;
+  className?: string;
+  children: ReactNode;
 }
 
 export function Button({ login = false, className, href, variant = 'orange', size = 'md', children, }: ButtonProps) {
@@ -26,7 +26,7 @@ export function Button({ login = false, className, href, variant = 'orange', siz
           'bg-gray-800 text-gray-100': variant === 'dark',
           'h-9': size === 'md',
           'h-12': size === 'lg',
-          'text-lg': login === true,
+          'text-lg hover:outline hover:outline-1 hover:outline-offset-2 hover:outline-orange-500': login === true,
         },
         className
       )}

@@ -2,7 +2,7 @@ import { Anchor } from "./Anchor";
 
 export function Header() {
   return (
-    <header className="
+    <header id="header" className="
       w-full h-12 
       bg-gray-800 
       flex items-center justify-center

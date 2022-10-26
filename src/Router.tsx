@@ -7,7 +7,6 @@ import { Login } from './Pages/Login'
 
 
 export function Router() {
-
   return (
     <Routes>
       <Route path='/' element={<Login />} />
