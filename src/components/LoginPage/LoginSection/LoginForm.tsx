@@ -18,13 +18,13 @@ export function LoginForm() {
     <form id="loginForm" onSubmit={() => handleSubmit}
       className="max-w-[22.5rem] w-full flex flex-col gap-4 items-center justify-center"
     >
-      <TextInput label="Email" type="email" placeholder="email@exemple.com"
+      <TextInput label="Email" type="email" placeholder="email@exemple.com" required
       />
 
-      <TextInput label="Password" type="password" placeholder="********" />
+      <TextInput label="Password" type="password" placeholder="********" required />
 
-      <Button variant="orange" size="lg" type="submit">
-        Login
+      <Button variant="orange" size="lg" login>
+        <button>Login</button>
       </Button>
 
       <div className="flex gap-4">

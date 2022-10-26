@@ -30,7 +30,6 @@ export function GoalsSection() {
 
       <div className="pr-2 flex-1 flex justify-center">
         <img src="/src/assets/DashboardImg.png" alt="" />
-
       </div>
 
     </div >

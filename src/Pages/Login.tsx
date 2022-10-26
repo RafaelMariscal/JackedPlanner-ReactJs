@@ -22,8 +22,3 @@ export function Login() {
     </div>
   )
 }
-
-
-
-/////////////       [ ] GoToTop button
-/////////////

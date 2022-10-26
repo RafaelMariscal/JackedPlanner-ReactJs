@@ -64,10 +64,10 @@ export function FeaturesSection() {
           A propper user expirence for FREE! Use these 5 features and start your Jacked Planner!
         </p>
         <div className="flex items-center justify-center gap-6">
-          <Button size="lg">
+          <Button size="lg" href="#login">
             GET STARTED
           </Button>
-          <Button variant="light" size="lg">
+          <Button variant="light" size="lg" href="#getPro">
             About PRO
           </Button>
         </div>
