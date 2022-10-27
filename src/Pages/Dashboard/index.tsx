@@ -1,14 +1,29 @@
 import { Outlet } from 'react-router-dom'
-import { Header } from '../../components/LoginPage/Header'
+import { DashboardHeader } from '../../components/Dashboard/DashboardHeader'
 export function Dashboard() {
   return (
-    <div>
-      <Header />
+    <div className='
+      w-screen h-screen overflow-hidden
+      bg-background-polygons bg-no-repeat bg-cover bg-center
+      flex flex-col items-center justify-center
+      '
+    >
+      <DashboardHeader />
 
-      <h1>Dashboard</h1>
+      <div className='w-full h-full p-6'>
+        <div className="
+          w-full h-full rounded-xl 
+          bg-gradient-to-br from-white-opac-35 to-gray-opac-35 
+          bg-opacity-30 backdrop-blur-md border border-gray-400
+          shadow-[0_0_6px_rgba(0,0,0,0.35)]
+          "
+        >
 
-      <Outlet />
+          <Outlet />
+        </div>
+      </div>
 
-    </div>
+
+    </div >
   )
 }

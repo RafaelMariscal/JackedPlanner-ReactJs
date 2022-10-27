@@ -20,6 +20,9 @@ module.exports = {
       red: '#F04439',
       blue: '#3B5998',
 
+      'white-opac-35': 'rgba(255,255,255,0.35)',
+      'gray-opac-35': 'rgba(52, 60, 63,0.35)',
+
       gray: {
         100: '#EEF4F6',
         200: '#C4C4CC',
