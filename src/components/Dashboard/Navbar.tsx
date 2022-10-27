@@ -13,24 +13,24 @@ export function Navbar() {
       />
       <div className="flex flex-col items-center justify-center gap-12">
         <Link to={'home'}>
-          <img src="/src/assets/icons/Dashboard/Home.svg" alt="" className="w-6" />
+          <img src="/src/assets/icons/Dashboard/Home.svg" alt="" className="w-6 hover:animate-wiggle" />
         </Link>
         <Link to={'notes'}>
-          <img src="/src/assets/icons/Dashboard/Notes.svg" alt="" className="w-6" />
+          <img src="/src/assets/icons/Dashboard/Notes.svg" alt="" className="w-6 hover:animate-wiggle" />
         </Link>
         <Link to={'pro'}>
-          <img src="/src/assets/icons/Dashboard/PRO.svg" alt="" className="w-6" />
+          <img src="/src/assets/icons/Dashboard/PRO.svg" alt="" className="w-6 hover:animate-wiggle" />
         </Link>
         <Link to={'shop'}>
-          <img src="/src/assets/icons/Dashboard/Shop.svg" alt="" className="w-6" />
+          <img src="/src/assets/icons/Dashboard/Shop.svg" alt="" className="w-6 hover:animate-wiggle" />
         </Link>
         <Link to={'settings'}>
-          <img src="/src/assets/icons/Dashboard/Config.svg" alt="" className="w-6" />
+          <img src="/src/assets/icons/Dashboard/Config.svg" alt="" className="w-6 hover:animate-wiggle" />
         </Link>
 
       </div>
       <Link to={'/'}>
-        <img src="/src/assets/icons/Dashboard/Exit.svg" alt="" className="w-6" />
+        <img src="/src/assets/icons/Dashboard/Exit.svg" alt="" className="w-6 hover:animate-wiggle" />
       </Link>
     </nav>
   )

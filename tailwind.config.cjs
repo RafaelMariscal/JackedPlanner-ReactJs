@@ -44,7 +44,8 @@ module.exports = {
     extend: {
       animation: {
         strech: 'strech 200ms ease-in-out forwards',
-        return: 'return 200ms ease-in-out forwards'
+        return: 'return 200ms ease-in-out forwards',
+        wiggle: 'wiggle 500ms ease-in-out'
       },
       fontFamily: {
         sans: 'poppins, sans-serif',
@@ -61,6 +62,16 @@ module.exports = {
         return: {
           '0%': { width: '100%' },
           '100%': { width: '4rem' }
+        },
+        return: {
+          '0%': { width: '100%' },
+          '100%': { width: '4rem' }
+        },
+        wiggle: {
+          '0%': { transform: 'rotate(0deg)' },
+          '25%': { transform: 'rotate(-5deg) scale(1.05)' },
+          '50%': { transform: 'rotate(5deg)  ' },
+          '100%': { transform: 'rotate(0deg)' },
         }
       }
     },
