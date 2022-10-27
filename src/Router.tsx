@@ -14,6 +14,7 @@ export function Router() {
       <Route path='/dashboard' element={<Dashboard />}>
         <Route path='home' element={<Home />} />
         <Route path='notes' element={<Notes />} />
+        <Route path='pro' element={<Shop />} />
         <Route path='shop' element={<Shop />} />
         <Route path='settings' element={<Settings />} />
       </Route>
