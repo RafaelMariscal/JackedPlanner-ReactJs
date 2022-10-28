@@ -1,7 +1,7 @@
 ## JackedPlanner-ReactJs
 A React + Firebase (Auth + Firestore + Hosting) web application, Jacked Planner is a gym planner with the most relevant workout data. It is a personal project designed  with Figma and implemented with React, Tailwind, Radix and Firebase.
 
-### Currently Working:
+### Project Progress:
 
     [ ] Front-end
       [x] Figma App Design
@@ -32,18 +32,17 @@ A React + Firebase (Auth + Firestore + Hosting) web application, Jacked Planner 
         [ ] Dashboard settings
           [ ] Account Settings
           [ ] Password
-          [ ] Subscription Status
-          
-      [ ] Not Found
+          [ ] Subscription Status  
+        [ ] Not Found
         
-      [ ] Setting Firebase services
-        [ ] Firebase Auth
-          [ ] E-mail + password
-          [ ] Github Login Authentication
-          [ ] Apple Login Authentication
-          [ ] Google Login Authentication
-          [ ] Facebook Login Authentication
-        [ ] Firebase Firestore
-        [ ] Firebase Hosting
+    [ ] Firebase services
+      [ ] Firebase Auth
+        [ ] E-mail + password
+        [ ] Github Login Authentication
+        [ ] Apple Login Authentication
+        [ ] Google Login Authentication
+        [ ] Facebook Login Authentication
+      [ ] Firebase Firestore
+      [ ] Firebase Hosting
     
      
