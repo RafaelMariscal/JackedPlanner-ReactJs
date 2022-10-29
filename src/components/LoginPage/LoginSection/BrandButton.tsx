@@ -40,6 +40,5 @@ function Icon({ children }: BrandButtonIconProps) {
 }
 
 export const BrandButton = {
-  Root: Root,
-  Icon: Icon
+  Root, Icon
 }
