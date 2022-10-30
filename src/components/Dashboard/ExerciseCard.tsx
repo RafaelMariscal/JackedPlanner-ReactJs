@@ -100,16 +100,18 @@ function DescriptionCard({ showDescription }: ExerciseCardDescriptionCardProps) 
 }
 
 interface ExerciseCardDescriptionProps {
+  done: boolean
   description: string
 }
 
-function Description({ description }: ExerciseCardDescriptionProps) {
+function Description({ done = false, description }: ExerciseCardDescriptionProps) {
   return (
-    <div className="
-        px-[.875rem] py-1 text-sm
-        flex flex-col justify-start rounded-lg 
-        bg-gray-100 border-2 border-gray-800
-      "
+    <div className={clsx(
+      "px-[.875rem] py-1 text-sm flex flex-col justify-start rounded-lg bg-gray-100 border-2 border-gray-800",
+      {
+        'bg-cyan-500': done === true
+      }
+    )}
     >
       <span className="mb-1 underline">Description:</span>
       <p>{description}</p>
@@ -118,18 +120,18 @@ function Description({ description }: ExerciseCardDescriptionProps) {
 }
 
 interface ExerciseCardTodoProps {
-  selected?: boolean
+  done?: boolean
 }
 
-function Todo({ selected = false }: ExerciseCardTodoProps) {
+function Todo({ done = false }: ExerciseCardTodoProps) {
   return (
     <div className={clsx(
-      "w-9 justify-center",
-
+      "w-16 justify-center",
+      {
+        'bg-gray-100': done === false
+      }
     )}>
-      <img src="/src/assets/icons/Dashboard/Description.svg" alt=""
-        className="w-4"
-      />
+      {done ? 'Done' : 'To Do'}
     </div>
   )
 }
@@ -145,5 +147,5 @@ function Todo({ selected = false }: ExerciseCardTodoProps) {
 
 
 export const ExerciseCard = {
-  Root, Index, Name, Sets, Reps, DescriptionCard, Description
+  Root, Index, Name, Sets, Reps, DescriptionCard, Description, Todo
 }

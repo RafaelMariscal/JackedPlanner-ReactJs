@@ -38,16 +38,18 @@ export function WorkoutSection() {
                 >
                   <ExerciseCard.Index index={exercise.index} />
                   <ExerciseCard.Name name={exercise.name} />
-                  <Popover.Anchor className="absolute ml-[2.75rem] mt-2" />
+                  <Popover.Anchor className="absolute ml-[2.75rem] mt-2" style={{ background: 'transparent' }} />
                   <Popover.Portal>
                     <Popover.Content align="start">
-                      <ExerciseCard.Description description={exercise.description} />
+                      <ExerciseCard.Description done={isExerciseDone} description={exercise.description} />
                     </Popover.Content>
                   </Popover.Portal>
 
                   <ExerciseCard.Sets sets={3} />
 
-                  <span>x</span>
+                  <span className="mt-1">
+                    x
+                  </span>
 
                   <ExerciseCard.Reps reps={20} />
 
@@ -55,6 +57,8 @@ export function WorkoutSection() {
                     onClick={() => setshowDescription(!showDescription)}>
                     <ExerciseCard.DescriptionCard showDescription={showDescription} />
                   </Popover.Trigger>
+
+                  <ExerciseCard.Todo done={isExerciseDone} />
 
                 </ExerciseCard.Root>
               </Popover.Root>
