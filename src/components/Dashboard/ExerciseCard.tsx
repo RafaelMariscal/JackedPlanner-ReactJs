@@ -2,20 +2,25 @@ import { ReactNode } from "react";
 import { clsx } from 'clsx'
 
 interface ExerciseCardRootProps {
+  selected?: boolean;
+  showDescription?: boolean;
   done?: boolean;
   className?: string
   children: ReactNode
 }
 
-function Root({ done = false, className, children }: ExerciseCardRootProps) {
+function Root({ selected = false, showDescription = false, done = false, className, children }: ExerciseCardRootProps) {
   return (
     <div className={clsx(
       'flex items-center gap-2 font-semibold text-gray-800 select-none',
       '[&>div]:h-9 [&>div]:flex [&>div]:items-center [&>div]:rounded-lg',
+      '[&>div]:border-2 [&>div]:border-transparent',
       '[&>span]:text-gray-100 [&>span]:text-xs [&>span]:block [&>span]:h-6',
       {
+        '[&>div]:border-orange-500': selected === true,
+        '[&_#description]:bg-orange-500': showDescription === true,
         '[&_div]:bg-cyan-500': done === true,
-        '[&_div]:bg-gray-100': done == false
+        '[&_div]:bg-gray-100': done === false,
       },
       className
     )}
@@ -45,12 +50,12 @@ interface ExerciseCardNameProps {
 
 function Name({ name, description, showDescription = false }: ExerciseCardNameProps) {
   return (
-    <div className="flex-col justify-start gap-4  py-2">
-      <span className="self-start mx-[.875rem] leading-tight">
+    <div className="flex-col justify-start gap-2">
+      <span className="self-start py-[.375rem] mx-[.875rem] leading-tight">
         {name}
       </span>
       <div className={clsx(
-        "top-10 w-full h-fit px-[.875rem] py-1 text-sm flex flex-col justify-start rounded-lg",
+        "z-10 w-full h-fit px-[.875rem] py-1 text-sm flex flex-col justify-start rounded-lg",
         {
           'hidden': showDescription === false
         }
@@ -87,15 +92,30 @@ function Reps({ reps }: ExerciseCardRepsProps) {
   )
 }
 
-function Description() {
+interface ExerciseCardDescriptionProps {
+  selected?: boolean
+}
+
+function Description({ selected = false }: ExerciseCardDescriptionProps) {
   return (
-    <div className="w-9 justify-center">
+    <div id="description" className={clsx(
+      "w-9 justify-center",
+
+    )}>
       <img src="/src/assets/icons/Dashboard/Description.svg" alt=""
         className="w-4"
       />
     </div>
   )
 }
+
+/* 
+        [ ] TO DO CARD
+        [ ] EDIT CARD
+*/
+
+
+
 
 
 export const ExerciseCard = {
