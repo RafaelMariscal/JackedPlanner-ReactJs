@@ -16,7 +16,7 @@ export function Home() {
         <WorkoutSection />
       </div>
 
-      <div className="flex-1 flex gap-4">
+      <div className="flex-1 max-h-[14.875rem] flex gap-4">
         <PersonalNotes />
         <ExercisePlan />
       </div>

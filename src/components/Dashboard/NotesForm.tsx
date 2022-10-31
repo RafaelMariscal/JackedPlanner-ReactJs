@@ -1,15 +1,15 @@
 import clsx from "clsx";
-import { LabelHTMLAttributes, ReactNode, useState } from "react";
+import { FormHTMLAttributes, LabelHTMLAttributes, ReactNode, useState } from "react";
 
-interface NotesCardProps {
+interface NotesFormRootProps extends FormHTMLAttributes<HTMLFormElement> {
   className?: string;
   children: ReactNode;
 }
 
-function Root({ className, children }: NotesCardProps) {
+function Root({ className, children }: NotesFormRootProps) {
   return (
-    <form className={clsx(
-      'flex flex-col gap-2 [&_span]:text-sm',
+    <form onSubmit={(e => e.preventDefault())} className={clsx(
+      'h-full flex justify-between gap-9 [&_span]:text-sm',
       className
     )}>
       {children}
@@ -17,11 +17,11 @@ function Root({ className, children }: NotesCardProps) {
   )
 }
 
-interface LabelProps {
+interface NotesFormLabelProps {
   label: string;
 }
 
-function Label({ label }: LabelProps) {
+function Label({ label }: NotesFormLabelProps) {
   return (
     <span className="text-gray-100 font-medium underline">
       {label}:
@@ -29,41 +29,39 @@ function Label({ label }: LabelProps) {
   )
 }
 
-interface CardioProps {
+interface NotesFormCardioProps {
   distance: number;
   time: number;
 }
 
-function Cardio({ distance, time }: CardioProps) {
+function Cardio({ distance, time }: NotesFormCardioProps) {
   return (
-    <div className="h-9 rounded-lg w-fit px-3 bg-gray-100 flex items-center select-none">
-      <span className="text-gray-800 font-semibold">
-        {distance} km / {time} min
-      </span>
+    <div className="flex gap-2">
+      <div className="h-9 rounded-lg w-fit px-3 bg-gray-100 flex items-center select-none">
+        <span className="text-gray-800 font-semibold">
+          {distance} km / {time} min
+        </span>
+      </div>
+
+      <div className="
+        h-9 rounded-lg w-fit px-2 bg-gray-100 
+        flex items-center cursor-pointer
+        "
+      >
+        <img src="/src/assets/icons/Dashboard/Edit.svg" alt=""
+          className="w-[1.125rem]"
+        />
+      </div>
     </div>
   )
 }
 
-function Edit() {
-  return (
-    <div className="
-      h-9 rounded-lg w-fit px-2 bg-gray-100 
-      flex items-center cursor-pointer
-      "
-    >
-      <img src="/src/assets/icons/Dashboard/Edit.svg" alt=""
-        className="w-[1.125rem]"
-      />
-    </div>
-  )
-}
-
-interface RateProps extends LabelHTMLAttributes<HTMLLabelElement> {
+interface NotesFormRateProps extends LabelHTMLAttributes<HTMLLabelElement> {
   rate: 'BAD' | 'OK' | 'GOOD' | 'GREAT'
   selected?: string
 }
 
-function Rate({ rate, selected, ...props }: RateProps) {
+function Rate({ rate, selected, ...props }: NotesFormRateProps) {
   const checked = rate === selected
   return (
     <label
@@ -79,13 +77,40 @@ function Rate({ rate, selected, ...props }: RateProps) {
     >
       {rate}
       <input type="radio" id={rate} name="WorkoutRate" value={rate}
-        className="hidden" checked={checked}
+        className="hidden" defaultChecked={checked}
       />
-
     </label>
   )
 }
 
+interface NotesFormTextBoxProps {
+  notes: string;
+  setNotes: (notes: string) => void
+}
+function TextBox({ notes, setNotes }: NotesFormTextBoxProps) {
+  return (
+    <textarea onChange={() => setNotes(document.getElementsByName('Notes')[0].innerText)}
+      className="h-full p-2 rounded-lg bg-gray-100 text-gray-800 text-sm"
+      name="Notes" placeholder="Take your notes here!" value={notes}
+    />
+  )
+}
+
+interface NotesFormButtonProps {
+}
+function Button({ }: NotesFormButtonProps) {
+  return (
+    <button className="
+      w-full py-2 rounded-lg text-sm
+      bg-orange-500 text-gray-800 font-semibold
+      
+    "
+    >
+      Confirm Notes
+    </button>
+  )
+}
+
 export const NotesForm = {
-  Root, Label, Cardio, Edit, Rate
+  Root, Label, Cardio, Rate, TextBox, Button
 }
