@@ -8,7 +8,7 @@ export function Home() {
   return (
     <div className="h-full flex flex-col gap-4" >
       <div className="flex gap-4">
-        <div className="flex gap-4 ">
+        <div className="flex gap-4">
           <PlannerController price={4.99} />
           <Calendar />
         </div>
@@ -16,8 +16,9 @@ export function Home() {
         <WorkoutSection />
       </div>
 
-      <div className="flex-1 max-h-[14.875rem] flex gap-4">
+      <div className="flex-1 flex gap-4">
         <PersonalNotes />
+
         <ExercisePlan />
       </div>
 

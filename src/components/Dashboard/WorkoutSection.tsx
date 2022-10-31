@@ -20,6 +20,7 @@ export function WorkoutSection() {
     <DashboardCard
       title="Workout Section:"
       subtitle="Chest / Shoulders"
+      extend
     >
       <div className="flex flex-col gap-2">
         {

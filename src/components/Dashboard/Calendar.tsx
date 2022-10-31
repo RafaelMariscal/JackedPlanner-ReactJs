@@ -4,8 +4,7 @@ import DashboardCard from "./DashboardCard";
 export function Calendar() {
   return (
     <DashboardCard title="Calendar:">
-
-      <div className="w-full h-full min-w-[290px] text-sm ">
+      <div className="w-full max-w-xs h-full min-w-[290px] [&_*]:text-sm ">
         <div className="flex items-center justify-between">
           <p className=" text-gray-100">
             <span>março</span> de <span>2022</span>

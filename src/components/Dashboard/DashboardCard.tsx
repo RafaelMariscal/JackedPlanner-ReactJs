@@ -1,14 +1,23 @@
+import clsx from "clsx"
 import { ReactNode } from "react"
 
 interface DashboardCardProps {
   title: string
   subtitle?: string
+  extend?: boolean
+  className?: string;
   children: ReactNode
 }
 
-export default function DashboardCard({ title, subtitle, children }: DashboardCardProps) {
+export default function DashboardCard({ title, subtitle, extend, className, children }: DashboardCardProps) {
   return (
-    <div className="flex-1 flex flex-col gap-1'">
+    <div className={clsx(
+      "flex flex-col gap-1",
+      {
+        'flex-1': extend === true,
+      },
+      className
+    )}>
       <div className="flex gap-1">
         <h2 className="font-semibold leading-tight underline text-gray-800 ml-2"
         >

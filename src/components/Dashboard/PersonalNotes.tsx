@@ -13,7 +13,7 @@ export function PersonalNotes() {
   const labels: Labels = ["BAD", "OK", "GOOD", "GREAT"]
 
   return (
-    <DashboardCard title="Personal Notes:">
+    <DashboardCard title="Personal Notes:" className="w-full max-w-[746px]">
       <NotesForm.Root>
         <div className="h-full flex flex-col gap-2">
           <NotesForm.Label label="Cardio" />
