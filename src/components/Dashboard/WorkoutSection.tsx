@@ -8,8 +8,12 @@ export function WorkoutSection() {
   const [isExerciseDone, setIsExerciseDone] = useState(false)
 
   const ExerciseList = [
-    { name: 'Crucifixo com Cabos', index: 1, description: 'Description 1 testando Description 1 testando Description 1 testando Description 1 testando Description 1 testando Description 1 testando Description 1 testando ' },
-    { name: 'Crossover (Bi-articulado)', index: 2, description: 'Description 2 testando' },
+    { name: 'Crucifixo com Cabos', index: 1, description: 'Description 1 testing ' },
+    { name: 'Crossover (Bi-articulado)', index: 2, description: 'Description 2 testing' },
+    { name: 'Crucifixo com Cabos', index: 1, description: 'Description 1 testing ' },
+    { name: 'Crossover (Bi-articulado)', index: 2, description: 'Description 2 testing' },
+    { name: 'Crucifixo com Cabos', index: 1, description: 'Description 1 testing ' },
+    { name: 'Crossover (Bi-articulado)', index: 2, description: 'Description 2 testing' },
   ]
 
   return (

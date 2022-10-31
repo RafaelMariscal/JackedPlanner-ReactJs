@@ -14,7 +14,7 @@ function Root({ selected = false, done = false, className, children }: ExerciseC
       'flex items-center gap-2 font-semibold text-gray-800 select-none',
       '[&>div]:h-9 [&>div]:flex [&>div]:items-center [&>div]:rounded-lg',
       '[&>div]:border-2 [&>div]:border-transparent',
-      '[&>span]:text-gray-100 [&>span]:text-xs [&>span]:block [&>span]:h-6',
+      '[&>span]:text-gray-100 [&_span]:text-sm [&>span]:block [&>span]:h-6',
       {
         '[&>div]:border-orange-500': selected === true,
         '[&_div]:bg-cyan-500': done === true,
@@ -125,12 +125,12 @@ interface ExerciseCardTodoProps {
 function Todo({ done = false }: ExerciseCardTodoProps) {
   return (
     <div className={clsx(
-      "w-[4.75rem] justify-center",
+      "w-16 justify-center",
       {
         'bg-gray-100': done === false
       }
     )}>
-      <span className="text-sm">
+      <span>
         {done ? 'Done' : 'To Do'}
       </span>
     </div>
