@@ -8,7 +8,7 @@ export function WorkoutSection() {
   const [isExerciseDone, setIsExerciseDone] = useState(false)
 
   const ExerciseList = [
-    { name: 'Crucifixo com Cabos', index: 1, description: 'Description 1 testando' },
+    { name: 'Crucifixo com Cabos', index: 1, description: 'Description 1 testando Description 1 testando Description 1 testando Description 1 testando Description 1 testando Description 1 testando Description 1 testando ' },
     { name: 'Crossover (Bi-articulado)', index: 2, description: 'Description 2 testando' },
   ]
 
@@ -19,7 +19,7 @@ export function WorkoutSection() {
     >
       <div className="flex flex-col gap-2">
         {
-          ExerciseList.map(exercise => {
+          ExerciseList.map((exercise, index) => {
             const [showDescription, setshowDescription] = useState(false)
             function handleDescriptionCardClick(isOpen: Boolean) {
               if (isOpen) {
@@ -33,33 +33,26 @@ export function WorkoutSection() {
                 <ExerciseCard.Root key={useId()}
                   selected={isExerciseSelected}
                   done={isExerciseDone}
-                  index={exercise.index}
                   className="relative"
                 >
                   <ExerciseCard.Index index={exercise.index} />
                   <ExerciseCard.Name name={exercise.name} />
-                  <Popover.Anchor className="absolute ml-[2.75rem] mt-2" style={{ background: 'transparent' }} />
                   <Popover.Portal>
-                    <Popover.Content align="start">
+                    <Popover.Content align={index + 1 === ExerciseList.length ? 'end' : 'start'} side="left" className="">
                       <ExerciseCard.Description done={isExerciseDone} description={exercise.description} />
                     </Popover.Content>
                   </Popover.Portal>
-
                   <ExerciseCard.Sets sets={3} />
-
                   <span className="mt-1">
                     x
                   </span>
-
                   <ExerciseCard.Reps reps={20} />
-
                   <Popover.Trigger className="closed"
                     onClick={() => setshowDescription(!showDescription)}>
                     <ExerciseCard.DescriptionCard showDescription={showDescription} />
                   </Popover.Trigger>
-
                   <ExerciseCard.Todo done={isExerciseDone} />
-
+                  <ExerciseCard.Edit />
                 </ExerciseCard.Root>
               </Popover.Root>
             )

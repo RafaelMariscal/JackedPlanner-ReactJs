@@ -4,12 +4,11 @@ import { clsx } from 'clsx'
 interface ExerciseCardRootProps {
   selected: boolean;
   done: boolean;
-  index: number;
   className?: string
   children: ReactNode
 }
 
-function Root({ selected = false, done = false, index, className, children }: ExerciseCardRootProps) {
+function Root({ selected = false, done = false, className, children }: ExerciseCardRootProps) {
   return (
     <div className={clsx(
       'flex items-center gap-2 font-semibold text-gray-800 select-none',
@@ -46,8 +45,8 @@ interface ExerciseCardNameProps {
 
 function Name({ name, }: ExerciseCardNameProps) {
   return (
-    <div className="w-full max-w-xs bg-gray-100 relative">
-      <span className="mx-[.875rem] block w-full">
+    <div className="flex-1 bg-gray-100 relative">
+      <span className="mx-[.875rem] truncate block w-full ">
         {name}
       </span>
     </div >
@@ -107,14 +106,14 @@ interface ExerciseCardDescriptionProps {
 function Description({ done = false, description }: ExerciseCardDescriptionProps) {
   return (
     <div className={clsx(
-      "px-[.875rem] py-1 text-sm flex flex-col justify-start rounded-lg bg-gray-100 border-2 border-gray-800",
+      "static px-[.875rem] py-1 mr-1 text-sm flex flex-col justify-start rounded-lg bg-gray-100 border-2 border-orange-500",
       {
         'bg-cyan-500': done === true
       }
     )}
     >
       <span className="mb-1 underline">Description:</span>
-      <p>{description}</p>
+      <p className="max-w-xs">{description}</p>
     </div>
   )
 }
@@ -126,26 +125,30 @@ interface ExerciseCardTodoProps {
 function Todo({ done = false }: ExerciseCardTodoProps) {
   return (
     <div className={clsx(
-      "w-16 justify-center",
+      "w-[4.75rem] justify-center",
       {
         'bg-gray-100': done === false
       }
     )}>
-      {done ? 'Done' : 'To Do'}
+      <span className="text-sm">
+        {done ? 'Done' : 'To Do'}
+      </span>
     </div>
   )
 }
 
+interface ExerciseCardEditProps { }
 
-/* 
-        [ ] TO DO CARD
-        [ ] EDIT CARD
-*/
-
-
-
-
+function Edit({ }: ExerciseCardEditProps) {
+  return (
+    <div className="w-9 justify-center bg-gray-100 cursor-pointer">
+      <img src="/src/assets/icons/Dashboard/Edit.svg" alt=""
+        className="w-[1.125rem]"
+      />
+    </div>
+  )
+}
 
 export const ExerciseCard = {
-  Root, Index, Name, Sets, Reps, DescriptionCard, Description, Todo
+  Root, Index, Name, Sets, Reps, DescriptionCard, Description, Todo, Edit
 }
