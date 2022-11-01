@@ -21,7 +21,7 @@ export function Dashboard() {
           "
         >
           <Navbar />
-          <div className='w-full h-full py-6 mr-4'>
+          <div className='w-full h-full py-6 ml-24 mr-4 overflow-x-scroll'>
             <Outlet />
           </div>
         </div>

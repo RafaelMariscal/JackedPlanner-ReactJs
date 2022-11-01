@@ -2,10 +2,10 @@ import { Link } from "react-router-dom";
 
 export function Navbar() {
   return (
-    <nav className="
+    <nav className=" fixed left-0
       w-[4.5rem] h-full bg-gray-800 px-6 pb-8 pt-24
       drop-shadow-[.15rem_.15rem_.15rem_rgba(0,0,0,0.25)]
-      flex flex-col items-center justify-between relative
+      flex flex-col items-center justify-between 
       "
     >
       <img src="/src/assets/Logo.png" alt=""
