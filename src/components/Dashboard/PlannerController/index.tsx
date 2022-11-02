@@ -1,5 +1,5 @@
-import { Button } from "../LoginPage/Button";
-import DashboardCard from "./DashboardCard";
+import { Button } from "../../LoginPage/Button";
+import DashboardCard from "../DashboardCard";
 import { PlannerCard } from "./PlannerCard";
 
 interface PlannerControllerProps {

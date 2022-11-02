@@ -1,4 +1,4 @@
-import { Calendar } from "../../components/Dashboard/Calendar";
+import { Calendar } from "../../components/Dashboard/Calendar/Index";
 import { ExercisePlan } from "../../components/Dashboard/ExercisePlan";
 import { PersonalNotes } from "../../components/Dashboard/PersonalNotes";
 import { PlannerController } from "../../components/Dashboard/PlannerController";

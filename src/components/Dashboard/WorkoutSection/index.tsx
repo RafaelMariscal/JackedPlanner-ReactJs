@@ -1,7 +1,7 @@
 import { useId, useState } from "react";
-import DashboardCard from "./DashboardCard";
 import { ExerciseCard } from "./ExerciseCard";
 import * as Popover from '@radix-ui/react-popover';
+import DashboardCard from "../DashboardCard";
 
 export function WorkoutSection() {
   const [isExerciseSelected, setisExerciseSelected] = useState(false)

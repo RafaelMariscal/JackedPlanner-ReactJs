@@ -1,6 +1,5 @@
 import { useId, useState } from "react";
-import { Button } from "../LoginPage/Button";
-import DashboardCard from "./DashboardCard";
+import DashboardCard from "../DashboardCard";
 import { NotesForm } from "./NotesForm";
 
 type Labels = ("BAD" | "OK" | "GOOD" | "GREAT")[];

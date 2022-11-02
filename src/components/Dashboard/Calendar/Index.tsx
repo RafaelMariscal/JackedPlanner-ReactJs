@@ -1,5 +1,5 @@
-import { ArrowIcon } from "../../assets/icons/ArrowIcon";
-import DashboardCard from "./DashboardCard";
+import { ArrowIcon } from "../../../assets/icons/ArrowIcon";
+import DashboardCard from "../DashboardCard";
 
 export function Calendar() {
   return (
