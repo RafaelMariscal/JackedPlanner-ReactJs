@@ -21,13 +21,12 @@ export function Dashboard() {
           "
         >
           <Navbar />
-          <div className='w-full h-full py-6 pl-[6.75rem] mr-4'>
+          <div className='w-full h-full py-6 ml-24 mr-4 
+            overflow-x-auto '>
             <Outlet />
           </div>
         </div>
       </div>
-
-
     </div >
   )
 }

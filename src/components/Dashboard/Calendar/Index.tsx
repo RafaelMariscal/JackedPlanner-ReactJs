@@ -1,10 +1,10 @@
-import { ArrowIcon } from "../../assets/icons/ArrowIcon";
-import DashboardCard from "./DashboardCard";
+import { ArrowIcon } from "../../../assets/icons/ArrowIcon";
+import DashboardCard from "../DashboardCard";
 
 export function Calendar() {
   return (
-    <DashboardCard title="Calendar:">
-      <div className="w-full max-w-xs h-full min-w-[290px] [&_*]:text-sm ">
+    <DashboardCard title="Calendar:" className="w-full" extend>
+      <div className="w-full h-full min-w-[236px] text-sm leading-tight [&_span]:w-5 [&_span]:h-5 ">
         <div className="flex items-center justify-between">
           <p className=" text-gray-100">
             <span>março</span> de <span>2022</span>
@@ -21,8 +21,8 @@ export function Calendar() {
         </div>
 
         <div id="weekDays" className="
-          flex justify-around font-semibold 
-          mt-4 [&_span]:w-full [&_span]:text-orange-500
+          flex justify-between font-semibold 
+          mt-4 [&_span]:text-orange-500
           [&_span]:flex [&_span]:items-center [&_span]:justify-center
           "
         >
@@ -36,8 +36,8 @@ export function Calendar() {
         </div>
 
         <div id="weekDays" className="
-          flex justify-around font-normal 
-          mt-3 [&_span]:w-full [&_span]:text-gray-100
+          flex justify-between font-normal 
+          mt-3 [&_span]:w-[2ch] [&_span]:text-gray-100
           [&_span]:flex [&_span]:items-center [&_span]:justify-center
           "
         >
@@ -51,8 +51,8 @@ export function Calendar() {
         </div>
 
         <div id="weekDays" className="
-          flex justify-around font-normal 
-          mt-3 [&_span]:w-full [&_span]:text-gray-100
+          flex justify-between font-normal 
+          mt-3 [&_span]:w-[2ch] [&_span]:text-gray-100
           [&_span]:flex [&_span]:items-center [&_span]:justify-center
           "
         >
@@ -66,8 +66,8 @@ export function Calendar() {
         </div>
 
         <div id="weekDays" className="
-          flex justify-around font-normal 
-          mt-3 [&_span]:w-full [&_span]:text-gray-100
+          flex justify-between font-normal 
+          mt-3 [&_span]:w-[2ch] [&_span]:text-gray-100
           [&_span]:flex [&_span]:items-center [&_span]:justify-center
           "
         >
@@ -81,8 +81,8 @@ export function Calendar() {
         </div>
 
         <div id="weekDays" className="
-          flex justify-around font-normal 
-          mt-3 [&_span]:w-full [&_span]:text-gray-100
+          flex justify-between font-normal 
+          mt-3 [&_span]:w-[2ch] [&_span]:text-gray-100
           [&_span]:flex [&_span]:items-center [&_span]:justify-center
           "
         >
@@ -96,8 +96,8 @@ export function Calendar() {
         </div>
 
         <div id="weekDays" className="
-          flex justify-around font-normal 
-          mt-3 [&_span]:w-full [&_span]:text-gray-100
+          flex justify-between font-normal 
+          mt-3 [&_span]:w-[2ch] [&_span]:text-gray-100
           [&_span]:flex [&_span]:items-center [&_span]:justify-center
           "
         >
@@ -111,8 +111,8 @@ export function Calendar() {
         </div>
 
         <div id="weekDays" className="
-          flex justify-around font-normal 
-          mt-3 [&_span]:w-full [&_span]:text-gray-100
+          flex justify-between font-normal 
+          mt-3 [&_span]:w-[2ch] [&_span]:text-gray-100
           [&_span]:flex [&_span]:items-center [&_span]:justify-center
           "
         >

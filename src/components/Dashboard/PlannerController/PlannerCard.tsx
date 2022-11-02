@@ -18,7 +18,7 @@ export function PlannerCard({ index, PlannerName }: PlannerCardProps) {
           {index}
         </span>
 
-        <p className={PlannerName ? 'pl-2 truncate max-w-[280px]' : 'font-medium text-gray-400 pl-2'}>
+        <p className={PlannerName ? 'pl-2 truncate max-w-[240px]' : 'font-medium text-gray-400 pl-2'}>
           {PlannerName ? PlannerName : 'Add a New Planner'}
         </p>
       </div>

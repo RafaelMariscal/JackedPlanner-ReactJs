@@ -1,7 +1,7 @@
 import { useId, useState } from "react";
-import DashboardCard from "./DashboardCard";
 import { ExerciseCard } from "./ExerciseCard";
 import * as Popover from '@radix-ui/react-popover';
+import DashboardCard from "../DashboardCard";
 
 export function WorkoutSection() {
   const [isExerciseSelected, setisExerciseSelected] = useState(false)
@@ -17,10 +17,7 @@ export function WorkoutSection() {
   ]
 
   return (
-    <DashboardCard
-      title="Workout Section:"
-      subtitle="Chest / Shoulders"
-      extend
+    <DashboardCard title="Workout Section:" subtitle="Chest / Shoulders" extend
     >
       <div className="flex flex-col gap-2">
         {
