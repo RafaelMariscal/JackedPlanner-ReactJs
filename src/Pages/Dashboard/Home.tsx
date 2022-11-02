@@ -22,7 +22,7 @@ export function Home() {
         <ExercisePlan />
       </div>
 
-      <div className="flex-1 flex bg-gray-opac-35 gap-4">
+      <div className="flex-1 flex gap-4">
         <PersonalNotes />
       </div>
     </div>
