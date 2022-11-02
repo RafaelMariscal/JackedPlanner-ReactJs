@@ -35,7 +35,6 @@ export function PlannerController({ price }: PlannerControllerProps) {
               mo
             </span>
           </p>
-
         </div>
       </div >
     </DashboardCard >
