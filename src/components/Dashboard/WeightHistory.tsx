@@ -1,9 +1,19 @@
+import { Button } from "../LoginPage/Button";
 import DashboardCard from "./DashboardCard";
 
 export function WeightHistory() {
   return (
     <DashboardCard title="Weigth History" className="w-full max-w-[720px]" classNameCard="py-0 px-0" >
       <div className="flex w-full h-full gap-6">
+        <div className="absolute w-full h-full rounded bg-black
+          bg-opacity-[45%] flex items-center justify-center
+          "
+        >
+          <Button variant="dark" size="lg" className="max-w-[320px] shadow-[0_0_.5rem_.1rem] shadow-orange-500">
+            Get<span className="text-orange-500 px-1">PRO</span>to access this Feature
+          </Button>
+        </div>
+
         <img src="/src/assets/Grafic.png" alt="" className="px-4 py-4" />
 
         <div className="flex-1">
