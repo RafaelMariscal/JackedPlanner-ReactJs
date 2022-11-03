@@ -3,6 +3,7 @@ import { ReactNode } from "react"
 
 interface DashboardCardProps {
   title: string;
+  hideTittle?: boolean;
   subtitle?: string;
   extend?: boolean
   className?: string;
@@ -10,7 +11,7 @@ interface DashboardCardProps {
   children: ReactNode;
 }
 
-export default function DashboardCard({ title, subtitle, extend, className, classNameCard, children }: DashboardCardProps) {
+export default function DashboardCard({ title, hideTittle, subtitle, extend, className, classNameCard, children }: DashboardCardProps) {
   return (
     <div className={clsx(
       "flex flex-col gap-1",
@@ -21,7 +22,9 @@ export default function DashboardCard({ title, subtitle, extend, className, clas
       className
     )}>
       <div className="flex gap-1">
-        <h2 className="font-semibold leading-tight underline text-gray-800 ml-2"
+        <h2 className={clsx("font-semibold leading-tight underline text-gray-800 ml-2",
+          { 'text-transparent select-none': hideTittle === true }
+        )}
         >
           {title}
         </h2>
