@@ -46,7 +46,7 @@ interface ExerciseCardNameProps {
 function Name({ name, }: ExerciseCardNameProps) {
   return (
     <div className="flex-1 bg-gray-100 relative">
-      <span className="mx-[.875rem] truncate block w-full ">
+      <span className="mx-[.875rem] truncate block w-full">
         {name}
       </span>
     </div >

@@ -12,7 +12,7 @@ export function ExercisePlan() {
   ]
 
   return (
-    <DashboardCard title="Exercise Plan:" extend classNameCard="px-4 py-4">
+    <DashboardCard title="Exercise Plan:" extend className="min-w-[39rem]" classNameCard="px-4 py-4">
       <div className="w-full h-full flex  gap-2">
         <div className="py-[.875rem] flex flex-col gap-4 text-xs text-gray-100">
           <span>Set:</span>
