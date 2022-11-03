@@ -16,14 +16,14 @@ A React + Firebase (Auth + Firestore + Hosting) web application, Jacked Planner 
         [x] Go Top Button
 
       [ ] Dashboard Page
-        [ ] Dashboard home
-          [ ] Planners Controller
-          [ ] Planner Calendar 
-          [ ] Workout Section
-          [ ] Personal Notes 
-          [ ] Sets Exercise Plan
-          [ ] Get Pro Banner
-          [ ] Weight History 
+        [X] Dashboard home
+          [X] Planners Controller
+          [X] Planner Calendar 
+          [X] Workout Section
+          [X] Personal Notes 
+          [X] Sets Exercise Plan
+          [X] Get Pro Banner
+          [X] Weight History 
         [ ] Dashboard notes
           [ ] Planners Controller
           [ ] Personal Notes History
