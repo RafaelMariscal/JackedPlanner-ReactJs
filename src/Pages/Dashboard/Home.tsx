@@ -14,7 +14,6 @@ export function Home() {
           <PlannerController price={4.99} />
           <Calendar />
         </div>
-
         <WorkoutSection />
       </div>
 

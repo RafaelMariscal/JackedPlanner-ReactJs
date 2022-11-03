@@ -8,6 +8,7 @@ export interface ButtonProps {
   login?: boolean
   href?: string;
   className?: string;
+  onClick?: () => void
   children: ReactNode;
 }
 

@@ -16,7 +16,17 @@ export function PersonalNotes() {
       <NotesForm.Root>
         <div className="h-full flex flex-col gap-2">
           <NotesForm.Label label="Cardio" />
-          <NotesForm.Cardio distance={5} time={32} />
+          <div className="flex gap-2">
+            <NotesForm.Cardio distance={5} time={35} />
+
+            <button className="h-9 rounded-lg w-fit px-2 bg-gray-100 
+              flex items-center cursor-pointer"
+            >
+              <img src="/src/assets/icons/Dashboard/Edit.svg" alt=""
+                className="w-[1.125rem]"
+              />
+            </button>
+          </div>
 
           <NotesForm.Label label="Rate Workout" />
           <div className="flex gap-2">

@@ -36,22 +36,10 @@ interface NotesFormCardioProps {
 
 function Cardio({ distance, time }: NotesFormCardioProps) {
   return (
-    <div className="flex gap-2">
-      <div className="h-9 rounded-lg w-fit px-3 bg-gray-100 flex items-center select-none">
-        <span className="text-gray-800 font-semibold">
-          {distance} km / {time} min
-        </span>
-      </div>
-
-      <div className="
-        h-9 rounded-lg w-fit px-2 bg-gray-100 
-        flex items-center cursor-pointer
-        "
-      >
-        <img src="/src/assets/icons/Dashboard/Edit.svg" alt=""
-          className="w-[1.125rem]"
-        />
-      </div>
+    <div className="h-9 rounded-lg w-fit px-3 bg-gray-100 flex items-center select-none">
+      <span className="text-gray-800 font-semibold">
+        {distance} km / {time} min
+      </span>
     </div>
   )
 }
