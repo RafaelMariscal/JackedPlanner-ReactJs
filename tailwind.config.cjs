@@ -53,6 +53,8 @@ module.exports = {
       backgroundImage: {
         'background-polygons': "url('/src/assets/PolygonsBackground.png')",
         'price-slash': "url('/src/assets/PriceSlash.png')",
+        'crossfitGirl': "url('/src/assets/crossfitGirl.png')",
+        'crossfitGuy': "url('/src/assets/crossfitGuy.png')",
       },
       keyframes: {
         strech: {

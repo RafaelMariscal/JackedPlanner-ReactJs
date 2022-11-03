@@ -73,32 +73,41 @@ function Rate({ rate, selected, ...props }: NotesFormRateProps) {
 
 interface NotesFormTextBoxProps {
   notes: string;
+  history?: boolean;
   SetNotes: (notes: string) => void
 }
-function TextBox({ notes, SetNotes }: NotesFormTextBoxProps) {
-  return (
-    <textarea onChange={(e) => { SetNotes(e.target.value) }}
-      className="h-full p-2 rounded-lg bg-gray-100 text-gray-800 text-sm"
-      name="Notes" placeholder="Take your notes here!" value={notes}
-    />
-  )
-}
+function TextBox({ notes, history, SetNotes }: NotesFormTextBoxProps) {
+  const [IsUserEditing, setIsUserEditing] = useState(false)
+  function handleClick() {
+    setIsUserEditing(!IsUserEditing)
+  }
 
-interface NotesFormButtonProps {
-}
-function Button({ }: NotesFormButtonProps) {
   return (
-    <button className="
-      w-full py-2 rounded-lg text-sm
-      bg-orange-500 text-gray-800 font-semibold
-      
-    "
-    >
-      Confirm Notes
-    </button>
+    <div className="w-full pb-6">
+      <textarea onChange={(e) => { SetNotes(e.target.value) }}
+        className={clsx(
+          "h-full w-full p-2 rounded-lg text-gray-800 text-sm",
+          {
+            'bg-cyan-500': history === true,
+            'bg-gray-100': history === false,
+          }
+        )}
+        name="Notes" placeholder="Take your notes here!" value={notes} disabled={!IsUserEditing}
+      />
+      <button onClick={handleClick} className={clsx(
+        "w-full py-2 rounded-lg text-sm text-gray-800 font-semibold",
+        {
+          'bg-gray-100 border-2 border-orange-500': history === true,
+          'bg-orange-500': history === false,
+        }
+      )}
+      >
+        {history ? 'Edit Notes' : 'Confirm Notes'}
+      </button>
+    </div>
   )
 }
 
 export const NotesForm = {
-  Root, Label, Cardio, Rate, TextBox, Button
+  Root, Label, Cardio, Rate, TextBox
 }
