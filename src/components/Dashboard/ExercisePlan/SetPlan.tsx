@@ -29,7 +29,7 @@ export function SetPlan({ index, und, weight, used, reps, done = false }: SetPla
         }
 
       )}>
-        <span className="rounded-t-md">Set{index}</span>
+        <span className="rounded-t-md">Set {index}</span>
         <span>{weight} {und}</span>
         <input type="number" min={0} placeholder={`W8 ${und}`} disabled={IsSetDone} required
           className="border border-t-0"
