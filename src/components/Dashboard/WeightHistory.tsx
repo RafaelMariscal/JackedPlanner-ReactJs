@@ -14,7 +14,7 @@ export function WeightHistory() {
           </Button>
         </div>
 
-        <img src="/src/assets/Grafic.png" alt="" className="" />
+        <img src="/src/assets/Grafic.png" alt="" className="object-contain ml-2" />
 
         <div className="flex-1 ">
           <div className="p-4 h-1/2 font-bold text-xl text-gray-800
@@ -36,10 +36,10 @@ export function WeightHistory() {
             "
           >
             <span className="block">
-              310 kg /
+              274 kg /
             </span>
             <span className="block">
-              2 reps
+              1 Rep
             </span>
           </div>
         </div>
