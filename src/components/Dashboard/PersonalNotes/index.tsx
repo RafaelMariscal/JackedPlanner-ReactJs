@@ -44,7 +44,7 @@ export function PersonalNotes() {
 
         <div className="flex-1 flex flex-col gap-2">
           <NotesForm.Label label="Notes" />
-          <NotesForm.TextBox notes={Notes} setNotes={handleNotes} />
+          <NotesForm.TextBox notes={Notes} SetNotes={handleNotes} />
           <NotesForm.Button />
         </div>
       </NotesForm.Root>

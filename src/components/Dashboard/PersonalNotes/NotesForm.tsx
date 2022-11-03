@@ -73,11 +73,11 @@ function Rate({ rate, selected, ...props }: NotesFormRateProps) {
 
 interface NotesFormTextBoxProps {
   notes: string;
-  setNotes: (notes: string) => void
+  SetNotes: (notes: string) => void
 }
-function TextBox({ notes, setNotes }: NotesFormTextBoxProps) {
+function TextBox({ notes, SetNotes }: NotesFormTextBoxProps) {
   return (
-    <textarea onChange={() => setNotes(document.getElementsByName('Notes')[0].innerText)}
+    <textarea onChange={(e) => { SetNotes(e.target.value) }}
       className="h-full p-2 rounded-lg bg-gray-100 text-gray-800 text-sm"
       name="Notes" placeholder="Take your notes here!" value={notes}
     />
