@@ -1,21 +1,36 @@
-import { ExercisePlan } from "../../components/Dashboard/ExercisePlan";
 import { ImageCard } from "../../components/Dashboard/ImageCard";
-import { NotesHistory } from "../../components/Dashboard/NotesHistory";
-import { PersonalNotes } from "../../components/Dashboard/PersonalNotes";
-import { PlannerController } from "../../components/Dashboard/PlannerController";
+import { AccountSettings } from "../../components/Dashboard/SettingsPage/AccountSettings";
+import { PasswordSettigns } from "../../components/Dashboard/SettingsPage/PasswordSettigns";
+import { SubscriptionSettings } from "../../components/Dashboard/SettingsPage/SubscriptionSettings";
+
+export interface AccountProps {
+  userName: string;
+  email: string;
+  gender: "male" | "female" | "Prefer not to respond";
+  subscription: "subscribed" | "not subscribed"
+  altEmail?: string;
+  birthday?: Date;
+}
+
+const accountSettings: AccountProps = {
+  userName: 'Rafael Mariscal',
+  email: 'rafael@teste.com',
+  gender: "male",
+  subscription: 'not subscribed',
+  altEmail: 'rafael_alt@teste.com',
+  birthday: new Date(),
+}
 
 export function Settings() {
   return (
     <div className="h-full flex gap-4" >
 
       <div className="h-full w-full max-w-3xl flex flex-col gap-4 relative" >
-        <div className="w-full flex justify-between gap-4">
-          <PlannerController price={4.99} />
-        </div>
+        <AccountSettings user={accountSettings} />
 
-        <PersonalNotes history />
+        <PasswordSettigns />
 
-        <ExercisePlan />
+        <SubscriptionSettings />
       </div>
 
       <ImageCard variant="girl" />
