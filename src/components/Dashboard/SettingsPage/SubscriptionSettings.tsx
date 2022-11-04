@@ -17,15 +17,15 @@ export function SubscriptionSettings({ user }: SubscriptionSettingsProps) {
 
           <div className="flex gap-2">
             <img src="/src/assets/LogoPRO.png" alt="" className="h-9 object-contain" />
-            <button className={clsx(
-              "h-9 w-48 px-4 rounded-md font-semibold text-gray-800",
+            <div className={clsx(
+              "h-9 w-48 px-4 rounded-md font-semibold text-gray-800 flex items-center justify-center",
               {
                 'bg-cyan-500': user.subscription === "Subscribed",
                 'bg-gray-100': user.subscription === "Not subscribed"
               }
             )}>
               {user.subscription}
-            </button>
+            </div>
           </div>
         </div>
 

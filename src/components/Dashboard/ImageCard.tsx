@@ -14,12 +14,13 @@ export function ImageCard({ variant }: ImageCardProps) {
         }
       )}
     >
+      <img src="/src/assets/Logo.png" alt="" className="h-10 absolute top-4 left-4" />
       <span className="
             text-gray-100 text-[4.5rem] font-semibold leading-none
             drop-shadow-[.15rem_.15rem_.1rem_rgba(0,0,0,0.85)] -translate-x-[30%]
             "
       >
-        SHAPE
+        REACH
       </span>
 
       <span className="relative
@@ -42,7 +43,7 @@ export function ImageCard({ variant }: ImageCardProps) {
             drop-shadow-[.15rem_.15rem_.1rem_rgba(0,0,0,0.85)] translate-x-[30%]
             "
       >
-        BODY
+        GOALS
       </span>
     </DashboardCard>
   )
