@@ -23,7 +23,8 @@ const MonthsList = [...new Set(Months)]
 interface NotesHistoryProps { }
 export function NotesHistory({ }: NotesHistoryProps) {
   return (
-    <DashboardCard title="Personal Notes History" className="w-full h-" classNameCard="overflow-y-auto max-h-[300px]">
+    <DashboardCard title="Personal Notes History"
+      className="w-full min-w-[360px]" classNameCard="overflow-y-auto max-h-[300px]">
       {
         MonthsList.map((month) => {
           return (
