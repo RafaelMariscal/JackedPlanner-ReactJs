@@ -88,7 +88,7 @@ function TextBox({ notes, history, SetNotes }: NotesFormTextBoxProps) {
   }
 
   return (
-    <div className="w-full pb-6">
+    <div className="w-full h-fit">
       <textarea onChange={(e) => { SetNotes(e.target.value) }}
         className={clsx(
           "h-full w-full p-2 rounded-lg text-gray-800 text-sm",

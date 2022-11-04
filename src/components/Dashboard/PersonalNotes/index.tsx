@@ -16,7 +16,7 @@ export function PersonalNotes({ history }: PersonalNotesProps) {
   const labels: Labels = ["BAD", "OK", "GOOD", "GREAT"]
 
   return (
-    <DashboardCard title="Personal Notes:" extend className="min-w-[39rem]">
+    <DashboardCard title="Personal Notes:" extend className="min-w-[39rem]" classNameCard="overflow-y-auto">
       <NotesForm.Root>
         <div className="h-full flex flex-col gap-2">
           <NotesForm.Label label="Cardio" />
