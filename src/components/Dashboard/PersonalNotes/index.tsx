@@ -4,7 +4,11 @@ import { NotesForm } from "./NotesForm";
 
 type Labels = ("BAD" | "OK" | "GOOD" | "GREAT")[];
 
-export function PersonalNotes() {
+interface PersonalNotesProps {
+  history?: boolean
+}
+
+export function PersonalNotes({ history }: PersonalNotesProps) {
   const [Selected, setSelected] = useState('GREAT')
   const [Notes, setNotes] = useState('')
   const handleNotes = (notes: string) => setNotes(notes)
@@ -12,7 +16,7 @@ export function PersonalNotes() {
   const labels: Labels = ["BAD", "OK", "GOOD", "GREAT"]
 
   return (
-    <DashboardCard title="Personal Notes:" extend className="min-w-[39rem]">
+    <DashboardCard title="Personal Notes:" extend className="min-w-[39rem]" classNameCard="overflow-y-auto">
       <NotesForm.Root>
         <div className="h-full flex flex-col gap-2">
           <NotesForm.Label label="Cardio" />
@@ -44,8 +48,7 @@ export function PersonalNotes() {
 
         <div className="flex-1 flex flex-col gap-2">
           <NotesForm.Label label="Notes" />
-          <NotesForm.TextBox notes={Notes} setNotes={handleNotes} />
-          <NotesForm.Button />
+          <NotesForm.TextBox notes={Notes} SetNotes={handleNotes} history={history} />
         </div>
       </NotesForm.Root>
     </DashboardCard>

@@ -18,14 +18,14 @@ export function Navbar() {
         <Link to={'notes'}>
           <img src="/src/assets/icons/Dashboard/Notes.svg" alt="" className="w-6 hover:animate-wiggle" />
         </Link>
+        <Link to={'settings'}>
+          <img src="/src/assets/icons/Dashboard/Config.svg" alt="" className="w-6 hover:animate-wiggle" />
+        </Link>
         <Link to={'pro'}>
           <img src="/src/assets/icons/Dashboard/PRO.svg" alt="" className="w-6 hover:animate-wiggle" />
         </Link>
         <Link to={'shop'}>
           <img src="/src/assets/icons/Dashboard/Shop.svg" alt="" className="w-6 hover:animate-wiggle" />
-        </Link>
-        <Link to={'settings'}>
-          <img src="/src/assets/icons/Dashboard/Config.svg" alt="" className="w-6 hover:animate-wiggle" />
         </Link>
 
       </div>

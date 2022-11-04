@@ -73,32 +73,46 @@ function Rate({ rate, selected, ...props }: NotesFormRateProps) {
 
 interface NotesFormTextBoxProps {
   notes: string;
-  setNotes: (notes: string) => void
+  history?: boolean;
+  SetNotes: (notes: string) => void
 }
-function TextBox({ notes, setNotes }: NotesFormTextBoxProps) {
-  return (
-    <textarea onChange={() => setNotes(document.getElementsByName('Notes')[0].innerText)}
-      className="h-full p-2 rounded-lg bg-gray-100 text-gray-800 text-sm"
-      name="Notes" placeholder="Take your notes here!" value={notes}
-    />
-  )
-}
+function TextBox({ notes, history, SetNotes }: NotesFormTextBoxProps) {
+  const [IsUserEditing, setIsUserEditing] = useState(history === undefined ? true : false)
 
-interface NotesFormButtonProps {
-}
-function Button({ }: NotesFormButtonProps) {
+  function handleClick() {
+    if (history === undefined) {
+      return
+    } else {
+      setIsUserEditing(!IsUserEditing)
+    }
+  }
+
   return (
-    <button className="
-      w-full py-2 rounded-lg text-sm
-      bg-orange-500 text-gray-800 font-semibold
-      
-    "
-    >
-      Confirm Notes
-    </button>
+    <div className="w-full h-fit">
+      <textarea onChange={(e) => { SetNotes(e.target.value) }}
+        className={clsx(
+          "h-full w-full p-2 rounded-lg text-gray-800 text-sm",
+          {
+            'bg-cyan-500': IsUserEditing === false,
+            'bg-gray-100': IsUserEditing === true,
+          }
+        )}
+        name="Notes" placeholder="Take your notes here!" value={notes} disabled={!IsUserEditing}
+      />
+      <button onClick={handleClick} className={clsx(
+        "w-full py-2 rounded-lg border-2 text-sm text-gray-800 font-semibold",
+        {
+          'bg-gray-100 border-orange-500': IsUserEditing === false,
+          'bg-orange-500 border-transparent': IsUserEditing === true,
+        }
+      )}
+      >
+        {IsUserEditing ? 'Confirm Notes' : 'Edit Notes'}
+      </button>
+    </div>
   )
 }
 
 export const NotesForm = {
-  Root, Label, Cardio, Rate, TextBox, Button
+  Root, Label, Cardio, Rate, TextBox
 }
