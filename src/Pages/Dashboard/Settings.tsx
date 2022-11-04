@@ -25,7 +25,7 @@ export function Settings() {
   return (
     <div className="h-full flex gap-4" >
 
-      <div className="h-full w-full max-w-3xl flex flex-col gap-4 relative" >
+      <div className="h-full w-full max-w-3xl flex flex-col gap-2 relative" >
         <AccountSettings user={accountSettings} />
 
         <PasswordSettigns />

@@ -15,7 +15,7 @@ export function AccountSettings({ user }: AccountSettingsProps) {
   }
 
   return (
-    <DashboardCard title="Account Settings:">
+    <DashboardCard title="Account:">
       <form onSubmit={handleSubmit} className="text-sm text-gray-100 
         flex flex-col gap-4
         "
@@ -33,7 +33,7 @@ export function AccountSettings({ user }: AccountSettingsProps) {
           [&_span]:w-24 [&_input]:w-full [&_input]:h-full [&_input]:rounded-md 
           [&_input]:px-4 [&_input]:text-gray-800 [&_input]:font-medium
           ">
-          <span>User Name:</span>
+          <span>Email:</span>
           <input type="text" name="email" id="id_email"
             className="w-full h-full rounded-md px-4 text-gray-800" />
         </label>
@@ -42,7 +42,7 @@ export function AccountSettings({ user }: AccountSettingsProps) {
           [&_span]:w-24 [&_input]:w-full [&_input]:h-full [&_input]:rounded-md 
           [&_input]:px-4 [&_input]:text-gray-800 [&_input]:font-medium
           ">
-          <span>User Name:</span>
+          <span>Alt. Email:</span>
           <input type="text" name="altEmail" id="id_altEmail"
             className="w-full h-full rounded-md px-4 text-gray-800" />
         </label>
@@ -51,7 +51,7 @@ export function AccountSettings({ user }: AccountSettingsProps) {
           [&_span]:w-24 [&_input]:w-full [&_input]:h-full [&_input]:rounded-md 
           [&_input]:px-4 [&_input]:text-gray-800 [&_input]:font-medium
           ">
-          <span>User Name:</span>
+          <span>Birthday:</span>
           <input type="date" name="birthday" id="id_birthday"
             className="w-full h-full rounded-md px-4 text-gray-800" />
         </label>
@@ -60,7 +60,7 @@ export function AccountSettings({ user }: AccountSettingsProps) {
           [&_span]:w-24 [&_input]:w-full [&_input]:h-full [&_input]:rounded-md 
           [&_input]:px-4 [&_input]:text-gray-800 [&_input]:font-medium
           ">
-          <span>User Name:</span>
+          <span>Gender:</span>
           <input type="text" name="gender" id="id_gender"
             className="w-full h-full rounded-md px-4 text-gray-800" />
         </label>
