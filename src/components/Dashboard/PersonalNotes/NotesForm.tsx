@@ -77,11 +77,14 @@ interface NotesFormTextBoxProps {
   SetNotes: (notes: string) => void
 }
 function TextBox({ notes, history, SetNotes }: NotesFormTextBoxProps) {
+  const [IsUserEditing, setIsUserEditing] = useState(history === undefined ? true : false)
 
-  const [IsUserEditing, setIsUserEditing] = useState(false)
   function handleClick() {
-    setIsUserEditing(!IsUserEditing)
-    history = !IsUserEditing
+    if (history === undefined) {
+      return
+    } else {
+      setIsUserEditing(!IsUserEditing)
+    }
   }
 
   return (

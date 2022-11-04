@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router-dom'
 import { DashboardHeader } from '../../components/Dashboard/DashboardHeader'
 import { Navbar } from '../../components/Dashboard/Navbar'
+
 export function Dashboard() {
   return (
     <div className='
@@ -9,7 +10,7 @@ export function Dashboard() {
       flex flex-col items-center justify-center
       '
     >
-      <DashboardHeader />
+      <DashboardHeader userName={'userName'} />
 
       <div className='w-full h-full p-6'>
         <div className=" m-auto
