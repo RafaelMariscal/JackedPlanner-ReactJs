@@ -29,10 +29,10 @@ A React + Firebase (Auth + Firestore + Hosting) web application, Jacked Planner 
           [X] Personal Notes History
           [X] Personal Notes
           [X] Planners Exercise Plan
-        [ ] Dashboard settings
-          [ ] Account Settings
-          [ ] Password
-          [ ] Subscription Status  
+        [X] Dashboard settings
+          [X] Account Settings
+          [X] Password
+          [X] Subscription Status  
         [ ] Not Found
         
     [ ] Firebase services
