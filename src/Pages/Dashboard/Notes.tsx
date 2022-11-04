@@ -1,30 +1,24 @@
-import { Calendar } from "../../components/Dashboard/Calendar/Index";
 import DashboardCard from "../../components/Dashboard/DashboardCard";
 import { ExercisePlan } from "../../components/Dashboard/ExercisePlan";
+import { NotesHistory } from "../../components/Dashboard/NotesHistory";
 import { PersonalNotes } from "../../components/Dashboard/PersonalNotes";
 import { PlannerController } from "../../components/Dashboard/PlannerController";
 
 export function Notes() {
   return (
     <div className="h-full flex gap-4" >
-      <div className="h-full flex flex-col gap-4" >
-        <div className="flex gap-4">
-          <div className="flex justify-between gap-4 w-full max-w-[720px]">
-            <PlannerController price={4.99} />
-            <Calendar />
-          </div>
+      <div className="h-full w-full max-w-3xl flex flex-col gap-4" >
+        <div className="w-full flex justify-between gap-4">
+          <PlannerController price={4.99} />
+          <NotesHistory />
         </div>
 
-        <div className="flex-1 flex gap-4">
-          <PersonalNotes history />
-        </div>
+        <PersonalNotes history />
 
-        <div className="flex-1 flex gap-4">
-          <ExercisePlan />
-        </div>
+        <ExercisePlan />
       </div>
 
-      <DashboardCard title="hidden" hideTittle className="w-full"
+      <DashboardCard title="hidden" hideTittle className="w-full max-w-xl"
         classNameCard="w-full max-w-[460px] h-full overflow-hidden 
         bg-crossfitGirl bg-cover bg-no-repeat bg-center
         flex flex-col items-center justify-center gap-1
