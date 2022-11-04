@@ -7,7 +7,7 @@ export interface AccountProps {
   userName: string;
   email: string;
   gender: "male" | "female" | "Prefer not to respond";
-  subscription: "subscribed" | "not subscribed"
+  subscription: "Subscribed" | "Not subscribed"
   altEmail?: string;
   birthday?: Date;
 }
@@ -16,7 +16,7 @@ const accountSettings: AccountProps = {
   userName: 'Rafael Mariscal',
   email: 'rafael@teste.com',
   gender: "male",
-  subscription: 'not subscribed',
+  subscription: 'Subscribed',
   altEmail: 'rafael_alt@teste.com',
   birthday: new Date(),
 }
@@ -30,7 +30,7 @@ export function Settings() {
 
         <PasswordSettigns />
 
-        <SubscriptionSettings />
+        <SubscriptionSettings user={accountSettings} />
       </div>
 
       <ImageCard variant="girl" />
