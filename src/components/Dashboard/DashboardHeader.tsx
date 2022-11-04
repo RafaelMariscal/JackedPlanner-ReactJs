@@ -7,7 +7,7 @@ interface DashboardHeaderProps {
 export function DashboardHeader({ userName = 'userName' }: DashboardHeaderProps) {
   return (
     <header id="header" className="
-      w-full h-12 bg-gray-800 
+    fixed w-full py-3 bg-gray-800 
       flex items-center justify-center
       "
     >

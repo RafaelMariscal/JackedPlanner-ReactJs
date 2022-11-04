@@ -7,12 +7,12 @@ export function Dashboard() {
     <div className='
       w-screen h-screen
       bg-background-polygons bg-no-repeat bg-cover bg-center
-      flex flex-col items-center justify-center
+      flex flex-col
       '
     >
       <DashboardHeader userName={'userName'} />
 
-      <div className='w-full h-full p-6'>
+      <div className=' w-full h-full p-6 pt-[4.5rem]'>
         <div className=" m-auto
           w-full max-w-[1600px] h-full rounded-xl overflow-hidden
           flex items-center justify-center gap-6 overflow-x-auto
