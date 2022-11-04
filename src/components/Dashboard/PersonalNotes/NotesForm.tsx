@@ -77,9 +77,11 @@ interface NotesFormTextBoxProps {
   SetNotes: (notes: string) => void
 }
 function TextBox({ notes, history, SetNotes }: NotesFormTextBoxProps) {
+
   const [IsUserEditing, setIsUserEditing] = useState(false)
   function handleClick() {
     setIsUserEditing(!IsUserEditing)
+    history = !IsUserEditing
   }
 
   return (
@@ -88,21 +90,21 @@ function TextBox({ notes, history, SetNotes }: NotesFormTextBoxProps) {
         className={clsx(
           "h-full w-full p-2 rounded-lg text-gray-800 text-sm",
           {
-            'bg-cyan-500': history === true,
-            'bg-gray-100': history === false,
+            'bg-cyan-500': IsUserEditing === false,
+            'bg-gray-100': IsUserEditing === true,
           }
         )}
         name="Notes" placeholder="Take your notes here!" value={notes} disabled={!IsUserEditing}
       />
       <button onClick={handleClick} className={clsx(
-        "w-full py-2 rounded-lg text-sm text-gray-800 font-semibold",
+        "w-full py-2 rounded-lg border-2 text-sm text-gray-800 font-semibold",
         {
-          'bg-gray-100 border-2 border-orange-500': history === true,
-          'bg-orange-500': history === false,
+          'bg-gray-100 border-orange-500': IsUserEditing === false,
+          'bg-orange-500 border-transparent': IsUserEditing === true,
         }
       )}
       >
-        {history ? 'Edit Notes' : 'Confirm Notes'}
+        {IsUserEditing ? 'Confirm Notes' : 'Edit Notes'}
       </button>
     </div>
   )
