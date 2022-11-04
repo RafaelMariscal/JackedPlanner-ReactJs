@@ -14,10 +14,12 @@ export function WorkoutSection() {
     { name: 'Crossover (Bi-articulado)', index: 2, description: 'Description 2 testing' },
     { name: 'Crucifixo com Cabos', index: 1, description: 'Description 1 testing ' },
     { name: 'Crossover (Bi-articulado)', index: 2, description: 'Description 2 testing' },
+    { name: 'Crucifixo com Cabos', index: 1, description: 'Description 1 testing ' },
   ]
 
   return (
-    <DashboardCard title="Workout Section:" subtitle="Chest / Shoulders" extend className="min-w-[39rem]"
+    <DashboardCard title="Workout Section:" subtitle="Chest / Shoulders" extend className="min-w-[39rem] h-"
+      classNameCard="max-h-[18.75rem] overflow-y-auto"
     >
       <div className="flex flex-col gap-2">
         {
@@ -40,7 +42,7 @@ export function WorkoutSection() {
                   <ExerciseCard.Index index={exercise.index} />
                   <ExerciseCard.Name name={exercise.name} />
                   <Popover.Portal>
-                    <Popover.Content align={index + 1 === ExerciseList.length ? 'end' : 'start'} side="left" className="">
+                    <Popover.Content align={index + 1 === ExerciseList.length ? 'end' : 'start'} side="left">
                       <ExerciseCard.Description done={isExerciseDone} description={exercise.description} />
                     </Popover.Content>
                   </Popover.Portal>
