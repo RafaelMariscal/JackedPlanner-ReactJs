@@ -24,11 +24,11 @@ A React + Firebase (Auth + Firestore + Hosting) web application, Jacked Planner 
           [X] Sets Exercise Plan
           [X] Get Pro Banner
           [X] Weight History 
-        [ ] Dashboard notes
-          [ ] Planners Controller
-          [ ] Personal Notes History
-          [ ] Personal Notes
-          [ ] Planners Exercise Plan
+        [X] Dashboard notes
+          [X] Planners Controller
+          [X] Personal Notes History
+          [X] Personal Notes
+          [X] Planners Exercise Plan
         [ ] Dashboard settings
           [ ] Account Settings
           [ ] Password
