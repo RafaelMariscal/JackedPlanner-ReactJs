@@ -15,7 +15,7 @@ A React + Firebase (Auth + Firestore + Hosting) web application, Jacked Planner 
         [x] Login Footer
         [x] Go Top Button
 
-      [ ] Dashboard Page
+      [X] Dashboard Page
         [X] Dashboard home
           [X] Planners Controller
           [X] Planner Calendar 
@@ -33,8 +33,8 @@ A React + Firebase (Auth + Firestore + Hosting) web application, Jacked Planner 
           [X] Account Settings
           [X] Password
           [X] Subscription Status  
-        [ ] Unavailable session Page
-        [ ] Page Not Found
+        [X] Page Not Found
+        [X] Unavailable session Page
         
     [ ] Firebase services
       [ ] Firebase Auth

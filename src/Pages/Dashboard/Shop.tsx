@@ -1,6 +1,7 @@
+import { UnderConstruction } from "../UnderConstruction";
 
 export function Shop() {
   return (
-    <div>Shop</div>
+    <UnderConstruction />
   )
 }
