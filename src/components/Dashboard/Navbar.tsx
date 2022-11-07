@@ -12,7 +12,7 @@ export function Navbar() {
         className="absolute top-6 left-4 w-52"
       />
       <div className="flex flex-col items-center justify-center gap-12">
-        <Link to={'home'}>
+        <Link to={''}>
           <img src="/src/assets/icons/Dashboard/Home.svg" alt="" className="w-6 hover:animate-wiggle" />
         </Link>
         <Link to={'notes'}>
