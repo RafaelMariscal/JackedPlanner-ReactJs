@@ -5,6 +5,7 @@ import { Notes } from './Pages/Dashboard/Notes'
 import { Shop } from './Pages/Dashboard/Shop'
 import { Login } from './Pages/Login'
 import { Home } from './Pages/Dashboard/Home'
+import { NotFound } from './Pages/NotFound'
 
 
 export function Router() {
@@ -19,7 +20,7 @@ export function Router() {
         <Route path='settings' element={<Settings />} />
       </Route>
 
-      <Route path='*' element={<div><h2>Nothing here...</h2></div>} />
+      <Route path='*' element={<NotFound />} />
 
     </Routes>
   )
