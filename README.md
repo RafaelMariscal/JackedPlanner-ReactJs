@@ -33,7 +33,8 @@ A React + Firebase (Auth + Firestore + Hosting) web application, Jacked Planner 
           [X] Account Settings
           [X] Password
           [X] Subscription Status  
-        [ ] Not Found
+        [ ] Unavailable session Page
+        [ ] Page Not Found
         
     [ ] Firebase services
       [ ] Firebase Auth
