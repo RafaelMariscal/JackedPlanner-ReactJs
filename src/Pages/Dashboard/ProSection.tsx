@@ -1,4 +1,4 @@
-import { UnderConstruction } from './UnderConstruction'
+import { UnderConstruction } from "../UnderConstruction";
 
 export function ProSection() {
   return (

@@ -6,7 +6,7 @@ import { Shop } from './Pages/Dashboard/Shop'
 import { Login } from './Pages/Login'
 import { Home } from './Pages/Dashboard/Home'
 import { NotFound } from './Pages/NotFound'
-import { ProSection } from './Pages/ProSection'
+import { ProSection } from './Pages/Dashboard/ProSection'
 
 
 export function Router() {

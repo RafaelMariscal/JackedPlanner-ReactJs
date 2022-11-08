@@ -35,8 +35,11 @@ A React + Firebase (Auth + Firestore + Hosting) web application, Jacked Planner 
           [X] Subscription Status  
         [X] Page Not Found
         [X] Unavailable session Page
+
+    [ ] Functional Calendar component
         
     [ ] Firebase services
+      [ ] Firebase Hosting
       [ ] Firebase Auth
         [ ] E-mail + password
         [ ] Github Login Authentication
@@ -44,6 +47,5 @@ A React + Firebase (Auth + Firestore + Hosting) web application, Jacked Planner 
         [ ] Google Login Authentication
         [ ] Facebook Login Authentication
       [ ] Firebase Firestore
-      [ ] Firebase Hosting
     
      
