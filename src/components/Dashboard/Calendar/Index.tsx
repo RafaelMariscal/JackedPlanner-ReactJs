@@ -1,14 +1,29 @@
+import clsx from "clsx";
+import { format, isEqual, isSameMonth, isToday, startOfDay, startOfMonth, startOfWeek } from "date-fns";
+import { eachDayOfInterval, endOfMonth, endOfWeek } from "date-fns/esm";
+import { useState } from "react";
 import { ArrowIcon } from "../../../assets/icons/ArrowIcon";
 import DashboardCard from "../DashboardCard";
 
+
+// contrua a lógica de um calendário
+
 export function Calendar() {
+  let today = startOfDay(new Date());
+  const [SelectedDay, setSelectedDay] = useState(today);
+  let newDays = eachDayOfInterval({
+    start: startOfWeek(startOfMonth(today)),
+    end: endOfWeek(endOfMonth(today))
+  });
+
   return (
     <DashboardCard title="Calendar:" className="w-full" extend>
-      <div className="w-full h-full min-w-[236px] text-sm leading-tight [&_span]:w-5 [&_span]:h-5 ">
+      <div className="w-full h-full min-w-[236px] text-sm leading-tight">
         <div className="flex items-center justify-between">
           <p className=" text-gray-100">
-            <span>março</span> de <span>2022</span>
+            {format(today, 'MMMM yyyy')}
           </p>
+
           <div className="flex gap-4">
             <div className="flex items-center justify-center p-1 rounded cursor-pointer hover:bg-gray-400">
               <ArrowIcon className="[&_path]:stroke-gray-100 scale-75" />
@@ -20,110 +35,76 @@ export function Calendar() {
           </div>
         </div>
 
-        <div id="weekDays" className="
-          flex justify-between font-semibold 
-          mt-4 [&_span]:text-orange-500
-          [&_span]:flex [&_span]:items-center [&_span]:justify-center
-          "
-        >
-          <span>D</span>
-          <span>S</span>
-          <span>T</span>
-          <span>Q</span>
-          <span>Q</span>
-          <span>S</span>
-          <span>S</span>
+        <div className="grid grid-cols-7 font-semibold mt-4">
+          <span className="text-orange-500 w-full h-5 flex items-center justify-center">
+            S
+          </span>
+          <span className="text-orange-500 w-full h-5 flex items-center justify-center">
+            M
+          </span>
+          <span className="text-orange-500 w-full h-5 flex items-center justify-center">
+            T
+          </span>
+          <span className="text-orange-500 w-full h-5 flex items-center justify-center">
+            W
+          </span>
+          <span className="text-orange-500 w-full h-5 flex items-center justify-center">
+            T
+          </span>
+          <span className="text-orange-500 w-full h-5 flex items-center justify-center">
+            F
+          </span>
+          <span className="text-orange-500 w-full h-5 flex items-center justify-center">
+            S
+          </span>
         </div>
 
-        <div id="weekDays" className="
-          flex justify-between font-normal 
-          mt-3 [&_span]:w-[2ch] [&_span]:text-gray-100
-          [&_span]:flex [&_span]:items-center [&_span]:justify-center
-          "
-        >
-          <span className="opacity-50">27</span>
-          <span className="opacity-50">28</span>
-          <span>1</span>
-          <span>2</span>
-          <span>3</span>
-          <span>4</span>
-          <span>5</span>
+        <div className="grid grid-cols-7 place-items-center">
+          {
+            newDays.map((day, dayIndex) => (
+              <div key={day.toString()}
+                className={clsx(
+                  "",
+                  {}
+                )}
+              >
+                <button type="button"
+                  onClick={() => setSelectedDay(day)}
+                  className={clsx(
+                    "w-6 h-6 mt-3 border border-transparent transition-colors duration-100",
+                    isEqual(day, SelectedDay) && 'text-gray-800 bg-orange-500',
+
+                    !isEqual(day, SelectedDay) &&
+                    isToday(day) && 'text-orange-500',
+
+                    !isEqual(day, SelectedDay) && !isToday(day) &&
+                    isSameMonth(day, today) && 'text-gray-100',
+
+                    !isEqual(day, SelectedDay) && !isToday(day) &&
+                    !isSameMonth(day, today) && 'text-gray-400',
+
+                    isEqual(day, SelectedDay) &&
+                    isToday(day) && 'bg-cyan-500',
+
+                    isEqual(day, SelectedDay) &&
+                    !isToday(day) && 'bg-cyan-500',
+
+                    !isEqual(day, SelectedDay) &&
+                    'hover:bg-gray-200 hover:text-gray-800 hover:font-semibold',
+
+                    (isEqual(day, SelectedDay) || isToday(day)) &&
+                    'font-semibold',
+                  )}
+                >
+                  <time dateTime={format(day, 'yyyy-MM-dd')}>
+                    {format(day, 'd')}
+                  </time>
+                </button>
+              </div>
+            ))
+          }
         </div>
 
-        <div id="weekDays" className="
-          flex justify-between font-normal 
-          mt-3 [&_span]:w-[2ch] [&_span]:text-gray-100
-          [&_span]:flex [&_span]:items-center [&_span]:justify-center
-          "
-        >
-          <span>6</span>
-          <span>7</span>
-          <span>8</span>
-          <span>9</span>
-          <span>10</span>
-          <span>11</span>
-          <span>12</span>
-        </div>
-
-        <div id="weekDays" className="
-          flex justify-between font-normal 
-          mt-3 [&_span]:w-[2ch] [&_span]:text-gray-100
-          [&_span]:flex [&_span]:items-center [&_span]:justify-center
-          "
-        >
-          <span>13</span>
-          <span>14</span>
-          <span>15</span>
-          <span>16</span>
-          <span>17</span>
-          <span>18</span>
-          <span>19</span>
-        </div>
-
-        <div id="weekDays" className="
-          flex justify-between font-normal 
-          mt-3 [&_span]:w-[2ch] [&_span]:text-gray-100
-          [&_span]:flex [&_span]:items-center [&_span]:justify-center
-          "
-        >
-          <span>20</span>
-          <span>21</span>
-          <span>22</span>
-          <span>23</span>
-          <span>24</span>
-          <span>25</span>
-          <span>26</span>
-        </div>
-
-        <div id="weekDays" className="
-          flex justify-between font-normal 
-          mt-3 [&_span]:w-[2ch] [&_span]:text-gray-100
-          [&_span]:flex [&_span]:items-center [&_span]:justify-center
-          "
-        >
-          <span>27</span>
-          <span>28</span>
-          <span>29</span>
-          <span>30</span>
-          <span>31</span>
-          <span className="opacity-50">1</span>
-          <span className="opacity-50">2</span>
-        </div>
-
-        <div id="weekDays" className="
-          flex justify-between font-normal 
-          mt-3 [&_span]:w-[2ch] [&_span]:text-gray-100
-          [&_span]:flex [&_span]:items-center [&_span]:justify-center
-          "
-        >
-          <span className="opacity-50">3</span>
-          <span className="opacity-50">4</span>
-          <span className="opacity-50">5</span>
-          <span className="opacity-50">6</span>
-          <span className="opacity-50">7</span>
-          <span className="opacity-50">8</span>
-          <span className="opacity-50">9</span>
-        </div>
       </div>
 
     </DashboardCard>
