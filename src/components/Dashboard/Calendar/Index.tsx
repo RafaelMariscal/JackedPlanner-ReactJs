@@ -1,37 +1,59 @@
 import clsx from "clsx";
-import { format, isEqual, isSameMonth, isToday, startOfDay, startOfMonth, startOfWeek } from "date-fns";
-import { eachDayOfInterval, endOfMonth, endOfWeek } from "date-fns/esm";
+import { add, format, isEqual, isSameMonth, isToday, startOfDay, startOfMonth, startOfWeek, sub } from "date-fns";
+import { eachDayOfInterval, endOfMonth, endOfWeek, parse } from "date-fns/esm";
 import { useState } from "react";
 import { ArrowIcon } from "../../../assets/icons/ArrowIcon";
 import DashboardCard from "../DashboardCard";
 
 
-// contrua a lógica de um calendário
-
 export function Calendar() {
   let today = startOfDay(new Date());
   const [SelectedDay, setSelectedDay] = useState(today);
+  const [CurrentMonth, setCurrentMonth] = useState(format(today, 'MMM-yyyy'));
+  let firsDayOfCurrentMonth = parse(CurrentMonth, 'MMM-yyyy', new Date());
+
+
   let newDays = eachDayOfInterval({
-    start: startOfWeek(startOfMonth(today)),
-    end: endOfWeek(endOfMonth(today))
+    start: startOfWeek(firsDayOfCurrentMonth),
+    end: endOfWeek(endOfMonth(firsDayOfCurrentMonth))
   });
+
+
+  function handleMonth(m: number) {
+    if (m > 0) {
+      let firsDayOfNextMonth = add(firsDayOfCurrentMonth, { months: 1 });
+      return setCurrentMonth(format(firsDayOfNextMonth, 'MMM-yyyy'))
+    }
+    let firsDayOfPrevMonth = sub(firsDayOfCurrentMonth, { months: 1 });
+    return setCurrentMonth(format(firsDayOfPrevMonth, 'MMM-yyyy'))
+  }
 
   return (
     <DashboardCard title="Calendar:" className="w-full" extend>
       <div className="w-full h-full min-w-[236px] text-sm leading-tight">
         <div className="flex items-center justify-between">
           <p className=" text-gray-100">
-            {format(today, 'MMMM yyyy')}
+            {format(firsDayOfCurrentMonth, 'MMMM yyyy')}
           </p>
 
-          <div className="flex gap-4">
-            <div className="flex items-center justify-center p-1 rounded cursor-pointer hover:bg-gray-400">
-              <ArrowIcon className="[&_path]:stroke-gray-100 scale-75" />
-            </div>
+          <div className="flex gap-0  ">
+            <button type="button"
+              onClick={() => handleMonth(-1)}
+              className="flex items-center justify-center p-1 rounded 
+              cursor-pointer hover:bg-gray-400 [&_*]:hover:stroke-gray-800
+              "
+            >
+              <ArrowIcon className="[&_path]:stroke-gray-100 scale-50" />
+            </button>
 
-            <div className="flex items-center justify-center p-1 rounded cursor-pointer hover:bg-gray-400">
-              <ArrowIcon className="[&_path]:stroke-gray-100 scale-75 rotate-180" />
-            </div>
+            <button type="button"
+              onClick={() => handleMonth(1)}
+              className="flex items-center justify-center p-1 rounded 
+              cursor-pointer hover:bg-gray-400 [&_*]:hover:stroke-gray-800
+              "
+            >
+              <ArrowIcon className="[&_path]:stroke-gray-100 scale-50 rotate-180" />
+            </button>
           </div>
         </div>
 
@@ -60,53 +82,42 @@ export function Calendar() {
         </div>
 
         <div className="grid grid-cols-7 place-items-center">
-          {
-            newDays.map((day, dayIndex) => (
-              <div key={day.toString()}
+          {newDays.map((day, dayIndex) => (
+            <div key={day.toString()}
+              className={clsx(
+                "",
+                {}
+              )}
+            >
+              <button type="button"
+                onClick={() => setSelectedDay(day)}
                 className={clsx(
-                  "",
-                  {}
+                  "w-6 h-6 mt-[.625rem] border border-transparent transition-colors duration-100",
+                  isEqual(day, SelectedDay) && 'text-gray-800 bg-orange-500',
+                  !isEqual(day, SelectedDay) &&
+                  isToday(day) && 'text-orange-500',
+                  !isEqual(day, SelectedDay) && !isToday(day) &&
+                  isSameMonth(day, firsDayOfCurrentMonth) && 'text-gray-100',
+                  !isEqual(day, SelectedDay) && !isToday(day) &&
+                  !isSameMonth(day, firsDayOfCurrentMonth) && 'text-gray-400',
+                  isEqual(day, SelectedDay) &&
+                  isToday(day) && 'bg-cyan-500',
+                  isEqual(day, SelectedDay) &&
+                  !isToday(day) && 'bg-cyan-500',
+                  !isEqual(day, SelectedDay) &&
+                  'hover:bg-gray-200 hover:text-gray-800 hover:font-semibold',
+                  (isEqual(day, SelectedDay) || isToday(day)) &&
+                  'font-semibold',
                 )}
               >
-                <button type="button"
-                  onClick={() => setSelectedDay(day)}
-                  className={clsx(
-                    "w-6 h-6 mt-3 border border-transparent transition-colors duration-100",
-                    isEqual(day, SelectedDay) && 'text-gray-800 bg-orange-500',
-
-                    !isEqual(day, SelectedDay) &&
-                    isToday(day) && 'text-orange-500',
-
-                    !isEqual(day, SelectedDay) && !isToday(day) &&
-                    isSameMonth(day, today) && 'text-gray-100',
-
-                    !isEqual(day, SelectedDay) && !isToday(day) &&
-                    !isSameMonth(day, today) && 'text-gray-400',
-
-                    isEqual(day, SelectedDay) &&
-                    isToday(day) && 'bg-cyan-500',
-
-                    isEqual(day, SelectedDay) &&
-                    !isToday(day) && 'bg-cyan-500',
-
-                    !isEqual(day, SelectedDay) &&
-                    'hover:bg-gray-200 hover:text-gray-800 hover:font-semibold',
-
-                    (isEqual(day, SelectedDay) || isToday(day)) &&
-                    'font-semibold',
-                  )}
-                >
-                  <time dateTime={format(day, 'yyyy-MM-dd')}>
-                    {format(day, 'd')}
-                  </time>
-                </button>
-              </div>
-            ))
-          }
+                <time dateTime={format(day, 'yyyy-MM-dd')}>
+                  {format(day, 'd')}
+                </time>
+              </button>
+            </div>
+          ))}
         </div>
-
       </div>
-
     </DashboardCard>
   )
 }

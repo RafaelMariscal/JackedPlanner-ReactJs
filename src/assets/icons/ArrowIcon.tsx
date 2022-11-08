@@ -14,7 +14,7 @@ export function ArrowIcon(props: ArrowIconProps) {
       <path
         d="m2 11.807 10-10 10 10"
         stroke="#FE9016"
-        strokeWidth={3}
+        strokeWidth={4}
         strokeLinecap="round"
         strokeLinejoin="round"
       />
