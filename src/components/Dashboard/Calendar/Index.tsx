@@ -5,6 +5,7 @@ import { useState } from "react";
 import { ArrowIcon } from "../../../assets/icons/ArrowIcon";
 import DashboardCard from "../DashboardCard";
 
+
 export function Calendar() {
   const today = startOfDay(new Date());
   const [SelectedDay, setSelectedDay] = useState(today);
@@ -90,7 +91,7 @@ export function Calendar() {
         </div>
 
         <div className="grid grid-cols-7 place-items-center">
-          {newDays.map((day, dayIndex) => (
+          {newDays.map((day) => (
             <div key={day.toString()}
               className={clsx(
                 "",
@@ -122,10 +123,21 @@ export function Calendar() {
                   {format(day, 'd')}
                 </time>
               </button>
+              <span className={clsx(
+                "block w-1 h-1 mx-auto -mt-1 rounded-full",
+                false && 'bg-orange-500', // if scheduled for training
+                false && 'bg-cyan-500',   // if scheduled for rest day
+                !isEqual(day, SelectedDay) && !isToday(day) &&
+                !isSameMonth(day, firsDayOfCurrentMonth) &&
+                false && 'bg-gray-400' // markers of other months
+
+              )}
+              >
+              </span>
             </div>
           ))}
         </div>
       </div>
-    </DashboardCard>
+    </DashboardCard >
   )
 }
