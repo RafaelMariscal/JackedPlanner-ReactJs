@@ -6,49 +6,57 @@ A React + Firebase (Auth + Firestore + Hosting) web application, Jacked Planner 
 
 ### Project Progress:
 
-    [ ] Front-end
+    [ ] Projects Main Tasks
       [x] Figma App Design
-      [x] Login Page
-        [x] Login Header
-        [x] Login Form Section
-        [x] Login Goals Section
-        [x] Login Features Section
-        [x] Login ProCall Section
-        [x] Login Pro User Advanteges Section
-        [x] Login Footer
-        [x] Go Top Button
+      [x] All static Front-end Pages
+      [ ] Make it Dynamic
+      [ ] Make it Responsive
 
-      [X] Dashboard Page
-        [X] Dashboard home
-          [X] Planners Controller
-          [X] Planner Calendar 
-          [X] Workout Section
-          [X] Personal Notes 
-          [X] Sets Exercise Plan
-          [X] Get Pro Banner
-          [X] Weight History 
-        [X] Dashboard notes
-          [X] Planners Controller
-          [X] Personal Notes History
-          [X] Personal Notes
-          [X] Planners Exercise Plan
-        [X] Dashboard settings
-          [X] Account Settings
-          [X] Password
-          [X] Subscription Status  
-        [X] Page Not Found
-        [X] Unavailable session Page
+    [ ] Make it Dynamic
+      [ ] Connect with Firebase services
+        [ ] Firebase Hosting
+        [ ] Firebase Auth
+          [ ] E-mail + password
+          [ ] Github Login Authentication
+          [ ] Apple Login Authentication
+          [ ] Google Login Authentication
+          [ ] Facebook Login Authentication
+        [ ] Firebase Firestore
 
-    [ ] Functional Calendar component
+      [ ] Login Page
+        [ ] Create user modal
+        [ ] Forgot password modal
+        [ ] Get Pro button redirects to Stripe Page
+
+      [ ] Dashboard Page
+        [ ] Dashboard home
+          [ ] Make it Dynamic
+            [ ] Planners Controller
+              [ ] Print Planners
+              [ ] CRUD modal for Planners
+            [ ] Calendar ( Training Schedule )
+              [ ] Control Training Schedule
+              [ ] Print the correct labels by day
+            [ ] Workout Section 
+              [ ] Print Exercises
+              [ ] CRUD Modal for each exercise
+            [ ] Personal Notes CRUD, day by day
+            [ ] Exercise Plan CRUD 
+            [ ] Get Pro Buttons redirects to Stripe Page (If you are not PRO)
         
-    [ ] Firebase services
-      [ ] Firebase Hosting
-      [ ] Firebase Auth
-        [ ] E-mail + password
-        [ ] Github Login Authentication
-        [ ] Apple Login Authentication
-        [ ] Google Login Authentication
-        [ ] Facebook Login Authentication
-      [ ] Firebase Firestore
-    
-     
+        [ ] Dashboard notes
+          [ ] Personal Notes History
+            [ ] Recieve all notes saved ( Stack )
+          [ ] Personal Notes CRUD
+          [ ] Planners Exercise Plan CRUD
+        
+        [ ] Dashboard settings
+          [ ] Account Settings
+            [ ] Recieve all user data
+            [ ] Add a button to check if its possible to change e-mail
+            [ ] Double check to confirm user changes
+          [ ] Password
+            [ ] Reset passoword button, if confirm, it will send a Unic Code
+            [ ] If the Unic Code is confirmed, password can be reseted.
+            [ ] Submit only if password and confirm password are the same.
+          [ ] Subscription Status
