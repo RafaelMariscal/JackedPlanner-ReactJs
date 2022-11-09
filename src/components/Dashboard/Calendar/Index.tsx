@@ -1,23 +1,31 @@
 import clsx from "clsx";
-import { add, format, isEqual, isSameMonth, isToday, startOfDay, startOfMonth, startOfWeek, sub } from "date-fns";
+import { add, differenceInDays, format, isEqual, isSameMonth, isToday, startOfDay, startOfMonth, startOfWeek, sub } from "date-fns";
 import { eachDayOfInterval, endOfMonth, endOfWeek, parse } from "date-fns/esm";
 import { useState } from "react";
 import { ArrowIcon } from "../../../assets/icons/ArrowIcon";
 import DashboardCard from "../DashboardCard";
 
-
 export function Calendar() {
-  let today = startOfDay(new Date());
+  const today = startOfDay(new Date());
   const [SelectedDay, setSelectedDay] = useState(today);
   const [CurrentMonth, setCurrentMonth] = useState(format(today, 'MMM-yyyy'));
-  let firsDayOfCurrentMonth = parse(CurrentMonth, 'MMM-yyyy', new Date());
+  const firsDayOfCurrentMonth = parse(CurrentMonth, 'MMM-yyyy', new Date());
 
+  const daysBetweenDates = differenceInDays(
+    endOfWeek(endOfMonth(firsDayOfCurrentMonth)),
+    startOfWeek(firsDayOfCurrentMonth),
+  );
 
-  let newDays = eachDayOfInterval({
+  let endOfCalendar = endOfMonth(firsDayOfCurrentMonth);
+
+  daysBetweenDates <= 35 ? // if there is only 5 rows of days, add another row.
+    endOfCalendar = add(endOfMonth(firsDayOfCurrentMonth), { days: 7 })
+    : null
+
+  const newDays = eachDayOfInterval({
     start: startOfWeek(firsDayOfCurrentMonth),
-    end: endOfWeek(endOfMonth(firsDayOfCurrentMonth))
+    end: endOfWeek(endOfCalendar)
   });
-
 
   function handleMonth(m: number) {
     if (m > 0) {
