@@ -1,3 +1,4 @@
+import { useId } from "react";
 import { Button } from "../Button";
 
 interface ProCallSectionProps {
@@ -52,7 +53,7 @@ export function ProCallSection({ price }: ProCallSectionProps) {
             {
               acessList.map((item) => {
                 return (
-                  <li className="leading-tight ml-5  relative
+                  <li key={useId()} className="leading-tight ml-5  relative
                     before:content-[''] before:block before:absolute 
                     before:w-2 before:h-2 before:bg-orange-500 
                     before:-left-5 before:top-[50%] before:-translate-y-[50%]

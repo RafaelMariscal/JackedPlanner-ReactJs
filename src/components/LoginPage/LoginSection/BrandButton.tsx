@@ -1,4 +1,3 @@
-import { Slot } from '@radix-ui/react-slot'
 import { clsx } from 'clsx'
 import { ButtonHTMLAttributes, ReactNode } from 'react';
 
@@ -33,9 +32,9 @@ export interface BrandButtonIconProps {
 
 function Icon({ children }: BrandButtonIconProps) {
   return (
-    <Slot className='ml-[18%]'>
+    <div className='ml-[18%]'>
       {children}
-    </Slot>
+    </div>
   )
 }
 

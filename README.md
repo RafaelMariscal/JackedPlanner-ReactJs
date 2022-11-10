@@ -14,7 +14,6 @@ A React + Firebase (Auth + Firestore + Hosting) web application, Jacked Planner 
 
     [ ] Make it Dynamic
       [ ] Connect with Firebase services
-        [ ] Firebase Hosting
         [ ] Firebase Auth
           [ ] E-mail + password
           [ ] Github Login Authentication
@@ -22,6 +21,7 @@ A React + Firebase (Auth + Firestore + Hosting) web application, Jacked Planner 
           [ ] Google Login Authentication
           [ ] Facebook Login Authentication
         [ ] Firebase Firestore
+        [ ] Firebase Hosting
 
       [ ] Login Page
         [ ] Create user modal
