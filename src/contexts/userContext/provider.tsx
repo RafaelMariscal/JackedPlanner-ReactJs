@@ -25,6 +25,10 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
     sessionStorageAuth();
   }, [])
 
+  const createNewAccount = async ({ email, password }: signInWithEmailProps) => {
+
+  }
+
   const signInWithEmail = async ({ email, password }: signInWithEmailProps) => {
     await signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {

@@ -1,21 +1,26 @@
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useState } from "react";
 import { AppleLogo } from "../../../assets/icons/AppleLogo";
 import { FacebookLogo } from "../../../assets/icons/FacebookLogo";
 import { GithubLogo } from "../../../assets/icons/GithubLogo";
-import { GoogleLogo } from "../../../assets/icons/GoogleLogo copy";
+import { GoogleLogo } from "../../../assets/icons/GoogleLogo";
 import { Button } from "../Button";
 import TextInput from "../TextInput";
 import { BrandButton } from "./BrandButton";
+import * as Dialog from '@radix-ui/react-dialog'
 import { useUserContext } from "../../../contexts/userContext/hook";
+import { CreateNewUserModal } from "../Modals/CreateNewUserModal";
+
+
 
 export function LoginForm() {
+  const [IsCreateAccModalOpen, setIsCreateAccModalOpen] = useState(false)
+  const [IsForgotAccModalOpen, setIsForgotAccModalOpen] = useState(false)
   const {
     signInWithGoogle,
     signInWithGithub,
     signInWithApple,
     signInWithFacebook
   } = useUserContext()
-
 
   const handleSubmit = (event: FormEvent) => { };
 
@@ -33,12 +38,22 @@ export function LoginForm() {
       </Button>
 
       <div className="flex gap-4">
-        <span className="font-medium text-xs text-orange-500 underline cursor-pointer transition-all duration-150 hover:brightness-95 ease-in-out">
+        <span
+          className="
+          font-medium text-xs text-orange-500 underline cursor-pointer transition-all duration-150 ease-in-out
+          hover:text-cyan-500 hover:scale-[104%]
+          "
+        >
           Forgot password
         </span>
-        <span className="font-medium text-xs text-orange-500 underline cursor-pointer transition-all duration-150 hover:brightness-95 ease-in-out">
-          Create account
-        </span>
+
+
+        <CreateNewUserModal
+          IsCreateAccModalOpen={IsCreateAccModalOpen}
+          setIsCreateAccModalOpen={setIsCreateAccModalOpen}
+        />
+
+
       </div>
 
       <BrandButton.Root variant="Github" onClick={signInWithGithub}>

@@ -45,7 +45,8 @@ module.exports = {
       animation: {
         strech: 'strech 200ms ease-in-out forwards',
         return: 'return 200ms ease-in-out forwards',
-        wiggle: 'wiggle 500ms ease-in-out'
+        wiggle: 'wiggle 500ms ease-in-out',
+        appear: 'appear 200ms ease-in-out forwards'
       },
       fontFamily: {
         sans: 'poppins, sans-serif',
@@ -57,13 +58,13 @@ module.exports = {
         'crossfitGuy': "url('/src/assets/crossfitGuy.png')",
       },
       keyframes: {
+        appear: {
+          '0%': { transform: 'scale(15%)', opacity: 0 },
+          '100%': { transform: 'scale(100%)', opacity: 1 }
+        },
         strech: {
           '0%': { width: '4rem' },
           '100%': { width: '100%' }
-        },
-        return: {
-          '0%': { width: '100%' },
-          '100%': { width: '4rem' }
         },
         return: {
           '0%': { width: '100%' },
