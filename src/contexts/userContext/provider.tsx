@@ -1,7 +1,7 @@
-import { GoogleAuthProvider, signInWithPopup, signOut, User } from "firebase/auth";
+import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup, signOut, User } from "firebase/auth";
 import { query, collection, where, getDocs, addDoc } from "firebase/firestore";
 import { ReactNode, useEffect, useState } from "react";
-import { UserContext } from ".";
+import { signInWithEmailProps, UserContext } from ".";
 import { auth, db, googleProvider } from "../../services/firebase";
 
 interface ProviederProps {
@@ -24,6 +24,24 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
     }
     sessionStorageAuth();
   }, [])
+
+  const signInWithEmail = async ({ email, password }: signInWithEmailProps) => {
+    await signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user
+        const token = userCredential.user.getIdTokenResult()
+
+        setUserLogged(user)
+        sessionStorage.setItem(USER_TOKEN, String(token));
+        sessionStorage.setItem(USER_KEY, JSON.stringify(user));
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log({ errorCode, errorMessage })
+        return
+      })
+  }
 
   const signInWithGoogle = async () => {
     await signInWithPopup(auth, googleProvider)
@@ -87,6 +105,7 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
   return (
     <UserContext.Provider value={{
       UserLogged,
+      signInWithEmail,
       signInWithGoogle,
       signInWithGithub,
       signInWithApple,
