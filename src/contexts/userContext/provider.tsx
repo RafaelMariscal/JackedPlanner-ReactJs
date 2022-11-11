@@ -13,6 +13,7 @@ export const USER_TOKEN = "@AuthFirebase:token"
 
 export const UserContextProvider = ({ children }: ProviederProps) => {
   const [UserLogged, setUserLogged] = useState<User>()
+
   useEffect(() => {
     const sessionStorageAuth = () => {
       const sessionToken = sessionStorage.getItem(USER_TOKEN);
@@ -42,6 +43,7 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
           })
         }
 
+        setUserLogged(user)
         sessionStorage.setItem(USER_TOKEN, String(token));
         sessionStorage.setItem(USER_KEY, JSON.stringify(user));
 

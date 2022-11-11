@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes, useNavigate } from 'react-router-dom'
+import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import { Dashboard } from './Pages/Dashboard'
 import { Settings } from './Pages/Dashboard/Settings'
 import { Notes } from './Pages/Dashboard/Notes'
@@ -12,14 +12,16 @@ import { useEffect } from 'react'
 import { useUserContext } from './contexts/userContext/hook'
 
 const PrivateRoutes = () => {
+  const location = useLocation()
   const user = sessionStorage.getItem(USER_KEY);
   const token = sessionStorage.getItem(USER_TOKEN);
-  return !!user && !!token ? <Dashboard /> : <Navigate to={'/'} />
+  return (!!user && !!token)
+    ? <Dashboard /> : <Navigate to={'/'} state={{ from: location }} replace />
 }
 
 export function Router() {
-  let navigate = useNavigate()
   const { UserLogged } = useUserContext()
+  let navigate = useNavigate()
 
   useEffect(() => {
     const sessionStorageAuth = () => {
