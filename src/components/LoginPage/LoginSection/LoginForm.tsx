@@ -1,4 +1,4 @@
-import { FormEvent } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { AppleLogo } from "../../../assets/icons/AppleLogo";
 import { FacebookLogo } from "../../../assets/icons/FacebookLogo";
 import { GithubLogo } from "../../../assets/icons/GithubLogo";
@@ -6,13 +6,18 @@ import { GoogleLogo } from "../../../assets/icons/GoogleLogo copy";
 import { Button } from "../Button";
 import TextInput from "../TextInput";
 import { BrandButton } from "./BrandButton";
-
-function handleSubmit(event: FormEvent) {
-
-}
+import { useUserContext } from "../../../contexts/userContext/hook";
 
 export function LoginForm() {
+  const {
+    signInWithGoogle,
+    signInWithGithub,
+    signInWithApple,
+    signInWithFacebook
+  } = useUserContext()
 
+
+  const handleSubmit = (event: FormEvent) => { };
 
   return (
     <form id="loginForm" onSubmit={() => handleSubmit}
@@ -36,22 +41,22 @@ export function LoginForm() {
         </span>
       </div>
 
-      <BrandButton.Root variant="Github">
+      <BrandButton.Root variant="Github" onClick={signInWithGithub}>
         <BrandButton.Icon>
           <GithubLogo />
         </BrandButton.Icon>
       </BrandButton.Root>
-      <BrandButton.Root variant="Apple">
+      <BrandButton.Root variant="Apple" onClick={signInWithApple}>
         <BrandButton.Icon>
           <AppleLogo />
         </BrandButton.Icon>
       </BrandButton.Root>
-      <BrandButton.Root variant="Google">
+      <BrandButton.Root variant="Google" onClick={signInWithGoogle}>
         <BrandButton.Icon>
           <GoogleLogo />
         </BrandButton.Icon>
       </BrandButton.Root>
-      <BrandButton.Root variant="Facebook">
+      <BrandButton.Root variant="Facebook" onClick={signInWithFacebook}>
         <BrandButton.Icon>
           <FacebookLogo />
         </BrandButton.Icon>
