@@ -1,4 +1,4 @@
-import { GoogleAuthProvider, signInWithPopup, User } from "firebase/auth";
+import { GoogleAuthProvider, signInWithPopup, signOut, User } from "firebase/auth";
 import { query, collection, where, getDocs, addDoc } from "firebase/firestore";
 import { ReactNode, useEffect, useState } from "react";
 import { UserContext } from ".";
@@ -71,13 +71,27 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
 
   };
 
+  const signOutTrigger = async () => {
+    sessionStorage.clear()
+    signOut(auth)
+      .then(() => {
+        setUserLogged(undefined);
+        sessionStorage.clear();
+        console.log('User logout successfully!')
+      })
+      .catch((err) => {
+        alert(err.message)
+      })
+  }
+
   return (
     <UserContext.Provider value={{
       UserLogged,
       signInWithGoogle,
       signInWithGithub,
       signInWithApple,
-      signInWithFacebook
+      signInWithFacebook,
+      signOutTrigger
     }}
     >
       {children}

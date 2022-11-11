@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
+import { useUserContext } from "../../contexts/userContext/hook";
 
 export function Navbar() {
+  const { signOutTrigger } = useUserContext()
+
   return (
     <nav className=" fixed left-0
       w-[4.5rem] h-full bg-gray-800 px-6 pb-8 pt-24
@@ -29,9 +32,9 @@ export function Navbar() {
         </Link>
 
       </div>
-      <Link to={'/'}>
+      <div onClick={signOutTrigger}>
         <img src="/src/assets/icons/Dashboard/Exit.svg" alt="" className="w-6 hover:animate-wiggle" />
-      </Link>
+      </div>
     </nav>
   )
 }
