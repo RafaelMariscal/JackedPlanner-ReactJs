@@ -6,19 +6,26 @@ export interface signInWithEmailProps {
   password: string;
 }
 
+export interface NewAccountProps {
+  name: string;
+  email: string;
+  password: string;
+}
+
 export interface UserContextProps {
   UserLogged?: User | {};
-  isUserLoggedIn?: boolean;
+  setUserLogged: React.Dispatch<React.SetStateAction<User | undefined>>;
 
-  signInWithEmail?: ({ email, password }: signInWithEmailProps) => void;
-  signInWithGoogle?: () => void;
-  signInWithGithub?: () => void;
-  signInWithApple?: () => void;
-  signInWithFacebook?: () => void;
+  createNewUser: (email: string, password: string, name: string) => void;
 
-  signInAnonymously?: () => void;
+  signInWithEmail: (email: string, password: string) => void;
+  signInWithGoogle: () => void;
+  signInWithGithub: () => void;
+  signInWithApple: () => void;
+  signInWithFacebook: () => void;
 
-  signOutTrigger?: () => void;
+
+  signOutTrigger: () => void;
 }
 
 export const UserContext = createContext<UserContextProps>({});

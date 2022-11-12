@@ -6,7 +6,6 @@ import { GoogleLogo } from "../../../assets/icons/GoogleLogo";
 import { Button } from "../Button";
 import TextInput from "../TextInput";
 import { BrandButton } from "./BrandButton";
-import * as Dialog from '@radix-ui/react-dialog'
 import { useUserContext } from "../../../contexts/userContext/hook";
 import { CreateNewUserModal } from "../Modals/CreateNewUserModal";
 
@@ -15,6 +14,11 @@ import { CreateNewUserModal } from "../Modals/CreateNewUserModal";
 export function LoginForm() {
   const [IsCreateAccModalOpen, setIsCreateAccModalOpen] = useState(false)
   const [IsForgotAccModalOpen, setIsForgotAccModalOpen] = useState(false)
+  const [Email, setEmail] = useState('')
+  const [Password, setPassword] = useState('')
+
+  const { signInWithEmail } = useUserContext()
+
   const {
     signInWithGoogle,
     signInWithGithub,
@@ -22,20 +26,31 @@ export function LoginForm() {
     signInWithFacebook
   } = useUserContext()
 
-  const handleSubmit = (event: FormEvent) => { };
+  const handleSubmit = (event: FormEvent) => {
+    event.preventDefault()
+    signInWithEmail(Email, Password)
+  };
 
   return (
-    <form id="loginForm" onSubmit={() => handleSubmit}
-      className="max-w-[22.5rem] w-full flex flex-col gap-4 items-center justify-center"
+    <div id="loginForm"
+      className="w-full max-w-[22.5rem] flex flex-col gap-4 items-center justify-center"
     >
-      <TextInput label="Email" type="email" placeholder="email@exemple.com" required
-      />
+      <form onSubmit={handleSubmit}
+        className="w-full flex flex-col gap-4 items-center justify-center"
+      >
 
-      <TextInput label="Password" type="password" placeholder="********" required />
+        <TextInput type="email" label="Email" placeholder="email@exemple.com"
+          required value={Email} setInputValue={setEmail}
+        />
 
-      <Button variant="orange" size="lg" login>
-        <button>Login</button>
-      </Button>
+        <TextInput type="password" label="Password" placeholder="********"
+          required value={Password} setInputValue={setPassword}
+        />
+
+        <Button variant="orange" size="lg" login>
+          <button>Login</button>
+        </Button>
+      </form>
 
       <div className="flex gap-4">
         <span
@@ -76,6 +91,6 @@ export function LoginForm() {
           <FacebookLogo />
         </BrandButton.Icon>
       </BrandButton.Root>
-    </form>
+    </div>
   )
 }

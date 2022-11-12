@@ -1,7 +1,7 @@
 import { FormEvent, useRef } from "react";
 import * as Dialog from '@radix-ui/react-dialog'
-
 import { Button } from "../Button";
+import { useUserContext } from "../../../contexts/userContext/hook";
 
 interface CreateNewUserModalProps {
   IsCreateAccModalOpen: boolean;
@@ -9,6 +9,8 @@ interface CreateNewUserModalProps {
 }
 
 export function CreateNewUserModal({ IsCreateAccModalOpen, setIsCreateAccModalOpen }: CreateNewUserModalProps) {
+  const { createNewUser } = useUserContext()
+
   const NameInput = useRef<HTMLInputElement>(null)
   const EmailInput = useRef<HTMLInputElement>(null)
   const PasswordInput = useRef<HTMLInputElement>(null)
@@ -16,16 +18,16 @@ export function CreateNewUserModal({ IsCreateAccModalOpen, setIsCreateAccModalOp
 
   const handleCreateNewUser = async (e: FormEvent) => {
     e.preventDefault()
+    const name = String(NameInput.current?.value)
+    const email = String(EmailInput.current?.value)
+    const password = String(PasswordInput.current?.value)
+    const confirmPassword = String(ConfirmPasswordInput.current?.value)
 
-    const Name = NameInput.current?.value
-    const Email = EmailInput.current?.value
-    const Password = PasswordInput.current?.value
-    const ConfirmPassword = ConfirmPasswordInput.current?.value
-
-    if (Password != ConfirmPassword) {
-      PasswordInput.current?.setCustomValidity("Passwords don't match")
+    if (password != confirmPassword) {
+      return alert("Passwords don't match")   // maybe a tost card to massage
     } else {
       PasswordInput.current?.setCustomValidity("")
+      createNewUser(email, password, name)
       setIsCreateAccModalOpen(false)
     }
   }
@@ -96,13 +98,13 @@ export function CreateNewUserModal({ IsCreateAccModalOpen, setIsCreateAccModalOp
               <label htmlFor="userPassword">
                 Password
                 <input type="password" name="userPassword" id="userPassword"
-                  placeholder="**********" required ref={PasswordInput}
+                  placeholder="**********" minLength={6} required ref={PasswordInput}
                 />
               </label>
               <label htmlFor="confirmPassword">
                 Confirm password
                 <input type="password" name="confirmPassword" id="confirmPassword"
-                  placeholder="**********" required ref={ConfirmPasswordInput}
+                  placeholder="**********" minLength={6} required ref={ConfirmPasswordInput}
                 />
               </label>
 

@@ -1,8 +1,16 @@
-import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup, signOut, User } from "firebase/auth";
-import { query, collection, where, getDocs, addDoc } from "firebase/firestore";
 import { ReactNode, useEffect, useState } from "react";
-import { signInWithEmailProps, UserContext } from ".";
+import { UserContext } from ".";
 import { auth, db, googleProvider } from "../../services/firebase";
+import { doc, setDoc, getDoc } from "firebase/firestore";
+import {
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signOut,
+  User,
+  createUserWithEmailAndPassword,
+} from "firebase/auth";
+import { FirebaseError } from "firebase/app";
 
 interface ProviederProps {
   children: ReactNode;
@@ -10,26 +18,49 @@ interface ProviederProps {
 
 export const USER_KEY = "@AuthFirebase:user"
 export const USER_TOKEN = "@AuthFirebase:token"
+export const USER_ACCESS_TOKEN = "@AuthFirebase:accessToken"
 
 export const UserContextProvider = ({ children }: ProviederProps) => {
   const [UserLogged, setUserLogged] = useState<User>()
 
   useEffect(() => {
     const sessionStorageAuth = () => {
-      const sessionToken = sessionStorage.getItem(USER_TOKEN);
+      const sessionToken = sessionStorage.getItem(USER_TOKEN)
       const sessionUser = sessionStorage.getItem(USER_KEY);
-      if (sessionToken && sessionUser) {
+      if (!!sessionToken && !!sessionUser) {
         setUserLogged(JSON.parse(sessionUser));
       }
     }
-    sessionStorageAuth();
+    return sessionStorageAuth();
   }, [])
 
-  const createNewAccount = async ({ email, password }: signInWithEmailProps) => {
+  const createNewUser = async (email: string, password: string, name: string) => {
+    await createUserWithEmailAndPassword(auth, email, password)
+      .then(async (result) => {
+        const user = result.user;
+        const docRef = doc(db, "users", user.uid);
+        const docSnap = await getDoc(docRef);
 
+        if (docSnap.data() === undefined) {
+          await setDoc(doc(db, "users", user.uid), {
+            name: name,
+            email: user.email,
+            authProvider: user.providerId
+          })
+          console.log(`New user created`);
+        }
+        setUserLogged(user)
+        sessionStorage.setItem(USER_TOKEN, String(user.uid));
+        sessionStorage.setItem(USER_KEY, JSON.stringify(user));
+      })
+      .catch((error: FirebaseError) => {
+        const errorMessage = error.message;
+        console.log(errorMessage);
+        alert(errorMessage);
+      })
   }
 
-  const signInWithEmail = async ({ email, password }: signInWithEmailProps) => {
+  const signInWithEmail = async (email: string, password: string) => {
     await signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user
@@ -51,32 +82,34 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
     await signInWithPopup(auth, googleProvider)
       .then(async (result) => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential?.accessToken
+        const accessToken = credential?.accessToken
         const user = result.user;
+        const uidToken = user.uid
         const providerId = result.providerId;
 
-        const q = query(collection(db, "users"), where("uid", "==", user.uid));
-        const docs = await getDocs(q);
-        if (docs.docs.length === 0) {
-          await addDoc(collection(db, 'users'), {
+        const docRef = doc(db, "users", uidToken);
+        const docSnap = await getDoc(docRef)
+
+        if (docSnap.data() === undefined) {
+          await setDoc(doc(db, "users", uidToken), {
             name: user.displayName,
             email: user.email,
-            authProvider: providerId,
+            authProvider: providerId
           })
+          console.log(`New user created`);
         }
 
         setUserLogged(user)
-        sessionStorage.setItem(USER_TOKEN, String(token));
         sessionStorage.setItem(USER_KEY, JSON.stringify(user));
-
-        console.log({ result, credential, providerId, token, user });
+        sessionStorage.setItem(USER_TOKEN, String(uidToken));
+        sessionStorage.setItem(USER_ACCESS_TOKEN, String(accessToken));
+        console.log(`User logged succesfully`);
 
       }).catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        const email = error.customData.email;
         const credential = GoogleAuthProvider.credentialFromError(error);
-        console.log({ errorCode, errorMessage, email, credential })
+        console.log({ errorCode, errorMessage, credential })
         return
       });
   };
@@ -109,6 +142,8 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
   return (
     <UserContext.Provider value={{
       UserLogged,
+      setUserLogged,
+      createNewUser,
       signInWithEmail,
       signInWithGoogle,
       signInWithGithub,
