@@ -23,6 +23,10 @@ export const USER_ACCESS_TOKEN = "@AuthFirebase:accessToken"
 export const UserContextProvider = ({ children }: ProviederProps) => {
   const [UserLogged, setUserLogged] = useState<User>()
 
+  // SET LOADING FEATURE...
+
+
+
   useEffect(() => {
     const sessionStorageAuth = () => {
       const sessionToken = sessionStorage.getItem(USER_TOKEN)

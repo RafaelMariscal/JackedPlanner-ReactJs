@@ -14,13 +14,13 @@ A React + Firebase (Auth + Firestore + Hosting) web application, Jacked Planner 
 
     [ ] Make it Dynamic
       [ ] Connect with Firebase services
-        [ ] Firebase Auth
-          [ ] E-mail + password
+        [ ] Firebase Auth Login
+          [X] E-mail + password
+          [X] Google Login Authentication
           [ ] Github Login Authentication
           [ ] Apple Login Authentication
-          [ ] Google Login Authentication
           [ ] Facebook Login Authentication
-        [ ] Firebase Firestore
+        [X] Firebase Firestore
         [ ] Firebase Hosting
 
       [ ] Login Page
