@@ -27,7 +27,7 @@ export function Router() {
     const sessionStorageAuth = () => {
       const sessionToken = sessionStorage.getItem(USER_TOKEN);
       const sessionUser = sessionStorage.getItem(USER_KEY);
-      if (sessionToken && sessionUser) {
+      if (!!sessionToken && !!sessionUser) {
         navigate('/dashboard')
       }
     }

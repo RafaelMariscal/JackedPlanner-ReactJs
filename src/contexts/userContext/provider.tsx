@@ -1,5 +1,5 @@
 import { ReactNode, useEffect, useState } from "react";
-import { UserContext } from ".";
+import { NewAccountProps, signInWithEmailProps, UserContext } from ".";
 import { auth, db, googleProvider } from "../../services/firebase";
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import {
@@ -23,10 +23,6 @@ export const USER_ACCESS_TOKEN = "@AuthFirebase:accessToken"
 export const UserContextProvider = ({ children }: ProviederProps) => {
   const [UserLogged, setUserLogged] = useState<User>()
 
-  // SET LOADING FEATURE...
-
-
-
   useEffect(() => {
     const sessionStorageAuth = () => {
       const sessionToken = sessionStorage.getItem(USER_TOKEN)
@@ -35,11 +31,11 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
         setUserLogged(JSON.parse(sessionUser));
       }
     }
-    return sessionStorageAuth();
+    sessionStorageAuth();
   }, [])
 
-  const createNewUser = async (email: string, password: string, name: string) => {
-    await createUserWithEmailAndPassword(auth, email, password)
+  const createNewUser = async ({ email, password, name }: NewAccountProps) => {
+    return await createUserWithEmailAndPassword(auth, email, password)
       .then(async (result) => {
         const user = result.user;
         const docRef = doc(db, "users", user.uid);
@@ -51,21 +47,21 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
             email: user.email,
             authProvider: user.providerId
           })
-          console.log(`New user created`);
         }
         setUserLogged(user)
         sessionStorage.setItem(USER_TOKEN, String(user.uid));
         sessionStorage.setItem(USER_KEY, JSON.stringify(user));
+        return "New user created";
       })
       .catch((error: FirebaseError) => {
-        const errorMessage = error.message;
-        console.log(errorMessage);
-        alert(errorMessage);
+        const errorCode = error.code;
+        console.log({ error })
+        return errorCode.slice(5).replace(/-(?!>)/g, ' ')
       })
   }
 
-  const signInWithEmail = async (email: string, password: string) => {
-    await signInWithEmailAndPassword(auth, email, password)
+  const signInWithEmail = async ({ email, password }: signInWithEmailProps) => {
+    return await signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user
         const token = userCredential.user.getIdTokenResult()
@@ -73,12 +69,12 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
         setUserLogged(user)
         sessionStorage.setItem(USER_TOKEN, String(token));
         sessionStorage.setItem(USER_KEY, JSON.stringify(user));
+        return "sign in successfull"
       })
-      .catch((error) => {
+      .catch((error: FirebaseError) => {
         const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log({ errorCode, errorMessage })
-        return
+        console.log({ error })
+        return errorCode.slice(5).replace(/-(?!>)/g, ' ')
       })
   }
 

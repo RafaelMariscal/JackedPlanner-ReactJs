@@ -14,8 +14,11 @@ import { CreateNewUserModal } from "../Modals/CreateNewUserModal";
 export function LoginForm() {
   const [IsCreateAccModalOpen, setIsCreateAccModalOpen] = useState(false)
   const [IsForgotAccModalOpen, setIsForgotAccModalOpen] = useState(false)
-  const [Email, setEmail] = useState('')
-  const [Password, setPassword] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  const [IsLoading, setIsLoading] = useState(false)
+  const [Message, setMessage] = useState('')
 
   const { signInWithEmail } = useUserContext()
 
@@ -26,9 +29,14 @@ export function LoginForm() {
     signInWithFacebook
   } = useUserContext()
 
-  const handleSubmit = (event: FormEvent) => {
+  const handleSubmit = async (event: FormEvent) => {
     event.preventDefault()
-    signInWithEmail(Email, Password)
+    setMessage("");
+    setIsLoading(true);
+    const result = await signInWithEmail({ email, password })
+    result !== "sign in successfull" ?
+      setMessage(`Login Failed: ${String(result)}`) : null
+    setIsLoading(false);
   };
 
   return (
@@ -40,16 +48,19 @@ export function LoginForm() {
       >
 
         <TextInput type="email" label="Email" placeholder="email@exemple.com"
-          required value={Email} setInputValue={setEmail}
+          required value={email} setInputValue={setEmail}
         />
 
         <TextInput type="password" label="Password" placeholder="********"
-          required value={Password} setInputValue={setPassword}
+          required value={password} setInputValue={setPassword}
         />
-
-        <Button variant="orange" size="lg" login>
-          <button>Login</button>
-        </Button>
+        <div className="w-full text-center">
+          <Button variant="orange" size="lg" login
+            className="disabled:bg-orange-700 disabled:border-transparent">
+            <button disabled={IsLoading} >Login</button>
+          </Button>
+          {Message && <span className="text-xs ml-2 text-gray-200">{Message}</span>}
+        </div>
       </form>
 
       <div className="flex gap-4">

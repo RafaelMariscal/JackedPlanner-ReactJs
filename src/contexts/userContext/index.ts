@@ -16,16 +16,16 @@ export interface UserContextProps {
   UserLogged?: User | {};
   setUserLogged: React.Dispatch<React.SetStateAction<User | undefined>>;
 
-  createNewUser: (email: string, password: string, name: string) => void;
+  createNewUser: ({ email, password, name }: NewAccountProps) => Promise<string>;
 
-  signInWithEmail: (email: string, password: string) => void;
-  signInWithGoogle: () => void;
-  signInWithGithub: () => void;
-  signInWithApple: () => void;
-  signInWithFacebook: () => void;
+  signInWithEmail: ({ email, password }: signInWithEmailProps) => Promise<string>;
 
+  signInWithGoogle: () => Promise<void>;
+  signInWithGithub: () => Promise<void>;
+  signInWithApple: () => Promise<void>;
+  signInWithFacebook: () => Promise<void>;
 
-  signOutTrigger: () => void;
+  signOutTrigger: () => Promise<void>;
 }
 
 export const UserContext = createContext<UserContextProps>({});

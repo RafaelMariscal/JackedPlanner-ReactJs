@@ -1,4 +1,4 @@
-import { FormEvent, useRef } from "react";
+import { FormEvent, useRef, useState } from "react";
 import * as Dialog from '@radix-ui/react-dialog'
 import { Button } from "../Button";
 import { useUserContext } from "../../../contexts/userContext/hook";
@@ -16,6 +16,9 @@ export function CreateNewUserModal({ IsCreateAccModalOpen, setIsCreateAccModalOp
   const PasswordInput = useRef<HTMLInputElement>(null)
   const ConfirmPasswordInput = useRef<HTMLInputElement>(null)
 
+  const [IsLoading, setIsLoading] = useState(false)
+  const [Message, setMessage] = useState('')
+
   const handleCreateNewUser = async (e: FormEvent) => {
     e.preventDefault()
     const name = String(NameInput.current?.value)
@@ -24,16 +27,25 @@ export function CreateNewUserModal({ IsCreateAccModalOpen, setIsCreateAccModalOp
     const confirmPassword = String(ConfirmPasswordInput.current?.value)
 
     if (password != confirmPassword) {
-      return alert("Passwords don't match")   // maybe a tost card to massage
-    } else {
-      PasswordInput.current?.setCustomValidity("")
-      createNewUser(email, password, name)
-      setIsCreateAccModalOpen(false)
+      return setMessage("Passwords don't match")
     }
+
+    setIsLoading(true);
+    const response = await createNewUser({ email, password, name });
+    if (response === "New user created") {
+      setIsCreateAccModalOpen(false);
+    } else {
+      setMessage(`Failed to create user, ${String(response)}`)
+    }
+    setIsLoading(false);
   }
 
   return (
-    <Dialog.Root open={IsCreateAccModalOpen} onOpenChange={setIsCreateAccModalOpen} modal>
+    <Dialog.Root open={IsCreateAccModalOpen} modal
+      onOpenChange={() => {
+        setIsCreateAccModalOpen(!IsCreateAccModalOpen)
+        setMessage("")
+      }} >
       <Dialog.Trigger asChild>
         <span className="font-medium text-xs text-orange-500 underline 
           cursor-pointer transition-all duration-150 ease-in-out
@@ -84,32 +96,33 @@ export function CreateNewUserModal({ IsCreateAccModalOpen, setIsCreateAccModalOp
               "
             >
               <label htmlFor="userName">
-                Name
+                <span className="ml-1">Name</span>
                 <input type="text" name="userName" id="userName"
                   placeholder="John Wick" required ref={NameInput}
                 />
               </label>
               <label htmlFor="userEmail">
-                Email
+                <span className="ml-1">Email</span>
                 <input type="email" name="userEmail" id="userEmail"
                   placeholder="john_wick@tarasov.com" required ref={EmailInput}
                 />
               </label>
               <label htmlFor="userPassword">
-                Password
+                <span className="ml-1">Password</span>
                 <input type="password" name="userPassword" id="userPassword"
                   placeholder="**********" minLength={6} required ref={PasswordInput}
                 />
               </label>
               <label htmlFor="confirmPassword">
-                Confirm password
+                <span className="ml-1">Confirm password</span>
                 <input type="password" name="confirmPassword" id="confirmPassword"
                   placeholder="**********" minLength={6} required ref={ConfirmPasswordInput}
                 />
+                {Message && <span className="text-xs ml-2 text-gray-200">{Message}</span>}
               </label>
 
               <Button size="lg" variant="orange" className="mt-2" login>
-                <button className="text-md">
+                <button className="text-md disabled:bg-orange-700" disabled={IsLoading}>
                   Create account
                 </button>
               </Button>
