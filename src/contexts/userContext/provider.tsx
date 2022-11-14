@@ -1,15 +1,16 @@
 import { ReactNode, useEffect, useState } from "react";
 import { NewAccountProps, signInWithEmailProps, UserContext } from ".";
-import { auth, db, googleProvider } from "../../services/firebase";
+import { auth, db, githubProvider, googleProvider } from "../../services/firebase";
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import {
-  signInWithEmailAndPassword,
   GoogleAuthProvider,
+  signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
   User,
   createUserWithEmailAndPassword,
   sendPasswordResetEmail,
+  GithubAuthProvider,
 } from "firebase/auth";
 import { FirebaseError } from "firebase/app";
 
@@ -116,7 +117,32 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
   };
 
   const signInWithGithub = async () => {
+    return await signInWithPopup(auth, githubProvider)
+      .then(async (result) => {
+        const credential = GithubAuthProvider.credentialFromResult(result);
+        const accessToken = credential?.accessToken
+        const user = result.user;
+        const uidToken = user.uid
+        const providerId = result.providerId;
 
+        const docRef = doc(db, "users", uidToken);
+        const docSnap = await getDoc(docRef)
+
+        if (docSnap.data() === undefined) {
+          await setDoc(doc(db, "users", uidToken), {
+            name: user.displayName,
+            email: user.email,
+            authProvider: providerId
+          })
+          console.log(`New user created`);
+        }
+
+        setUserLogged(user)
+        sessionStorage.setItem(USER_KEY, JSON.stringify(user));
+        sessionStorage.setItem(USER_TOKEN, String(uidToken));
+        sessionStorage.setItem(USER_ACCESS_TOKEN, String(accessToken));
+        console.log(`User logged succesfully`);
+      })
   };
 
   const signInWithApple = async () => {
@@ -151,6 +177,14 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
         console.log({ error })
         return errorCode.slice(5).replace(/-(?!>)/g, ' ')
       })
+  }
+
+  const updateUserProps = async () => {
+
+  }
+
+  const updatePassword = async () => {
+
   }
 
   return (
