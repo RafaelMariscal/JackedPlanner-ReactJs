@@ -9,16 +9,15 @@ import { BrandButton } from "./BrandButton";
 import { useUserContext } from "../../../contexts/userContext/hook";
 import { CreateNewUserModal } from "../Modals/CreateNewUserModal";
 
-
-
 export function LoginForm() {
-  const [IsCreateAccModalOpen, setIsCreateAccModalOpen] = useState(false)
-  const [IsForgotAccModalOpen, setIsForgotAccModalOpen] = useState(false)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
   const [IsLoading, setIsLoading] = useState(false)
   const [Message, setMessage] = useState('')
+
+  const [IsCreateAccModalOpen, setIsCreateAccModalOpen] = useState(false)
+  const [IsForgotAccModalOpen, setIsForgotAccModalOpen] = useState(false)
 
   const { signInWithEmail } = useUserContext()
 
@@ -63,21 +62,24 @@ export function LoginForm() {
         </div>
       </form>
 
-      <div className="flex gap-4">
+      <div className="flex justify-around w-full tracking-wide underline-offset-2">
         <span
           className="
-          font-medium text-xs text-orange-500 underline cursor-pointer transition-all duration-150 ease-in-out
+          text-xs text-gray-100 underline cursor-pointer transition-all duration-150 ease-in-out
           hover:text-cyan-500 hover:scale-[104%]
           "
         >
-          Forgot password
+          Forgot password?
         </span>
 
+        <div className="flex gap-1">
+          <span className="text-xs text-gray-100">Need a new account? </span>
 
-        <CreateNewUserModal
-          IsCreateAccModalOpen={IsCreateAccModalOpen}
-          setIsCreateAccModalOpen={setIsCreateAccModalOpen}
-        />
+          <CreateNewUserModal
+            IsCreateAccModalOpen={IsCreateAccModalOpen}
+            setIsCreateAccModalOpen={setIsCreateAccModalOpen}
+          />
+        </div>
 
 
       </div>

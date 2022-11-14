@@ -12,15 +12,15 @@ export function FormHeader() {
         <p className="text-4xl leading-none font-semibold">
           BUT SUPER <span>JACKED</span>
         </p>
-        <h2 className="text-lg leading-6 font-semibold">
-          Organize your workout routine ang <span>GET HUGE</span>!
+        <h2 className="text-lg leading-6">
+          Organize your workout routine and <span className="font-semibold">GET HUGE</span>!
         </h2>
         <div className="text-lg leading-6 flex gap-4">
           <Anchor href="#aboutUs">
-            About <span>Us</span>
+            About<span>Us</span>
           </Anchor>
           <Anchor href="#getPro">
-            Get <span>Pro</span>
+            Get<span>Pro</span>
           </Anchor>
         </div>
       </div >

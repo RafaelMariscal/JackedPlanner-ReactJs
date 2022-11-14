@@ -24,7 +24,7 @@ export function LoginSection() {
           <ContactLinks />
         </div>
       </div>
-      <span className="block w-full h-16 bg-gray-800 border-b-4 border-orange-500" />
+      <span className="block w-full h-20 bg-gray-800 border-b-8 border-orange-500" />
     </div>
   )
 }

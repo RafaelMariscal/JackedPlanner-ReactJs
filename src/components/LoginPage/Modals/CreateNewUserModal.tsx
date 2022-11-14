@@ -46,13 +46,14 @@ export function CreateNewUserModal({ IsCreateAccModalOpen, setIsCreateAccModalOp
         setIsCreateAccModalOpen(!IsCreateAccModalOpen)
         setMessage("")
       }} >
+
       <Dialog.Trigger asChild>
-        <span className="font-medium text-xs text-orange-500 underline 
+        <span className="font-medium text-xs text-gray-100 underline 
           cursor-pointer transition-all duration-150 ease-in-out
           hover:text-cyan-500 hover:scale-[104%]
           "
         >
-          Create account
+          Sing up!
         </span>
       </Dialog.Trigger>
 
@@ -68,14 +69,16 @@ export function CreateNewUserModal({ IsCreateAccModalOpen, setIsCreateAccModalOp
                 "
           >
             <div className="w-full mb-6 flex items-center justify-between">
-              <Dialog.Title className="text-gray-100 font-medium text-lg">
+              <Dialog.Title className="text-gray-100 font-medium leading-tight">
                 Create new account
               </Dialog.Title>
               <Dialog.Close asChild
-                className="outline-none focus:text-orange-500"
+                className="w-6 h-6 rounded-sm outline-none 
+                focus:outline-orange-500"
               >
                 <button aria-label="Close"
-                  className="text-gray-100 font-medium text-lg select-none"
+                  className="text-gray-100 font-medium text-lg select-none
+                  leading-tight hover:text-orange-500"
                 >
                   x
                 </button>
@@ -121,7 +124,9 @@ export function CreateNewUserModal({ IsCreateAccModalOpen, setIsCreateAccModalOp
                 {Message && <span className="text-xs ml-2 text-gray-200">{Message}</span>}
               </label>
 
-              <Button size="lg" variant="orange" className="mt-2" login>
+              <Button size="lg" variant="orange" login
+                className="mt-2 outline-none focus:outline-orange-500 focus:outline-1"
+              >
                 <button className="text-md disabled:bg-orange-700" disabled={IsLoading}>
                   Create account
                 </button>

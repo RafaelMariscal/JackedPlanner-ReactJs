@@ -15,8 +15,9 @@ const PrivateRoutes = () => {
   const location = useLocation()
   const user = sessionStorage.getItem(USER_KEY);
   const token = sessionStorage.getItem(USER_TOKEN);
-  return (!!user && !!token)
-    ? <Dashboard /> : <Navigate to={'/'} state={{ from: location }} replace />
+  return (!!user && !!token) ?
+    <Dashboard /> :
+    <Navigate to={'/'} state={{ from: location }} replace />
 }
 
 export function Router() {

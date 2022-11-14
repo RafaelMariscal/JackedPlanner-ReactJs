@@ -10,7 +10,7 @@ function Root({ children, variant, ...props }: BrandButtonRootProps) {
   return (
     <button type='button'
       className={clsx(
-        `w-full h-10 rounded-md text-sm font-medium border-2 border-transparent flex items-center gap-6 transition-all duration-150 ease-in-out hover:border-orange-500`,
+        `w-full h-10 rounded-md text-sm font-medium border-2 border-transparent flex items-center gap-6 transition-all duration-150 ease-in-out hover:border-orange-500 select-none`,
         {
           'bg-black text-gray-100': variant === 'Apple',
           'bg-blue text-gray-100': variant === 'Facebook',
