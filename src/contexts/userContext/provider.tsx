@@ -9,6 +9,7 @@ import {
   signOut,
   User,
   createUserWithEmailAndPassword,
+  sendPasswordResetEmail,
 } from "firebase/auth";
 import { FirebaseError } from "firebase/app";
 
@@ -139,6 +140,19 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
       })
   }
 
+  const resetPassword = async (email: string) => {
+    return await sendPasswordResetEmail(auth, email)
+      .then((result) => {
+        console.log(result)
+        return "Password reset email sent!"
+      })
+      .catch((error: FirebaseError) => {
+        const errorCode = error.code;
+        console.log({ error })
+        return errorCode.slice(5).replace(/-(?!>)/g, ' ')
+      })
+  }
+
   return (
     <UserContext.Provider value={{
       UserLogged,
@@ -149,7 +163,8 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
       signInWithGithub,
       signInWithApple,
       signInWithFacebook,
-      signOutTrigger
+      signOutTrigger,
+      resetPassword
     }}
     >
       {children}

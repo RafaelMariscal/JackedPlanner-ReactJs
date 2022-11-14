@@ -17,15 +17,13 @@ export interface UserContextProps {
   setUserLogged: React.Dispatch<React.SetStateAction<User | undefined>>;
 
   createNewUser: ({ email, password, name }: NewAccountProps) => Promise<string>;
-
   signInWithEmail: ({ email, password }: signInWithEmailProps) => Promise<string>;
-
   signInWithGoogle: () => Promise<void>;
   signInWithGithub: () => Promise<void>;
   signInWithApple: () => Promise<void>;
   signInWithFacebook: () => Promise<void>;
-
   signOutTrigger: () => Promise<void>;
+  resetPassword: (email: string) => Promise<string>;
 }
 
 export const UserContext = createContext<UserContextProps>({});

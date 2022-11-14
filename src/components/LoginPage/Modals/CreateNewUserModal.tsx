@@ -35,7 +35,7 @@ export function CreateNewUserModal({ IsCreateAccModalOpen, setIsCreateAccModalOp
     if (response === "New user created") {
       setIsCreateAccModalOpen(false);
     } else {
-      setMessage(`Failed to create user, ${String(response)}`)
+      setMessage(`Sign up failed: ${response}`)
     }
     setIsLoading(false);
   }

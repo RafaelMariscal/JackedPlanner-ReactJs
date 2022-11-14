@@ -9,7 +9,7 @@ interface ForgotPasswordModalProps {
 }
 
 export function ForgotPasswordModal({ IsForgotAccModalOpen, setIsForgotAccModalOpen }: ForgotPasswordModalProps) {
-  const { } = useUserContext()
+  const { resetPassword } = useUserContext()
   const EmailInput = useRef<HTMLInputElement>(null)
 
   const [IsLoading, setIsLoading] = useState(false)
@@ -20,14 +20,14 @@ export function ForgotPasswordModal({ IsForgotAccModalOpen, setIsForgotAccModalO
     const email = String(EmailInput.current?.value)
 
     setIsLoading(true);
-    /* const response = await forgotPasswordFunction
+    const response = await resetPassword(email);
 
-    if (response === "New user created") {
-      setIsForgotAccModalOpen(false);
+    if (response === "Password reset email sent!") {
+      setMessage(response)
     } else {
-      setMessage(`Request failed, ${String(response)}`)
+      setMessage(`Request failed, ${response}`)
     }
-    setIsLoading(false); */
+    setIsLoading(false);
   }
 
   return (
