@@ -10,6 +10,9 @@ import { useUserContext } from "../../../contexts/userContext/hook";
 import { CreateNewUserModal } from "../Modals/CreateNewUserModal";
 import { ForgotPasswordModal } from "../Modals/ForgotPasswordModal";
 
+
+type ProviderProps = "emailAndPassword" | "github" | "apple" | "google" | "facebook" | "anonym"
+
 export function LoginForm() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -29,21 +32,42 @@ export function LoginForm() {
     signInWithFacebook
   } = useUserContext()
 
-  const handleSubmit = async (event: FormEvent) => {
-    event.preventDefault()
+  const handleAuthLogin = async (provider: ProviderProps) => {
     setMessage("");
     setIsLoading(true);
-    const result = await signInWithEmail({ email, password })
-    result !== "sign in successfull" ?
-      setMessage(`Login Failed: ${String(result)}`) : null
+    let promiseResultMessage = ''
+    switch (provider) {
+      case "emailAndPassword":
+        promiseResultMessage = await signInWithEmail({ email, password })
+        break;
+      case "github":
+        promiseResultMessage = await signInWithGithub();
+        break;
+      case "apple":
+        promiseResultMessage = await signInWithApple();
+        break;
+      case "google":
+        promiseResultMessage = await signInWithGoogle();
+        break;
+      case "facebook":
+        promiseResultMessage = await signInWithFacebook();
+        break;
+      default:
+        break;
+    };
+    promiseResultMessage !== "sign in successfull" ?
+      setMessage(`Login Failed: ${String(promiseResultMessage)}`) : null
     setIsLoading(false);
-  };
+  }
 
   return (
     <div id="loginForm"
       className="w-full max-w-[22.5rem] flex flex-col gap-4 items-center justify-center"
     >
-      <form onSubmit={handleSubmit}
+      <form onSubmit={(e: FormEvent) => {
+        e.preventDefault();
+        handleAuthLogin("emailAndPassword");
+      }}
         className="w-full flex flex-col gap-4 items-center justify-center"
       >
 
@@ -55,12 +79,18 @@ export function LoginForm() {
           required value={password} setInputValue={setPassword}
         />
 
-        <div className="w-full text-center">
+        <div className="w-full">
           <Button variant="orange" size="lg" login
             className="disabled:bg-orange-700 disabled:border-transparent">
             <button disabled={IsLoading} >Login</button>
           </Button>
-          {Message && <span className="text-xs ml-2 text-gray-200">{Message}</span>}
+          {
+            Message &&
+            <div className="mt-2 ml-2 flex items-center gap-1">
+              <img src="/src/assets/icons/Info.png" alt="" className="w-5" />
+              <span className="text-xs text-gray-200">{Message}</span>
+            </div>
+          }
         </div>
 
       </form>
@@ -82,22 +112,22 @@ export function LoginForm() {
 
       </div>
 
-      <BrandButton.Root variant="Github" onClick={signInWithGithub}>
+      <BrandButton.Root disabled={IsLoading} variant="Github" onClick={() => { handleAuthLogin("github") }}>
         <BrandButton.Icon>
           <GithubLogo />
         </BrandButton.Icon>
       </BrandButton.Root>
-      <BrandButton.Root variant="Apple" onClick={signInWithApple}>
+      <BrandButton.Root disabled={IsLoading} variant="Apple" onClick={() => { handleAuthLogin("apple") }}>
         <BrandButton.Icon>
           <AppleLogo />
         </BrandButton.Icon>
       </BrandButton.Root>
-      <BrandButton.Root variant="Google" onClick={signInWithGoogle}>
+      <BrandButton.Root disabled={IsLoading} variant="Google" onClick={() => { handleAuthLogin("google") }}>
         <BrandButton.Icon>
           <GoogleLogo />
         </BrandButton.Icon>
       </BrandButton.Root>
-      <BrandButton.Root variant="Facebook" onClick={signInWithFacebook}>
+      <BrandButton.Root disabled={IsLoading} variant="Facebook" onClick={() => { handleAuthLogin('facebook') }}>
         <BrandButton.Icon>
           <FacebookLogo />
         </BrandButton.Icon>

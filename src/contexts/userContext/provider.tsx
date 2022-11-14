@@ -81,76 +81,91 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
   }
 
   const signInWithGoogle = async () => {
+    let message = '';
     await signInWithPopup(auth, googleProvider)
       .then(async (result) => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
-        const accessToken = credential?.accessToken
+        const accessToken = credential?.accessToken;
         const user = result.user;
-        const uidToken = user.uid
+        const uidToken = user.uid;
         const providerId = result.providerId;
 
         const docRef = doc(db, "users", uidToken);
-        const docSnap = await getDoc(docRef)
+        const docSnap = await getDoc(docRef);
 
+        message = "User logged succesfully";
         if (docSnap.data() === undefined) {
           await setDoc(doc(db, "users", uidToken), {
             name: user.displayName,
             email: user.email,
             authProvider: providerId
-          })
-          console.log(`New user created`);
+          });
+          console.log("New user created");
+          message = "New user created";
         }
 
-        setUserLogged(user)
+        setUserLogged(user);
         sessionStorage.setItem(USER_KEY, JSON.stringify(user));
         sessionStorage.setItem(USER_TOKEN, String(uidToken));
         sessionStorage.setItem(USER_ACCESS_TOKEN, String(accessToken));
         console.log(`User logged succesfully`);
-
-      }).catch((error) => {
+        return message;
+      })
+      .catch((error) => {
         const errorCode = error.code;
-        const errorMessage = error.message;
-        const credential = GoogleAuthProvider.credentialFromError(error);
-        console.log({ errorCode, errorMessage, credential })
-        return
+        console.log({ error });
+        return message = errorCode.slice(5).replace(/-(?!>)/g, ' ');
       });
+    return message;
   };
 
   const signInWithGithub = async () => {
-    return await signInWithPopup(auth, githubProvider)
+    let message = '';
+    await signInWithPopup(auth, githubProvider)
       .then(async (result) => {
         const credential = GithubAuthProvider.credentialFromResult(result);
-        const accessToken = credential?.accessToken
+        const accessToken = credential?.accessToken;
         const user = result.user;
-        const uidToken = user.uid
+        const uidToken = user.uid;
         const providerId = result.providerId;
 
         const docRef = doc(db, "users", uidToken);
         const docSnap = await getDoc(docRef)
 
+        message = "User logged succesfully";
         if (docSnap.data() === undefined) {
           await setDoc(doc(db, "users", uidToken), {
             name: user.displayName,
             email: user.email,
             authProvider: providerId
           })
-          console.log(`New user created`);
+          console.log("New user created");
+          message = "New user created";
         }
 
-        setUserLogged(user)
+        setUserLogged(user);
         sessionStorage.setItem(USER_KEY, JSON.stringify(user));
         sessionStorage.setItem(USER_TOKEN, String(uidToken));
         sessionStorage.setItem(USER_ACCESS_TOKEN, String(accessToken));
         console.log(`User logged succesfully`);
+        return message;
       })
+      .catch((error) => {
+        const errorCode = error.code;
+        console.log({ error });
+        return message = errorCode.slice(5).replace(/-(?!>)/g, ' ');
+      });
+    return message;
   };
 
   const signInWithApple = async () => {
-
+    let message = '';
+    return message
   };
 
   const signInWithFacebook = async () => {
-
+    let message = '';
+    return message
   };
 
   const signOutTrigger = async () => {
