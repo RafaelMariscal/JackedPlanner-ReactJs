@@ -8,6 +8,7 @@ import TextInput from "../TextInput";
 import { BrandButton } from "./BrandButton";
 import { useUserContext } from "../../../contexts/userContext/hook";
 import { CreateNewUserModal } from "../Modals/CreateNewUserModal";
+import { ForgotPasswordModal } from "../Modals/ForgotPasswordModal";
 
 export function LoginForm() {
   const [email, setEmail] = useState('')
@@ -53,6 +54,7 @@ export function LoginForm() {
         <TextInput type="password" label="Password" placeholder="********"
           required value={password} setInputValue={setPassword}
         />
+
         <div className="w-full text-center">
           <Button variant="orange" size="lg" login
             className="disabled:bg-orange-700 disabled:border-transparent">
@@ -60,21 +62,17 @@ export function LoginForm() {
           </Button>
           {Message && <span className="text-xs ml-2 text-gray-200">{Message}</span>}
         </div>
+
       </form>
 
       <div className="flex justify-around w-full tracking-wide underline-offset-2">
-        <span
-          className="
-          text-xs text-gray-100 underline cursor-pointer transition-all duration-150 ease-in-out
-          hover:text-cyan-500 hover:scale-[104%]
-          "
-        >
-          Forgot password?
-        </span>
+        <ForgotPasswordModal
+          IsForgotAccModalOpen={IsForgotAccModalOpen}
+          setIsForgotAccModalOpen={setIsForgotAccModalOpen}
+        />
 
         <div className="flex gap-1">
           <span className="text-xs text-gray-100">Need a new account? </span>
-
           <CreateNewUserModal
             IsCreateAccModalOpen={IsCreateAccModalOpen}
             setIsCreateAccModalOpen={setIsCreateAccModalOpen}
