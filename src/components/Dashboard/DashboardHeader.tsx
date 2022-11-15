@@ -17,7 +17,7 @@ export function DashboardHeader({ userName = 'userName' }: DashboardHeaderProps)
         "
       >
         <p className="text-gray-100 [&_span]:text-orange-500">
-          Hello <span>{userName}</span>! Follow the plan and get Jacked!
+          Hello <span className="mr-[.1rem]">{userName}</span>! Follow the plan and get Jacked!
         </p>
 
         <Anchor href="#getPro">

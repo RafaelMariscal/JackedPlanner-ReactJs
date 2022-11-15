@@ -1,8 +1,11 @@
 import { Outlet } from 'react-router-dom'
 import { DashboardHeader } from '../../components/Dashboard/DashboardHeader'
 import { Navbar } from '../../components/Dashboard/Navbar'
+import { useUserContext } from '../../contexts/userContext/hook'
 
 export function Dashboard() {
+  const { UserLogged } = useUserContext()
+
   return (
     <div className='
       w-screen h-screen
@@ -10,7 +13,11 @@ export function Dashboard() {
       flex flex-col
       '
     >
-      <DashboardHeader userName={'userName'} />
+      <DashboardHeader userName={
+        !!UserLogged?.displayName ?
+          UserLogged.displayName :
+          'Anonymous'
+      } />
 
       <div className=' w-full h-full p-6 pt-[4.5rem]'>
         <div className=" m-auto
