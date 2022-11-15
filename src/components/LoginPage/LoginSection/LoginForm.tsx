@@ -28,7 +28,7 @@ export function LoginForm() {
     signInWithGoogle,
     signInWithGithub,
     signInWithFacebook,
-    signInAnonymously,
+    signWithAnonymousProvider,
   } = useUserContext()
 
   const handleAuthLogin = async (provider: ProviderProps) => {
@@ -49,7 +49,7 @@ export function LoginForm() {
         promiseResultMessage = await signInWithFacebook();
         break;
       default:
-        promiseResultMessage = await signInAnonymously();
+        promiseResultMessage = await signWithAnonymousProvider();
         break;
     };
     promiseResultMessage !== "sign in successfull" ?

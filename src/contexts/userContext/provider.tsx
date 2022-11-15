@@ -13,6 +13,7 @@ import {
   signOut,
   sendPasswordResetEmail,
   FacebookAuthProvider,
+  signInAnonymously,
 } from "firebase/auth";
 
 interface ProviederProps {
@@ -198,8 +199,39 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
     return message;
   };
 
-  const signInAnonymously = async () => {
+  const signWithAnonymousProvider = async () => {
     let message = '';
+    await signInAnonymously(auth)
+      .then(async (result) => {
+        const user = result.user;
+        const uidToken = user.uid;
+        const providerId = result.providerId;
+
+        const docRef = doc(db, "users", uidToken);
+        const docSnap = await getDoc(docRef);
+
+        message = "User logged succesfully";
+        if (docSnap.data() === undefined) {
+          await setDoc(doc(db, "users", uidToken), {
+            name: user.displayName,
+            email: user.email,
+            authProvider: providerId
+          });
+          console.log("New user created");
+          message = "New user created";
+        }
+
+        setUserLogged(user);
+        sessionStorage.setItem(USER_KEY, JSON.stringify(user));
+        sessionStorage.setItem(USER_TOKEN, String(uidToken));
+        console.log(`User logged succesfully`);
+        return message;
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        console.log({ error });
+        return message = errorCode.slice(5).replace(/-(?!>)/g, ' ');
+      });
     return message
   };
 
@@ -246,7 +278,7 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
       signInWithGoogle,
       signInWithGithub,
       signInWithFacebook,
-      signInAnonymously,
+      signWithAnonymousProvider,
       signOutTrigger,
       resetPassword
     }}

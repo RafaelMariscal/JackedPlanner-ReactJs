@@ -22,7 +22,7 @@ export interface UserContextProps {
   signInWithGoogle: () => Promise<string>;
   signInWithGithub: () => Promise<string>;
   signInWithFacebook: () => Promise<string>;
-  signInAnonymously: () => Promise<string>;
+  signWithAnonymousProvider: () => Promise<string>;
 
   signOutTrigger: () => Promise<void>;
 
