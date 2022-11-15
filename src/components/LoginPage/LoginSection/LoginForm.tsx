@@ -1,5 +1,4 @@
 import { FormEvent, useState } from "react";
-import { AppleLogo } from "../../../assets/icons/AppleLogo";
 import { FacebookLogo } from "../../../assets/icons/FacebookLogo";
 import { GithubLogo } from "../../../assets/icons/GithubLogo";
 import { GoogleLogo } from "../../../assets/icons/GoogleLogo";
@@ -11,7 +10,7 @@ import { CreateNewUserModal } from "../Modals/CreateNewUserModal";
 import { ForgotPasswordModal } from "../Modals/ForgotPasswordModal";
 
 
-type ProviderProps = "emailAndPassword" | "github" | "apple" | "google" | "facebook" | "anonym"
+type ProviderProps = "emailAndPassword" | "github" | "google" | "facebook" | "anonymous"
 
 export function LoginForm() {
   const [email, setEmail] = useState('')
@@ -28,8 +27,8 @@ export function LoginForm() {
   const {
     signInWithGoogle,
     signInWithGithub,
-    signInWithApple,
-    signInWithFacebook
+    signInWithFacebook,
+    signInAnonymously,
   } = useUserContext()
 
   const handleAuthLogin = async (provider: ProviderProps) => {
@@ -43,9 +42,6 @@ export function LoginForm() {
       case "github":
         promiseResultMessage = await signInWithGithub();
         break;
-      case "apple":
-        promiseResultMessage = await signInWithApple();
-        break;
       case "google":
         promiseResultMessage = await signInWithGoogle();
         break;
@@ -53,6 +49,7 @@ export function LoginForm() {
         promiseResultMessage = await signInWithFacebook();
         break;
       default:
+        promiseResultMessage = await signInAnonymously();
         break;
     };
     promiseResultMessage !== "sign in successfull" ?
@@ -72,25 +69,22 @@ export function LoginForm() {
       >
 
         <TextInput type="email" label="Email" placeholder="email@exemple.com"
-          required value={email} setInputValue={setEmail}
-        />
+          required value={email} setInputValue={setEmail} />
 
         <TextInput type="password" label="Password" placeholder="********"
-          required value={password} setInputValue={setPassword}
-        />
+          required value={password} setInputValue={setPassword} />
 
         <div className="w-full">
           <Button variant="orange" size="lg" login
             className="disabled:bg-orange-700 disabled:border-transparent">
             <button disabled={IsLoading} >Login</button>
           </Button>
-          {
-            Message &&
+
+          {Message &&
             <div className="mt-2 ml-2 flex items-center gap-1">
               <img src="/src/assets/icons/Info.png" alt="" className="w-5" />
               <span className="text-xs text-gray-200">{Message}</span>
-            </div>
-          }
+            </div>}
         </div>
 
       </form>
@@ -108,28 +102,37 @@ export function LoginForm() {
             setIsCreateAccModalOpen={setIsCreateAccModalOpen}
           />
         </div>
-
-
       </div>
 
-      <BrandButton.Root disabled={IsLoading} variant="Github" onClick={() => { handleAuthLogin("github") }}>
+      <BrandButton.Root disabled={IsLoading} variant="Github"
+        onClick={() => { handleAuthLogin("github") }}
+      >
         <BrandButton.Icon>
           <GithubLogo />
         </BrandButton.Icon>
       </BrandButton.Root>
-      <BrandButton.Root disabled={IsLoading} variant="Apple" onClick={() => { handleAuthLogin("apple") }}>
-        <BrandButton.Icon>
-          <AppleLogo />
-        </BrandButton.Icon>
-      </BrandButton.Root>
-      <BrandButton.Root disabled={IsLoading} variant="Google" onClick={() => { handleAuthLogin("google") }}>
+
+      <BrandButton.Root disabled={IsLoading} variant="Google"
+        onClick={() => { handleAuthLogin("google") }}
+      >
         <BrandButton.Icon>
           <GoogleLogo />
         </BrandButton.Icon>
       </BrandButton.Root>
-      <BrandButton.Root disabled={IsLoading} variant="Facebook" onClick={() => { handleAuthLogin('facebook') }}>
+
+      <BrandButton.Root disabled={IsLoading} variant="Facebook"
+        onClick={() => { handleAuthLogin('facebook') }}
+      >
         <BrandButton.Icon>
           <FacebookLogo />
+        </BrandButton.Icon>
+      </BrandButton.Root>
+
+      <BrandButton.Root disabled={IsLoading} variant="Anonymous"
+        onClick={() => { handleAuthLogin("anonymous") }}
+      >
+        <BrandButton.Icon>
+          <img src="/src/assets/icons/Anonymous.png" alt="" className="w-6" />
         </BrandButton.Icon>
       </BrandButton.Root>
     </div>

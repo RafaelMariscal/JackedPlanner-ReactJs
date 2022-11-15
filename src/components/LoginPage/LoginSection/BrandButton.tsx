@@ -2,7 +2,7 @@ import { clsx } from 'clsx'
 import { ButtonHTMLAttributes, ReactNode } from 'react';
 
 export interface BrandButtonRootProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant: 'Apple' | 'Facebook' | 'Github' | 'Google';
+  variant: 'Anonymous' | 'Facebook' | 'Github' | 'Google';
   children: ReactNode;
 }
 
@@ -17,7 +17,7 @@ function Root({ children, variant, ...props }: BrandButtonRootProps) {
         "active:scale-[103%] active:transition-none",
         "disabled:brightness-90",
         {
-          'bg-black text-gray-100': variant === 'Apple',
+          'bg-gray-900 text-gray-100': variant === 'Anonymous',
           'bg-blue text-gray-100': variant === 'Facebook',
           'bg-gray-github text-gray-100': variant === 'Github',
           'bg-gray-100 text-gray-800 font-semibold': variant === 'Google',

@@ -1,18 +1,19 @@
 import { ReactNode, useEffect, useState } from "react";
 import { NewAccountProps, signInWithEmailProps, UserContext } from ".";
-import { auth, db, githubProvider, googleProvider } from "../../services/firebase";
+import { auth, db, facebookProvider, githubProvider, googleProvider } from "../../services/firebase";
 import { doc, setDoc, getDoc } from "firebase/firestore";
+import { FirebaseError } from "firebase/app";
 import {
-  GoogleAuthProvider,
-  signInWithEmailAndPassword,
-  signInWithPopup,
-  signOut,
   User,
   createUserWithEmailAndPassword,
-  sendPasswordResetEmail,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider,
   GithubAuthProvider,
+  signOut,
+  sendPasswordResetEmail,
+  FacebookAuthProvider,
 } from "firebase/auth";
-import { FirebaseError } from "firebase/app";
 
 interface ProviederProps {
   children: ReactNode;
@@ -158,12 +159,46 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
     return message;
   };
 
-  const signInWithApple = async () => {
+  const signInWithFacebook = async () => {
     let message = '';
-    return message
+    await signInWithPopup(auth, facebookProvider)
+      .then(async (result) => {
+        const credential = FacebookAuthProvider.credentialFromResult(result);
+        const accessToken = credential?.accessToken;
+        const user = result.user;
+        const uidToken = user.uid;
+        const providerId = result.providerId;
+
+        const docRef = doc(db, "users", uidToken);
+        const docSnap = await getDoc(docRef);
+
+        message = "User logged succesfully";
+        if (docSnap.data() === undefined) {
+          await setDoc(doc(db, "users", uidToken), {
+            name: user.displayName,
+            email: user.email,
+            authProvider: providerId
+          });
+          console.log("New user created");
+          message = "New user created";
+        }
+
+        setUserLogged(user);
+        sessionStorage.setItem(USER_KEY, JSON.stringify(user));
+        sessionStorage.setItem(USER_TOKEN, String(uidToken));
+        sessionStorage.setItem(USER_ACCESS_TOKEN, String(accessToken));
+        console.log(`User logged succesfully`);
+        return message;
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        console.log({ error });
+        return message = errorCode.slice(5).replace(/-(?!>)/g, ' ');
+      });
+    return message;
   };
 
-  const signInWithFacebook = async () => {
+  const signInAnonymously = async () => {
     let message = '';
     return message
   };
@@ -210,8 +245,8 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
       signInWithEmail,
       signInWithGoogle,
       signInWithGithub,
-      signInWithApple,
       signInWithFacebook,
+      signInAnonymously,
       signOutTrigger,
       resetPassword
     }}

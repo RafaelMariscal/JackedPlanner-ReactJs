@@ -17,12 +17,15 @@ export interface UserContextProps {
   setUserLogged: React.Dispatch<React.SetStateAction<User | undefined>>;
 
   createNewUser: ({ email, password, name }: NewAccountProps) => Promise<string>;
+
   signInWithEmail: ({ email, password }: signInWithEmailProps) => Promise<string>;
   signInWithGoogle: () => Promise<string>;
   signInWithGithub: () => Promise<string>;
-  signInWithApple: () => Promise<string>;
   signInWithFacebook: () => Promise<string>;
+  signInAnonymously: () => Promise<string>;
+
   signOutTrigger: () => Promise<void>;
+
   resetPassword: (email: string) => Promise<string>;
 }
 
