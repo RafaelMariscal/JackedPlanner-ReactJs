@@ -20,6 +20,7 @@ export interface ScheduleProps {
   scheduledDate: Date | Timestamp
   splitKey: ScheduleLabels
 }
+
 export interface ExerciseProps {
   index: number
   name: string
