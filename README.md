@@ -3,6 +3,7 @@ A React + Firebase (Auth + Firestore + Hosting) web application, Jacked Planner 
 
 #### If you want to access all the Figma's drafts used in this project, follow the link below:
 #### <a href="https://www.figma.com/file/HJDXxkKYjJduLrUKtJRhaa/Jacked-Planner---React-Project?node-id=4%3A2"> >> Jacked Planner's Figma Project << </a>
+#### <a href="https://www.figma.com/file/c4v0fMJzCuQWhsXjIgfrP1/JackedPlanner-Firestore-Schema?t=tpjl1L1L2tiudZvI-1"> >> Jacked Planner's Firestore Schema << </a>
 
 ### Project Progress:
 
@@ -14,19 +15,18 @@ A React + Firebase (Auth + Firestore + Hosting) web application, Jacked Planner 
 
     [ ] Make it Dynamic
       [ ] Connect with Firebase services
-        [ ] Firebase Auth Login
+        [x] Firebase Auth Login
           [X] E-mail + password
           [X] Google Login Authentication
-          [ ] Github Login Authentication
-          [ ] Apple Login Authentication
-          [ ] Facebook Login Authentication
+          [X] Github Login Authentication
+          [X] Facebook Login Authentication
+          [X] Anonymous Login Authentication
         [X] Firebase Firestore
         [ ] Firebase Hosting
 
       [ ] Login Page
-        [ ] Create user modal
-        [ ] Forgot password modal
-        [ ] Get Pro button redirects to Stripe Page
+        [x] Create user modal
+        [x] Forgot password modal
 
       [ ] Dashboard Page
         [ ] Dashboard home
@@ -60,3 +60,6 @@ A React + Firebase (Auth + Firestore + Hosting) web application, Jacked Planner 
             [ ] If the Unic Code is confirmed, password can be reseted.
             [ ] Submit only if password and confirm password are the same.
           [ ] Subscription Status
+
+    [ ] Connect with Stripe (Maybe...)
+      [ ] Get Pro button redirects to Stripe Page

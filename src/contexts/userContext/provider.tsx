@@ -1,7 +1,7 @@
 import { ReactNode, useEffect, useState } from "react";
 import { NewAccountProps, signInWithEmailProps, UserContext } from ".";
 import { auth, db, facebookProvider, githubProvider, googleProvider } from "../../services/firebase";
-import { doc, setDoc, getDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc, Timestamp, } from "firebase/firestore";
 import { FirebaseError } from "firebase/app";
 import {
   User,
@@ -15,6 +15,7 @@ import {
   FacebookAuthProvider,
   signInAnonymously,
 } from "firebase/auth";
+import { userConverter } from "../../utils/typesConverters";
 
 interface ProviederProps {
   children: ReactNode;
@@ -46,10 +47,12 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
         const docSnap = await getDoc(docRef);
 
         if (docSnap.data() === undefined) {
-          await setDoc(doc(db, "users", user.uid), {
+          await setDoc(doc(db, "users", user.uid).withConverter(userConverter), {
             name: name,
             email: user.email,
-            authProvider: user.providerId
+            authProvider: user.providerId,
+            createdAt: Timestamp.fromDate(new Date()),
+            subscribed: false,
           })
         }
         setUserLogged(user)
@@ -97,10 +100,12 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
 
         message = "User logged succesfully";
         if (docSnap.data() === undefined) {
-          await setDoc(doc(db, "users", uidToken), {
+          await setDoc(doc(db, "users", uidToken).withConverter(userConverter), {
             name: user.displayName,
             email: user.email,
-            authProvider: providerId
+            authProvider: providerId,
+            createdAt: Timestamp.fromDate(new Date()),
+            subscribed: false,
           });
           console.log("New user created");
           message = "New user created";
@@ -136,10 +141,12 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
 
         message = "User logged succesfully";
         if (docSnap.data() === undefined) {
-          await setDoc(doc(db, "users", uidToken), {
+          await setDoc(doc(db, "users", uidToken).withConverter(userConverter), {
             name: user.displayName,
             email: user.email,
-            authProvider: providerId
+            authProvider: providerId,
+            createdAt: Timestamp.fromDate(new Date()),
+            subscribed: false,
           })
           console.log("New user created");
           message = "New user created";
@@ -175,10 +182,12 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
 
         message = "User logged succesfully";
         if (docSnap.data() === undefined) {
-          await setDoc(doc(db, "users", uidToken), {
+          await setDoc(doc(db, "users", uidToken).withConverter(userConverter), {
             name: user.displayName,
             email: user.email,
-            authProvider: providerId
+            authProvider: providerId,
+            createdAt: Timestamp.fromDate(new Date()),
+            subscribed: false,
           });
           console.log("New user created");
           message = "New user created";
@@ -212,10 +221,12 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
 
         message = "User logged succesfully";
         if (docSnap.data() === undefined) {
-          await setDoc(doc(db, "users", uidToken), {
+          await setDoc(doc(db, "users", uidToken).withConverter(userConverter), {
             name: user.displayName,
             email: user.email,
-            authProvider: providerId
+            authProvider: providerId,
+            createdAt: Timestamp.fromDate(new Date()),
+            subscribed: false,
           });
           console.log("New user created");
           message = "New user created";
