@@ -19,25 +19,25 @@ import { userConverter } from "../../utils/typesConverters";
 
 interface ProviederProps {
   children: ReactNode;
-};
+}
 
-export const USER_KEY = "@AuthFirebase:user"
-export const USER_TOKEN = "@AuthFirebase:token"
-export const USER_ACCESS_TOKEN = "@AuthFirebase:accessToken"
+export const USER_KEY = "@AuthFirebase:user";
+export const USER_TOKEN = "@AuthFirebase:token";
+export const USER_ACCESS_TOKEN = "@AuthFirebase:accessToken";
 
 export const UserContextProvider = ({ children }: ProviederProps) => {
-  const [UserLogged, setUserLogged] = useState<User>()
+  const [UserLogged, setUserLogged] = useState<User>();
 
   useEffect(() => {
     const sessionStorageAuth = () => {
-      const sessionToken = sessionStorage.getItem(USER_TOKEN)
+      const sessionToken = sessionStorage.getItem(USER_TOKEN);
       const sessionUser = sessionStorage.getItem(USER_KEY);
       if (!!sessionToken && !!sessionUser) {
         setUserLogged(JSON.parse(sessionUser));
       }
-    }
+    };
     sessionStorageAuth();
-  }, [])
+  }, []);
 
   const createNewUser = async ({ email, password, name }: NewAccountProps) => {
     return await createUserWithEmailAndPassword(auth, email, password)
@@ -53,40 +53,40 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
             authProvider: user.providerId,
             createdAt: Timestamp.fromDate(new Date()),
             subscribed: false,
-          })
+          });
         }
-        setUserLogged(user)
+        setUserLogged(user);
         sessionStorage.setItem(USER_TOKEN, String(user.uid));
         sessionStorage.setItem(USER_KEY, JSON.stringify(user));
         return "New user created";
       })
       .catch((error: FirebaseError) => {
         const errorCode = error.code;
-        console.log({ error })
-        return errorCode.slice(5).replace(/-(?!>)/g, ' ')
-      })
-  }
+        console.log({ error });
+        return errorCode.slice(5).replace(/-(?!>)/g, " ");
+      });
+  };
 
   const signInWithEmail = async ({ email, password }: signInWithEmailProps) => {
     return await signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        const user = userCredential.user
-        const token = userCredential.user.getIdTokenResult()
+        const user = userCredential.user;
+        const token = userCredential.user.getIdTokenResult();
 
-        setUserLogged(user)
+        setUserLogged(user);
         sessionStorage.setItem(USER_TOKEN, String(token));
         sessionStorage.setItem(USER_KEY, JSON.stringify(user));
-        return "sign in successfull"
+        return "sign in successfull";
       })
       .catch((error: FirebaseError) => {
         const errorCode = error.code;
-        console.log({ error })
-        return errorCode.slice(5).replace(/-(?!>)/g, ' ')
-      })
-  }
+        console.log({ error });
+        return errorCode.slice(5).replace(/-(?!>)/g, " ");
+      });
+  };
 
   const signInWithGoogle = async () => {
-    let message = '';
+    let message = "";
     await signInWithPopup(auth, googleProvider)
       .then(async (result) => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
@@ -115,19 +115,19 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
         sessionStorage.setItem(USER_KEY, JSON.stringify(user));
         sessionStorage.setItem(USER_TOKEN, String(uidToken));
         sessionStorage.setItem(USER_ACCESS_TOKEN, String(accessToken));
-        console.log(`User logged succesfully`);
+        console.log("User logged succesfully");
         return message;
       })
       .catch((error) => {
         const errorCode = error.code;
         console.log({ error });
-        return message = errorCode.slice(5).replace(/-(?!>)/g, ' ');
+        return message = errorCode.slice(5).replace(/-(?!>)/g, " ");
       });
     return message;
   };
 
   const signInWithGithub = async () => {
-    let message = '';
+    let message = "";
     await signInWithPopup(auth, githubProvider)
       .then(async (result) => {
         const credential = GithubAuthProvider.credentialFromResult(result);
@@ -137,7 +137,7 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
         const providerId = result.providerId;
 
         const docRef = doc(db, "users", uidToken);
-        const docSnap = await getDoc(docRef)
+        const docSnap = await getDoc(docRef);
 
         message = "User logged succesfully";
         if (docSnap.data() === undefined) {
@@ -147,7 +147,7 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
             authProvider: providerId,
             createdAt: Timestamp.fromDate(new Date()),
             subscribed: false,
-          })
+          });
           console.log("New user created");
           message = "New user created";
         }
@@ -156,19 +156,19 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
         sessionStorage.setItem(USER_KEY, JSON.stringify(user));
         sessionStorage.setItem(USER_TOKEN, String(uidToken));
         sessionStorage.setItem(USER_ACCESS_TOKEN, String(accessToken));
-        console.log(`User logged succesfully`);
+        console.log("User logged succesfully");
         return message;
       })
       .catch((error) => {
         const errorCode = error.code;
         console.log({ error });
-        return message = errorCode.slice(5).replace(/-(?!>)/g, ' ');
+        return message = errorCode.slice(5).replace(/-(?!>)/g, " ");
       });
     return message;
   };
 
   const signInWithFacebook = async () => {
-    let message = '';
+    let message = "";
     await signInWithPopup(auth, facebookProvider)
       .then(async (result) => {
         const credential = FacebookAuthProvider.credentialFromResult(result);
@@ -197,19 +197,19 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
         sessionStorage.setItem(USER_KEY, JSON.stringify(user));
         sessionStorage.setItem(USER_TOKEN, String(uidToken));
         sessionStorage.setItem(USER_ACCESS_TOKEN, String(accessToken));
-        console.log(`User logged succesfully`);
+        console.log("User logged succesfully");
         return message;
       })
       .catch((error) => {
         const errorCode = error.code;
         console.log({ error });
-        return message = errorCode.slice(5).replace(/-(?!>)/g, ' ');
+        return message = errorCode.slice(5).replace(/-(?!>)/g, " ");
       });
     return message;
   };
 
   const signWithAnonymousProvider = async () => {
-    let message = '';
+    let message = "";
     await signInAnonymously(auth)
       .then(async (result) => {
         const user = result.user;
@@ -235,50 +235,52 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
         setUserLogged(user);
         sessionStorage.setItem(USER_KEY, JSON.stringify(user));
         sessionStorage.setItem(USER_TOKEN, String(uidToken));
-        console.log(`User logged succesfully`);
+        console.log("User logged succesfully");
         return message;
       })
       .catch((error) => {
         const errorCode = error.code;
         console.log({ error });
-        return message = errorCode.slice(5).replace(/-(?!>)/g, ' ');
+        return message = errorCode.slice(5).replace(/-(?!>)/g, " ");
       });
-    return message
+    return message;
   };
 
   const signOutTrigger = async () => {
-    sessionStorage.clear()
+    sessionStorage.clear();
     signOut(auth)
       .then(() => {
         setUserLogged(undefined);
         sessionStorage.clear();
-        console.log('User logout successfully!')
+        console.log("User logout successfully!");
       })
       .catch((err) => {
-        alert(err.message)
-      })
-  }
+        alert(err.message);
+      });
+  };
 
   const resetPassword = async (email: string) => {
     return await sendPasswordResetEmail(auth, email)
       .then((result) => {
-        console.log(result)
-        return "Password reset email sent!"
+        console.log(result);
+        return "Password reset email sent!";
       })
       .catch((error: FirebaseError) => {
         const errorCode = error.code;
-        console.log({ error })
-        return errorCode.slice(5).replace(/-(?!>)/g, ' ')
-      })
-  }
+        console.log({ error });
+        return errorCode.slice(5).replace(/-(?!>)/g, " ");
+      });
+  };
 
   const updateUserProps = async () => {
-
-  }
+    const message = "";
+    return message;
+  };
 
   const updatePassword = async () => {
-
-  }
+    const message = "";
+    return message;
+  };
 
   return (
     <UserContext.Provider value={{

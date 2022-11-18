@@ -1,6 +1,6 @@
 import { SVGAttributes } from "react";
 
-interface GoogleLogoProps extends SVGAttributes<HTMLOrSVGElement> { }
+type GoogleLogoProps = SVGAttributes<HTMLOrSVGElement>
 
 export function GoogleLogo(props: GoogleLogoProps) {
   return (
@@ -28,5 +28,5 @@ export function GoogleLogo(props: GoogleLogoProps) {
         fill="#EA4335"
       />
     </svg>
-  )
-} 
+  );
+}

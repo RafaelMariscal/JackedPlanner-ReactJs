@@ -11,7 +11,7 @@ export function NotFound() {
       <div className="max-w-screen-md mt-[8rem] relative">
         <div className="flex flex-col items-center justify-center gap-4
               w-3/5 px-6 py-4 bg-gray-100 border border-gray-800
-              drop-shadow-[1rem_1rem_0_#343C3F] absolute right-[50%] 
+              drop-shadow-[1rem_1rem_0_#343C3F] absolute right-[50%]
               translate-x-1/2 -translate-y-[8rem]
               "
         >
@@ -30,8 +30,8 @@ export function NotFound() {
             </p>
           </div>
 
-          <Link to={'dashboard/'} className=" transition-all
-                flex items-center justify-center w-full max-w-[240px] h-9 
+          <Link to={"dashboard/"} className=" transition-all
+                flex items-center justify-center w-full max-w-[240px] h-9
                 rounded-md bg-gray-800 font-medium text-gray-100
                 hover:bg-cyan-500 hover:text-gray-800 hover:font-semibold
                 "
@@ -44,5 +44,5 @@ export function NotFound() {
       </div>
 
     </div>
-  )
+  );
 }

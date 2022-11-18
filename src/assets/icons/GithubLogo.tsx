@@ -1,6 +1,6 @@
 import { SVGAttributes } from "react";
 
-interface GithubLogoProps extends SVGAttributes<HTMLOrSVGElement> { }
+type GithubLogoProps = SVGAttributes<HTMLOrSVGElement>
 
 export function GithubLogo(props: GithubLogoProps) {
   return (
@@ -20,5 +20,5 @@ export function GithubLogo(props: GithubLogoProps) {
         fill="#fff"
       />
     </svg>
-  )
-} 
+  );
+}

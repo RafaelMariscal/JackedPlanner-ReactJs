@@ -27,5 +27,5 @@ export function Home() {
         <PersonalNotes />
       </div>
     </div>
-  )
+  );
 }

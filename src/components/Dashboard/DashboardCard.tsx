@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { ReactNode } from "react"
+import { ReactNode } from "react";
 
 interface DashboardCardProps {
   title: string;
@@ -16,14 +16,14 @@ export default function DashboardCard({ title, hideTittle, subtitle, extend, cla
     <div className={clsx(
       "flex flex-col gap-1",
       {
-        'flex-1': extend
+        "flex-1": extend
       },
 
       className
     )}>
       <div className="flex gap-1">
         <h2 className={clsx("font-semibold leading-tight underline text-gray-800 ml-2",
-          { 'text-transparent select-none': hideTittle === true }
+          { "text-transparent select-none": hideTittle === true }
         )}
         >
           {title}
@@ -42,5 +42,5 @@ export default function DashboardCard({ title, hideTittle, subtitle, extend, cla
       </div>
     </div>
 
-  )
+  );
 }

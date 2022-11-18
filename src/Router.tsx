@@ -1,39 +1,39 @@
-import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom'
-import { Dashboard } from './Pages/Dashboard'
-import { Settings } from './Pages/Dashboard/Settings'
-import { Notes } from './Pages/Dashboard/Notes'
-import { Shop } from './Pages/Dashboard/Shop'
-import { Login } from './Pages/Login'
-import { Home } from './Pages/Dashboard/Home'
-import { NotFound } from './Pages/NotFound'
-import { ProSection } from './Pages/Dashboard/ProSection'
-import { USER_KEY, USER_TOKEN } from './contexts/userContext/provider'
-import { useEffect } from 'react'
-import { useUserContext } from './contexts/userContext/hook'
+import { Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { Dashboard } from "./Pages/Dashboard";
+import { Settings } from "./Pages/Dashboard/Settings";
+import { Notes } from "./Pages/Dashboard/Notes";
+import { Shop } from "./Pages/Dashboard/Shop";
+import { Login } from "./Pages/Login";
+import { Home } from "./Pages/Dashboard/Home";
+import { NotFound } from "./Pages/NotFound";
+import { ProSection } from "./Pages/Dashboard/ProSection";
+import { USER_KEY, USER_TOKEN } from "./contexts/userContext/provider";
+import { useEffect } from "react";
+import { useUserContext } from "./contexts/userContext/hook";
 
 const PrivateRoutes = () => {
-  const location = useLocation()
+  const location = useLocation();
   const user = sessionStorage.getItem(USER_KEY);
   const token = sessionStorage.getItem(USER_TOKEN);
   return (!!user && !!token) ?
     <Dashboard /> :
-    <Navigate to={'/'} state={{ from: location }} replace />
-}
+    <Navigate to={"/"} state={{ from: location }} replace />;
+};
 
 export function Router() {
-  const { UserLogged } = useUserContext()
-  let navigate = useNavigate()
+  const { UserLogged } = useUserContext();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const sessionStorageAuth = () => {
       const sessionToken = sessionStorage.getItem(USER_TOKEN);
       const sessionUser = sessionStorage.getItem(USER_KEY);
       if (!!sessionToken && !!sessionUser) {
-        navigate('/dashboard')
+        navigate("/dashboard");
       }
-    }
+    };
     sessionStorageAuth();
-  }, [UserLogged])
+  }, [UserLogged]);
 
   return (
     <Routes>
@@ -49,5 +49,5 @@ export function Router() {
       <Route path='*' element={<NotFound />} />
 
     </Routes>
-  )
+  );
 }

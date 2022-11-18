@@ -3,25 +3,24 @@ import DashboardCard from "../DashboardCard";
 import { NotesHistoryCards } from "./NotesHistoryCards";
 
 const DatesExemple = [
-  { date: new Date(2022, 6, 28), splitDay: 'Back' },
-  { date: new Date(2022, 8, 28), splitDay: 'Legs' },
-  { date: new Date(2022, 9, 28), splitDay: 'Chest' },
-  { date: new Date(2022, 9, 29), splitDay: 'Back' },
-  { date: new Date(2022, 9, 30), splitDay: 'Legs' },
-  { date: new Date(2022, 9, 31), splitDay: 'Back' },
-  { date: new Date(2022, 10, 1), splitDay: 'Chest' },
-  { date: new Date(2022, 10, 22), splitDay: 'Legs' },
-]
+  { date: new Date(2022, 6, 28), splitDay: "Back" },
+  { date: new Date(2022, 8, 28), splitDay: "Legs" },
+  { date: new Date(2022, 9, 28), splitDay: "Chest" },
+  { date: new Date(2022, 9, 29), splitDay: "Back" },
+  { date: new Date(2022, 9, 30), splitDay: "Legs" },
+  { date: new Date(2022, 9, 31), splitDay: "Back" },
+  { date: new Date(2022, 10, 1), splitDay: "Chest" },
+  { date: new Date(2022, 10, 22), splitDay: "Legs" },
+];
 const MonthsLabels = ["January", "February", "March", "April", "May", "June", "July",
   "August", "September", "October", "November", "December"];
 const Months = DatesExemple.map(note => {
-  const m = note.date.getMonth()
-  return MonthsLabels[m]
-})
-const MonthsList = [...new Set(Months)]
+  const m = note.date.getMonth();
+  return MonthsLabels[m];
+});
+const MonthsList = [...new Set(Months)];
 
-interface NotesHistoryProps { }
-export function NotesHistory({ }: NotesHistoryProps) {
+export function NotesHistory() {
   return (
     <DashboardCard title="Personal Notes History"
       className="w-full min-w-[360px]" classNameCard="overflow-y-auto max-h-[300px]">
@@ -32,9 +31,9 @@ export function NotesHistory({ }: NotesHistoryProps) {
               <span className="block text-gray-100 text-sm underline underline-offset-2">{month}:</span>
               <NotesHistoryCards month={month} dates={DatesExemple} />
             </div>
-          )
+          );
         })
       }
     </DashboardCard>
-  )
+  );
 }

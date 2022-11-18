@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { clsx } from 'clsx'
+import { clsx } from "clsx";
 
 interface ExerciseCardRootProps {
   selected: boolean;
@@ -11,20 +11,20 @@ interface ExerciseCardRootProps {
 function Root({ selected = false, done = false, className, children }: ExerciseCardRootProps) {
   return (
     <div className={clsx(
-      'flex items-center gap-2 font-semibold text-gray-800 select-none',
-      '[&>div]:h-9 [&>div]:flex [&>div]:items-center [&>div]:rounded-lg',
-      '[&>div]:border-2 [&>div]:border-transparent',
-      '[&>span]:text-gray-100 [&_span]:text-sm [&>span]:block [&>span]:h-6',
+      "flex items-center gap-2 font-semibold text-gray-800 select-none",
+      "[&>div]:h-9 [&>div]:flex [&>div]:items-center [&>div]:rounded-lg",
+      "[&>div]:border-2 [&>div]:border-transparent",
+      "[&>span]:text-gray-100 [&_span]:text-sm [&>span]:block [&>span]:h-6",
       {
-        '[&>div]:border-orange-500': selected === true,
-        '[&_div]:bg-cyan-500': done === true,
+        "[&>div]:border-orange-500": selected === true,
+        "[&_div]:bg-cyan-500": done === true,
       },
       className
     )}
     >
       {children}
     </div >
-  )
+  );
 }
 
 interface ExerciseCardIndexProps {
@@ -36,7 +36,7 @@ function Index({ index }: ExerciseCardIndexProps) {
     <div className="w-9 justify-center bg-gray-100">
       <span>{index}</span>
     </div>
-  )
+  );
 }
 
 interface ExerciseCardNameProps {
@@ -50,7 +50,7 @@ function Name({ name, }: ExerciseCardNameProps) {
         {name}
       </span>
     </div >
-  )
+  );
 }
 
 interface ExerciseCardSetsProps {
@@ -62,7 +62,7 @@ function Sets({ sets }: ExerciseCardSetsProps) {
     <div className="w-9 justify-center bg-gray-100">
       <span>{sets}</span>
     </div>
-  )
+  );
 }
 
 interface ExerciseCardRepsProps {
@@ -74,7 +74,7 @@ function Reps({ reps }: ExerciseCardRepsProps) {
     <div className="w-9 justify-center bg-gray-100">
       <span>{reps}</span>
     </div>
-  )
+  );
 }
 
 interface ExerciseCardDescriptionCardProps {
@@ -87,7 +87,7 @@ function DescriptionCard({ showDescription }: ExerciseCardDescriptionCardProps) 
     <div className={clsx(
       "w-9 h-9 flex rounded-lg justify-center cursor-pointer bg-gray-100",
       {
-        'bg-orange-500': showDescription === true
+        "bg-orange-500": showDescription === true
       }
     )}
     >
@@ -95,7 +95,7 @@ function DescriptionCard({ showDescription }: ExerciseCardDescriptionCardProps) 
         className="w-4"
       />
     </div >
-  )
+  );
 }
 
 interface ExerciseCardDescriptionProps {
@@ -108,14 +108,14 @@ function Description({ done = false, description }: ExerciseCardDescriptionProps
     <div className={clsx(
       "static px-[.875rem] py-1 mr-1 text-sm flex flex-col justify-start rounded-lg bg-gray-100 border-2 border-orange-500",
       {
-        'bg-cyan-500': done === true
+        "bg-cyan-500": done === true
       }
     )}
     >
       <span className="mb-1 underline">Description:</span>
       <p className="max-w-xs">{description}</p>
     </div>
-  )
+  );
 }
 
 interface ExerciseCardTodoProps {
@@ -127,28 +127,26 @@ function Todo({ done = false }: ExerciseCardTodoProps) {
     <div className={clsx(
       "w-16 justify-center",
       {
-        'bg-gray-100': done === false
+        "bg-gray-100": done === false
       }
     )}>
       <span>
-        {done ? 'Done' : 'To Do'}
+        {done ? "Done" : "To Do"}
       </span>
     </div>
-  )
+  );
 }
 
-interface ExerciseCardEditProps { }
-
-function Edit({ }: ExerciseCardEditProps) {
+function Edit() {
   return (
     <div className="w-9 justify-center bg-gray-100 cursor-pointer">
       <img src="/src/assets/icons/Dashboard/Edit.svg" alt=""
         className="w-[1.125rem]"
       />
     </div>
-  )
+  );
 }
 
 export const ExerciseCard = {
   Root, Index, Name, Sets, Reps, DescriptionCard, Description, Todo, Edit
-}
+};

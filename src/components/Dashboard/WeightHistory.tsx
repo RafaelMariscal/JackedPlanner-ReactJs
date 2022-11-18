@@ -19,7 +19,7 @@ export function WeightHistory() {
         <div className="flex-1 ">
           <div className="p-4 h-1/2 font-bold text-xl text-gray-800
             flex flex-col items-center justify-center
-            bg-orange-500 rounded-tr-md border-2 border-orange-500 
+            bg-orange-500 rounded-tr-md border-2 border-orange-500
             "
           >
             <span className="block">
@@ -32,7 +32,7 @@ export function WeightHistory() {
 
           <div className="p-4 h-1/2 font-semibold text-xl text-gray-100
             flex flex-col items-center justify-center
-            bg-transparent rounded-br-md border-2 border-l-4 border-orange-500 
+            bg-transparent rounded-br-md border-2 border-l-4 border-orange-500
             "
           >
             <span className="block">
@@ -45,5 +45,5 @@ export function WeightHistory() {
         </div>
       </div>
     </DashboardCard >
-  )
+  );
 }

@@ -11,8 +11,8 @@ export function PlannerController({ price }: PlannerControllerProps) {
     <DashboardCard title="My Jacked Planners:" className="min-w-[360px] w-full">
       <div className="h-full flex flex-col gap-4">
         <div className="flex flex-col gap-4">
-          <PlannerCard index={1} PlannerName={'PUSH PULL LEGS by Jeff'} />
-          <PlannerCard index={2} PlannerName={'Mountaing Dog - Shouders focused asdfasdfdasdfasdf'} />
+          <PlannerCard index={1} PlannerName={"PUSH PULL LEGS by Jeff"} />
+          <PlannerCard index={2} PlannerName={"Mountaing Dog - Shouders focused asdfasdfdasdfasdf"} />
           <PlannerCard index={3} />
         </div>
 
@@ -27,7 +27,7 @@ export function PlannerController({ price }: PlannerControllerProps) {
             ${price}<span
               className="
             text-gray-100 text-xs ml-3 relative
-            before:content-['......'] before:text-transparent before:bg-price-slash 
+            before:content-['......'] before:text-transparent before:bg-price-slash
             before:bg-contain before:bg-no-repeat before:absolute
             before:bottom-1 before:-left-2
             "
@@ -38,5 +38,5 @@ export function PlannerController({ price }: PlannerControllerProps) {
         </div>
       </div >
     </DashboardCard >
-  )
+  );
 }

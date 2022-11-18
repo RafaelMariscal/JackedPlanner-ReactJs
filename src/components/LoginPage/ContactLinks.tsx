@@ -26,5 +26,5 @@ export function ContactLinks() {
         github.com/RafaelMariscal
       </a>
     </div >
-  )
+  );
 }

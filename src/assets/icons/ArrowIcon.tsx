@@ -1,6 +1,6 @@
 import { SVGAttributes } from "react";
 
-interface ArrowIconProps extends SVGAttributes<HTMLOrSVGElement> { }
+type ArrowIconProps = SVGAttributes<HTMLOrSVGElement>
 
 export function ArrowIcon(props: ArrowIconProps) {
   return (
@@ -19,5 +19,5 @@ export function ArrowIcon(props: ArrowIconProps) {
         strokeLinejoin="round"
       />
     </svg>
-  )
-} 
+  );
+}

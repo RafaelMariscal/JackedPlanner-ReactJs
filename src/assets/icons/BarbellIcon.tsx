@@ -1,6 +1,6 @@
 import { SVGAttributes } from "react";
 
-interface BarbellIconProps extends SVGAttributes<HTMLOrSVGElement> { }
+type BarbellIconProps = SVGAttributes<HTMLOrSVGElement>
 
 export function BarbellIcon(props: BarbellIconProps) {
   return (
@@ -40,5 +40,5 @@ export function BarbellIcon(props: BarbellIconProps) {
         strokeLinejoin="round"
       />
     </svg>
-  )
-} 
+  );
+}

@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import DashboardCard from "./DashboardCard";
 interface ImageCardProps {
-  variant: 'girl' | 'guy'
+  variant: "girl" | "guy"
 }
 export function ImageCard({ variant }: ImageCardProps) {
   return (
@@ -9,8 +9,8 @@ export function ImageCard({ variant }: ImageCardProps) {
       classNameCard={clsx(
         "w-full max-w-[440px] w-full overflow-hidden bg-cover bg-no-repeat bg-center flex flex-col items-center justify-center gap-1 rounded-lg border-2 border-orange-500",
         {
-          'bg-crossfitGirl': variant === "girl",
-          'bg-crossfitGuy': variant === 'guy'
+          "bg-crossfitGirl": variant === "girl",
+          "bg-crossfitGuy": variant === "guy"
         }
       )}
     >
@@ -32,7 +32,7 @@ export function ImageCard({ variant }: ImageCardProps) {
             after:absolute after:content-[''] after:bg-orange-500
             after:h-2 after:w-[5ch] after:-right-[125%] after:top-[50%]
             after:drop-shadow-lg
-            
+
             "
       >
         YOUR
@@ -46,5 +46,5 @@ export function ImageCard({ variant }: ImageCardProps) {
         GOALS
       </span>
     </DashboardCard>
-  )
+  );
 }

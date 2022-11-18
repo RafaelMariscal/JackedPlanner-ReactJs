@@ -13,11 +13,11 @@ export function JackedPlannerProCall({ price }: JackedPlannerProCallProps) {
     "Unlimited Jacked Planners",
     "Track your workout progress",
     "Get workout data, section by section!",
-  ]
+  ];
   return (
     <DashboardCard title="Jacked Planner PRO" className="w-full max-w-[720px] min-w-[662px]" classNameCard="py-0 px-0" >
       <div className="
-        w-full h-full px-6 py-4 font-medium text-gray-100 
+        w-full h-full px-6 py-4 font-medium text-gray-100
         border-t-8 border-b-8 border-orange-500
         flex flex-col items-center justify-center
         "
@@ -38,7 +38,7 @@ export function JackedPlannerProCall({ price }: JackedPlannerProCallProps) {
                 >
                   {feature}
                 </li>
-              )
+              );
             })}
           </ul>
 
@@ -49,7 +49,7 @@ export function JackedPlannerProCall({ price }: JackedPlannerProCallProps) {
               Only ${price}<span
                 className="
             text-gray-100 text-xs ml-3 relative
-            before:content-['......'] before:text-transparent before:bg-price-slash 
+            before:content-['......'] before:text-transparent before:bg-price-slash
             before:bg-contain before:bg-no-repeat before:absolute
             before:bottom-1 before:-left-2
             "
@@ -65,5 +65,5 @@ export function JackedPlannerProCall({ price }: JackedPlannerProCallProps) {
         </div>
       </div>
     </DashboardCard>
-  )
+  );
 }

@@ -5,4 +5,4 @@ export const userConverter = {
   toFirestore: (data: UserProps) => data,
   fromFirestore: (snap: QueryDocumentSnapshot<UserProps>) =>
     snap.data() as UserProps
-}
+};

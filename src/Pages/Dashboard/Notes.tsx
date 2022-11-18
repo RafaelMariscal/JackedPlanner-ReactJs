@@ -1,4 +1,3 @@
-import DashboardCard from "../../components/Dashboard/DashboardCard";
 import { ExercisePlan } from "../../components/Dashboard/ExercisePlan";
 import { ImageCard } from "../../components/Dashboard/ImageCard";
 import { NotesHistory } from "../../components/Dashboard/NotesHistory";
@@ -23,5 +22,5 @@ export function Notes() {
       <ImageCard variant="guy" />
 
     </div>
-  )
+  );
 }

@@ -4,17 +4,17 @@ import { FormEvent, useState } from "react";
 import DashboardCard from "../DashboardCard";
 
 export function PasswordSettigns() {
-  const [isUserEditingPassword, setIsUserEditingPassword] = useState(false)
+  const [isUserEditingPassword, setIsUserEditingPassword] = useState(false);
 
   function handleSubmit(e: FormEvent) {
-    e.preventDefault()
+    e.preventDefault();
   }
 
   return (
     <DashboardCard title="Password:">
-      <form onSubmit={handleSubmit} className="text-sm text-gray-100 
-        flex flex-col gap-4 [&_span]:w-[140px] 
-        [&_input]:flex-1 [&_input]:h-full [&_input]:rounded-md 
+      <form onSubmit={handleSubmit} className="text-sm text-gray-100
+        flex flex-col gap-4 [&_span]:w-[140px]
+        [&_input]:flex-1 [&_input]:h-full [&_input]:rounded-md
         [&_input]:px-4 [&_input]:text-gray-800 [&_input]:font-medium
         "
       >
@@ -25,8 +25,8 @@ export function PasswordSettigns() {
           <button type="button" onClick={() => setIsUserEditingPassword(!isUserEditingPassword)} className={clsx(
             "w-28 h-9 rounded-md border-2 border-orange-500 text-gray-800 font-semibold transition-all duration-150 hover:bg-opacity-95",
             {
-              'bg-gray-100': isUserEditingPassword === false,
-              'bg-cyan-500 border-transparent': isUserEditingPassword === true,
+              "bg-gray-100": isUserEditingPassword === false,
+              "bg-cyan-500 border-transparent": isUserEditingPassword === true,
             }
           )}
           >
@@ -63,5 +63,5 @@ export function PasswordSettigns() {
         </button>
       </form>
     </DashboardCard>
-  )
+  );
 }

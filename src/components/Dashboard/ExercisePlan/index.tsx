@@ -6,10 +6,10 @@ import { SetPlan, SetPlanProps } from "./SetPlan";
 export function ExercisePlan() {
 
   const ExercisePlan: SetPlanProps[] = [
-    { index: 1, und: 'pl', weight: 3, used: '', reps: '', done: false },
-    { index: 2, und: 'pl', weight: 3, used: '', reps: '', done: false },
-    { index: 3, und: 'pl', weight: 3, used: '', reps: '', done: false },
-  ]
+    { index: 1, und: "pl", weight: 3, used: "", reps: "", done: false },
+    { index: 2, und: "pl", weight: 3, used: "", reps: "", done: false },
+    { index: 3, und: "pl", weight: 3, used: "", reps: "", done: false },
+  ];
 
   return (
     <DashboardCard title="Exercise Plan:" extend className="min-w-[39rem]" classNameCard="px-4 py-4">
@@ -25,12 +25,12 @@ export function ExercisePlan() {
           {ExercisePlan.map(set => {
             return (
               <SetPlan key={useId()} index={set.index} und={set.und} weight={set.weight} />
-            )
+            );
           })}
         </div>
 
         <button className="ml-2
-            h-9 rounded-lg w-fit px-2 bg-gray-100 
+            h-9 rounded-lg w-fit px-2 bg-gray-100
             flex items-center cursor-pointer
             "
         >
@@ -42,5 +42,5 @@ export function ExercisePlan() {
 
       </div>
     </DashboardCard>
-  )
+  );
 }

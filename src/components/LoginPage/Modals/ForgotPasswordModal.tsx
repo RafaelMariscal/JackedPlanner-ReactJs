@@ -1,5 +1,5 @@
 import { FormEvent, useRef, useState } from "react";
-import * as Dialog from '@radix-ui/react-dialog'
+import * as Dialog from "@radix-ui/react-dialog";
 import { Button } from "../Button";
 import { useUserContext } from "../../../contexts/userContext/hook";
 
@@ -9,36 +9,36 @@ interface ForgotPasswordModalProps {
 }
 
 export function ForgotPasswordModal({ IsForgotAccModalOpen, setIsForgotAccModalOpen }: ForgotPasswordModalProps) {
-  const { resetPassword } = useUserContext()
-  const EmailInput = useRef<HTMLInputElement>(null)
+  const { resetPassword } = useUserContext();
+  const EmailInput = useRef<HTMLInputElement>(null);
 
-  const [IsLoading, setIsLoading] = useState(false)
-  const [Message, setMessage] = useState('')
+  const [IsLoading, setIsLoading] = useState(false);
+  const [Message, setMessage] = useState("");
 
   const handleForgotPassword = async (e: FormEvent) => {
-    e.preventDefault()
-    const email = String(EmailInput.current?.value)
+    e.preventDefault();
+    const email = String(EmailInput.current?.value);
 
     setIsLoading(true);
     const response = await resetPassword(email);
 
     if (response === "Password reset email sent!") {
-      setMessage(response)
+      setMessage(response);
     } else {
-      setMessage(`Request failed, ${response}`)
+      setMessage(`Request failed, ${response}`);
     }
     setIsLoading(false);
-  }
+  };
 
   return (
     <Dialog.Root open={IsForgotAccModalOpen} modal
       onOpenChange={() => {
-        setIsForgotAccModalOpen(!IsForgotAccModalOpen)
-        setMessage("")
+        setIsForgotAccModalOpen(!IsForgotAccModalOpen);
+        setMessage("");
       }} >
 
       <Dialog.Trigger asChild>
-        <span className="font-medium text-xs text-gray-100 underline 
+        <span className="font-medium text-xs text-gray-100 underline
           cursor-pointer transition-all duration-150 ease-in-out
           hover:text-cyan-500 hover:scale-[104%]
           "
@@ -53,7 +53,7 @@ export function ForgotPasswordModal({ IsForgotAccModalOpen, setIsForgotAccModalO
               "
         >
           <Dialog.Content className="
-                w-full max-w-sm p-6 pt-4 bg-gray-800 border border-gray-900 rounded-lg 
+                w-full max-w-sm p-6 pt-4 bg-gray-800 border border-gray-900 rounded-lg
                 drop-shadow-[0_0_.25rem_#000] flex flex-col items-center
                 justify-center animate-appear duration-50
                 "
@@ -65,7 +65,7 @@ export function ForgotPasswordModal({ IsForgotAccModalOpen, setIsForgotAccModalO
                 </h2>
               </Dialog.Title>
               <Dialog.Close asChild
-                className="w-6 h-6 rounded-sm outline-none 
+                className="w-6 h-6 rounded-sm outline-none
                 focus:outline-orange-500"
               >
                 <button aria-label="Close"
@@ -86,13 +86,13 @@ export function ForgotPasswordModal({ IsForgotAccModalOpen, setIsForgotAccModalO
             <form onSubmit={handleForgotPassword} className="
                 w-full flex flex-col gap-4
 
-                [&_input]:h-11 [&_input]:rounded-md [&_input]:bg-gray-100 [&_input]:pl-4 
-                [&_input]:text-gray-800 [&_input]:text-sm [&_input]:font-medium 
-                [&_input]:outline-none focus:[&_input]:outline-1 
-                focus:[&_input]:outline-orange-500 
+                [&_input]:h-11 [&_input]:rounded-md [&_input]:bg-gray-100 [&_input]:pl-4
+                [&_input]:text-gray-800 [&_input]:text-sm [&_input]:font-medium
+                [&_input]:outline-none focus:[&_input]:outline-1
+                focus:[&_input]:outline-orange-500
                 focus:[&_input]:outline-offset-2
 
-                [&_label]:flex [&_label]:flex-col [&_label]:gap-1 
+                [&_label]:flex [&_label]:flex-col [&_label]:gap-1
                 [&_label]:text-gray-100 [&_label]:text-sm
               "
             >
@@ -118,5 +118,5 @@ export function ForgotPasswordModal({ IsForgotAccModalOpen, setIsForgotAccModalO
         </Dialog.Overlay>
       </Dialog.Portal>
     </Dialog.Root>
-  )
+  );
 }

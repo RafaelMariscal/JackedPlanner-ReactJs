@@ -37,19 +37,19 @@ A React + Firebase (Auth + Firestore + Hosting) web application, Jacked Planner 
             [ ] Calendar ( Training Schedule )
               [ ] Control Training Schedule
               [ ] Print the correct labels by day
-            [ ] Workout Section 
+            [ ] Workout Section
               [ ] Print Exercises
               [ ] CRUD Modal for each exercise
             [ ] Personal Notes CRUD, day by day
-            [ ] Exercise Plan CRUD 
+            [ ] Exercise Plan CRUD
             [ ] Get Pro Buttons redirects to Stripe Page (If you are not PRO)
-        
+
         [ ] Dashboard notes
           [ ] Personal Notes History
             [ ] Recieve all notes saved ( Stack )
           [ ] Personal Notes CRUD
           [ ] Planners Exercise Plan CRUD
-        
+
         [ ] Dashboard settings
           [ ] Account Settings
             [ ] Recieve all user data

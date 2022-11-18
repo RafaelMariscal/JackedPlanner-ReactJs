@@ -13,9 +13,9 @@ export function GoalsSection() {
         <div className="
           font-semibold text-4xl text-gray-100
           py-5 pr-5
-          relative inline-block 
-          before:content-[''] before:block before:absolute 
-          before:right-[0] before:top-0 before:z-[-1] 
+          relative inline-block
+          before:content-[''] before:block before:absolute
+          before:right-[0] before:top-0 before:z-[-1]
           before:w-[100vw] before:h-60 before:drop-shadow-[.75rem_.75rem_0_#FE9016]
           before:text-gray-800 before:bg-gray-800
           "
@@ -33,5 +33,5 @@ export function GoalsSection() {
       </div>
 
     </div >
-  )
+  );
 }

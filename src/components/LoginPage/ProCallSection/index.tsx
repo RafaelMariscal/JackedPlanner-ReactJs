@@ -7,11 +7,11 @@ interface ProCallSectionProps {
 
 export function ProCallSection({ price }: ProCallSectionProps) {
   const acessList = [
-    'All the Jacked Planners in the community',
-    'Save unlimited Training Slips',
-    'Track your workout progress',
-    'Get workout data, section by section!',
-  ]
+    "All the Jacked Planners in the community",
+    "Save unlimited Training Slips",
+    "Track your workout progress",
+    "Get workout data, section by section!",
+  ];
 
   return (
     <div id="getPro" className="relative">
@@ -30,7 +30,7 @@ export function ProCallSection({ price }: ProCallSectionProps) {
             Only ${price}<span
               className="
             text-gray-100 text-sm ml-3
-            before:content-['......'] before:text-transparent before:bg-price-slash 
+            before:content-['......'] before:text-transparent before:bg-price-slash
             before:bg-contain before:bg-no-repeat before:absolute
             before:bottom-4 before:right-[2.45rem]
             "
@@ -54,19 +54,19 @@ export function ProCallSection({ price }: ProCallSectionProps) {
               acessList.map((item) => {
                 return (
                   <li key={useId()} className="leading-tight ml-5  relative
-                    before:content-[''] before:block before:absolute 
-                    before:w-2 before:h-2 before:bg-orange-500 
+                    before:content-[''] before:block before:absolute
+                    before:w-2 before:h-2 before:bg-orange-500
                     before:-left-5 before:top-[50%] before:-translate-y-[50%]
                     "
                   >
                     {item}
                   </li>
-                )
+                );
               })
             }
           </ul>
         </div>
       </div>
     </div>
-  )
+  );
 }

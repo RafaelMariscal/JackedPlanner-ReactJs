@@ -18,14 +18,14 @@ export function PlannerCard({ index, PlannerName }: PlannerCardProps) {
           {index}
         </span>
 
-        <p className={PlannerName ? 'pl-2 truncate max-w-[240px]' : 'font-medium text-gray-400 pl-2'}>
-          {PlannerName ? PlannerName : 'Add a New Planner'}
+        <p className={PlannerName ? "pl-2 truncate max-w-[240px]" : "font-medium text-gray-400 pl-2"}>
+          {PlannerName ? PlannerName : "Add a New Planner"}
         </p>
       </div>
 
       <img src="/src/assets/icons/Dashboard/Edit.svg" alt=""
-        className={PlannerName ? "w-[1.125rem]" : 'hidden'}
+        className={PlannerName ? "w-[1.125rem]" : "hidden"}
       />
     </div>
-  )
+  );
 }

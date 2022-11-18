@@ -13,13 +13,13 @@ export interface AccountProps {
 }
 
 const accountSettings: AccountProps = {
-  userName: 'Rafael Mariscal',
-  email: 'rafael@teste.com',
+  userName: "Rafael Mariscal",
+  email: "rafael@teste.com",
   gender: "male",
-  subscription: 'Subscribed',
-  altEmail: 'rafael_alt@teste.com',
+  subscription: "Subscribed",
+  altEmail: "rafael_alt@teste.com",
   birthday: new Date(),
-}
+};
 
 export function Settings() {
   return (
@@ -36,5 +36,5 @@ export function Settings() {
       <ImageCard variant="girl" />
 
     </div>
-  )
+  );
 }

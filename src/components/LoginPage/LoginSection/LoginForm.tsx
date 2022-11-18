@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import { FormEvent, useState } from "react";
 import { FacebookLogo } from "../../../assets/icons/FacebookLogo";
 import { GithubLogo } from "../../../assets/icons/GithubLogo";
@@ -13,31 +14,31 @@ import { ForgotPasswordModal } from "../Modals/ForgotPasswordModal";
 type ProviderProps = "emailAndPassword" | "github" | "google" | "facebook" | "anonymous"
 
 export function LoginForm() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const [IsLoading, setIsLoading] = useState(false)
-  const [Message, setMessage] = useState('')
+  const [IsLoading, setIsLoading] = useState(false);
+  const [Message, setMessage] = useState("");
 
-  const [IsCreateAccModalOpen, setIsCreateAccModalOpen] = useState(false)
-  const [IsForgotAccModalOpen, setIsForgotAccModalOpen] = useState(false)
+  const [IsCreateAccModalOpen, setIsCreateAccModalOpen] = useState(false);
+  const [IsForgotAccModalOpen, setIsForgotAccModalOpen] = useState(false);
 
-  const { signInWithEmail } = useUserContext()
+  const { signInWithEmail } = useUserContext();
 
   const {
     signInWithGoogle,
     signInWithGithub,
     signInWithFacebook,
     signWithAnonymousProvider,
-  } = useUserContext()
+  } = useUserContext();
 
   const handleAuthLogin = async (provider: ProviderProps) => {
     setMessage("");
     setIsLoading(true);
-    let promiseResultMessage = ''
+    let promiseResultMessage = "";
     switch (provider) {
       case "emailAndPassword":
-        promiseResultMessage = await signInWithEmail({ email, password })
+        promiseResultMessage = await signInWithEmail({ email, password });
         break;
       case "github":
         promiseResultMessage = await signInWithGithub();
@@ -51,11 +52,11 @@ export function LoginForm() {
       default:
         promiseResultMessage = await signWithAnonymousProvider();
         break;
-    };
+    }
     promiseResultMessage !== "sign in successfull" ?
-      setMessage(`Login Failed: ${String(promiseResultMessage)}`) : null
+      setMessage(`Login Failed: ${String(promiseResultMessage)}`) : null;
     setIsLoading(false);
-  }
+  };
 
   return (
     <div id="loginForm"
@@ -105,7 +106,7 @@ export function LoginForm() {
       </div>
 
       <BrandButton.Root disabled={IsLoading} variant="Github"
-        onClick={() => { handleAuthLogin("github") }}
+        onClick={() => { handleAuthLogin("github"); }}
       >
         <BrandButton.Icon>
           <GithubLogo />
@@ -113,7 +114,7 @@ export function LoginForm() {
       </BrandButton.Root>
 
       <BrandButton.Root disabled={IsLoading} variant="Google"
-        onClick={() => { handleAuthLogin("google") }}
+        onClick={() => { handleAuthLogin("google"); }}
       >
         <BrandButton.Icon>
           <GoogleLogo />
@@ -121,7 +122,7 @@ export function LoginForm() {
       </BrandButton.Root>
 
       <BrandButton.Root disabled={IsLoading} variant="Facebook"
-        onClick={() => { handleAuthLogin('facebook') }}
+        onClick={() => { handleAuthLogin("facebook"); }}
       >
         <BrandButton.Icon>
           <FacebookLogo />
@@ -129,12 +130,12 @@ export function LoginForm() {
       </BrandButton.Root>
 
       <BrandButton.Root disabled={IsLoading} variant="Anonymous"
-        onClick={() => { handleAuthLogin("anonymous") }}
+        onClick={() => { handleAuthLogin("anonymous"); }}
       >
         <BrandButton.Icon>
           <img src="/src/assets/icons/Anonymous.png" alt="" className="w-6" />
         </BrandButton.Icon>
       </BrandButton.Root>
     </div>
-  )
+  );
 }

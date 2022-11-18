@@ -1,21 +1,21 @@
 import { useId, useState } from "react";
 import { ExerciseCard } from "./ExerciseCard";
-import * as Popover from '@radix-ui/react-popover';
+import * as Popover from "@radix-ui/react-popover";
 import DashboardCard from "../DashboardCard";
 
 export function WorkoutSection() {
-  const [isExerciseSelected, setisExerciseSelected] = useState(false)
-  const [isExerciseDone, setIsExerciseDone] = useState(false)
+  const [isExerciseSelected, setisExerciseSelected] = useState(false);
+  const [isExerciseDone, setIsExerciseDone] = useState(false);
 
   const ExerciseList = [
-    { name: 'Crucifixo com Cabos', index: 1, description: 'Description 1 testing ' },
-    { name: 'Crossover (Bi-articulado)', index: 2, description: 'Description 2 testing' },
-    { name: 'Crucifixo com Cabos', index: 1, description: 'Description 1 testing ' },
-    { name: 'Crossover (Bi-articulado)', index: 2, description: 'Description 2 testing' },
-    { name: 'Crucifixo com Cabos', index: 1, description: 'Description 1 testing ' },
-    { name: 'Crossover (Bi-articulado)', index: 2, description: 'Description 2 testing' },
-    { name: 'Crucifixo com Cabos', index: 1, description: 'Description 1 testing ' },
-  ]
+    { name: "Crucifixo com Cabos", index: 1, description: "Description 1 testing " },
+    { name: "Crossover (Bi-articulado)", index: 2, description: "Description 2 testing" },
+    { name: "Crucifixo com Cabos", index: 1, description: "Description 1 testing " },
+    { name: "Crossover (Bi-articulado)", index: 2, description: "Description 2 testing" },
+    { name: "Crucifixo com Cabos", index: 1, description: "Description 1 testing " },
+    { name: "Crossover (Bi-articulado)", index: 2, description: "Description 2 testing" },
+    { name: "Crucifixo com Cabos", index: 1, description: "Description 1 testing " },
+  ];
 
   return (
     <DashboardCard title="Workout Section:" subtitle="Chest / Shoulders" extend className="min-w-[39rem] h-"
@@ -24,12 +24,12 @@ export function WorkoutSection() {
       <div className="flex flex-col gap-2">
         {
           ExerciseList.map((exercise, index) => {
-            const [showDescription, setshowDescription] = useState(false)
-            function handleDescriptionCardClick(isOpen: Boolean) {
+            const [showDescription, setshowDescription] = useState(false);
+            function handleDescriptionCardClick(isOpen: boolean) {
               if (isOpen) {
-                return setshowDescription(true)
+                return setshowDescription(true);
               } else {
-                return setshowDescription(false)
+                return setshowDescription(false);
               }
             }
             return (
@@ -42,7 +42,7 @@ export function WorkoutSection() {
                   <ExerciseCard.Index index={exercise.index} />
                   <ExerciseCard.Name name={exercise.name} />
                   <Popover.Portal>
-                    <Popover.Content align={index + 1 === ExerciseList.length ? 'end' : 'start'} side="left">
+                    <Popover.Content align={index + 1 === ExerciseList.length ? "end" : "start"} side="left">
                       <ExerciseCard.Description done={isExerciseDone} description={exercise.description} />
                     </Popover.Content>
                   </Popover.Portal>
@@ -59,12 +59,12 @@ export function WorkoutSection() {
                   <ExerciseCard.Edit />
                 </ExerciseCard.Root>
               </Popover.Root>
-            )
+            );
           })
         }
 
       </div>
 
     </DashboardCard>
-  )
+  );
 }

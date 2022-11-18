@@ -1,6 +1,6 @@
 import { SVGAttributes } from "react";
 
-interface LinkedinLogoProps extends SVGAttributes<HTMLOrSVGElement> { }
+type LinkedinLogoProps = SVGAttributes<HTMLOrSVGElement>
 
 export function LinkedinLogo(props: LinkedinLogoProps) {
   return (
@@ -18,5 +18,5 @@ export function LinkedinLogo(props: LinkedinLogoProps) {
         fill="#EEF4F6"
       />
     </svg>
-  )
+  );
 }

@@ -20,5 +20,5 @@ export function Anchor(props: AnchorProps) {
     >
       {props.children}
     </a>
-  )
+  );
 }

@@ -1,5 +1,5 @@
 import { FormEvent, useRef, useState } from "react";
-import * as Dialog from '@radix-ui/react-dialog'
+import * as Dialog from "@radix-ui/react-dialog";
 import { Button } from "../Button";
 import { useUserContext } from "../../../contexts/userContext/hook";
 
@@ -9,25 +9,25 @@ interface CreateNewUserModalProps {
 }
 
 export function CreateNewUserModal({ IsCreateAccModalOpen, setIsCreateAccModalOpen }: CreateNewUserModalProps) {
-  const { createNewUser } = useUserContext()
+  const { createNewUser } = useUserContext();
 
-  const NameInput = useRef<HTMLInputElement>(null)
-  const EmailInput = useRef<HTMLInputElement>(null)
-  const PasswordInput = useRef<HTMLInputElement>(null)
-  const ConfirmPasswordInput = useRef<HTMLInputElement>(null)
+  const NameInput = useRef<HTMLInputElement>(null);
+  const EmailInput = useRef<HTMLInputElement>(null);
+  const PasswordInput = useRef<HTMLInputElement>(null);
+  const ConfirmPasswordInput = useRef<HTMLInputElement>(null);
 
-  const [IsLoading, setIsLoading] = useState(false)
-  const [Message, setMessage] = useState('')
+  const [IsLoading, setIsLoading] = useState(false);
+  const [Message, setMessage] = useState("");
 
   const handleCreateNewUser = async (e: FormEvent) => {
-    e.preventDefault()
-    const name = String(NameInput.current?.value)
-    const email = String(EmailInput.current?.value)
-    const password = String(PasswordInput.current?.value)
-    const confirmPassword = String(ConfirmPasswordInput.current?.value)
+    e.preventDefault();
+    const name = String(NameInput.current?.value);
+    const email = String(EmailInput.current?.value);
+    const password = String(PasswordInput.current?.value);
+    const confirmPassword = String(ConfirmPasswordInput.current?.value);
 
     if (password != confirmPassword) {
-      return setMessage("Passwords don't match")
+      return setMessage("Passwords don't match");
     }
 
     setIsLoading(true);
@@ -35,20 +35,20 @@ export function CreateNewUserModal({ IsCreateAccModalOpen, setIsCreateAccModalOp
     if (response === "New user created") {
       setIsCreateAccModalOpen(false);
     } else {
-      setMessage(`Sign up failed: ${response}`)
+      setMessage(`Sign up failed: ${response}`);
     }
     setIsLoading(false);
-  }
+  };
 
   return (
     <Dialog.Root open={IsCreateAccModalOpen} modal
       onOpenChange={() => {
-        setIsCreateAccModalOpen(!IsCreateAccModalOpen)
-        setMessage("")
+        setIsCreateAccModalOpen(!IsCreateAccModalOpen);
+        setMessage("");
       }} >
 
       <Dialog.Trigger asChild>
-        <span className="font-medium text-xs text-gray-100 underline 
+        <span className="font-medium text-xs text-gray-100 underline
           cursor-pointer transition-all duration-150 ease-in-out
           hover:text-cyan-500 hover:scale-[104%]
           "
@@ -63,7 +63,7 @@ export function CreateNewUserModal({ IsCreateAccModalOpen, setIsCreateAccModalOp
               "
         >
           <Dialog.Content className="
-                w-full max-w-sm p-6 pt-4 bg-gray-800 border border-gray-900 rounded-lg 
+                w-full max-w-sm p-6 pt-4 bg-gray-800 border border-gray-900 rounded-lg
                 drop-shadow-[0_0_.25rem_#000] flex flex-col items-center
                 justify-center animate-appear duration-50
                 "
@@ -73,7 +73,7 @@ export function CreateNewUserModal({ IsCreateAccModalOpen, setIsCreateAccModalOp
                 Create new account
               </Dialog.Title>
               <Dialog.Close asChild
-                className="w-6 h-6 rounded-sm outline-none 
+                className="w-6 h-6 rounded-sm outline-none
                 focus:outline-orange-500"
               >
                 <button aria-label="Close"
@@ -88,13 +88,13 @@ export function CreateNewUserModal({ IsCreateAccModalOpen, setIsCreateAccModalOp
             <form onSubmit={handleCreateNewUser} className="
                 w-full flex flex-col gap-4
 
-                [&_input]:h-11 [&_input]:rounded-md [&_input]:bg-gray-100 [&_input]:pl-4 
-                [&_input]:text-gray-800 [&_input]:text-sm [&_input]:font-medium 
-                [&_input]:outline-none focus:[&_input]:outline-1 
-                focus:[&_input]:outline-orange-500 
+                [&_input]:h-11 [&_input]:rounded-md [&_input]:bg-gray-100 [&_input]:pl-4
+                [&_input]:text-gray-800 [&_input]:text-sm [&_input]:font-medium
+                [&_input]:outline-none focus:[&_input]:outline-1
+                focus:[&_input]:outline-orange-500
                 focus:[&_input]:outline-offset-2
 
-                [&_label]:flex [&_label]:flex-col [&_label]:gap-1 
+                [&_label]:flex [&_label]:flex-col [&_label]:gap-1
                 [&_label]:text-gray-100 [&_label]:text-sm
               "
             >
@@ -136,5 +136,5 @@ export function CreateNewUserModal({ IsCreateAccModalOpen, setIsCreateAccModalOp
         </Dialog.Overlay>
       </Dialog.Portal>
     </Dialog.Root>
-  )
+  );
 }

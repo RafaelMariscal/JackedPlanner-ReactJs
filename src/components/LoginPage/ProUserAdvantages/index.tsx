@@ -1,4 +1,4 @@
-import { Button } from "../Button"
+import { Button } from "../Button";
 
 
 interface ProCallSectionProps {
@@ -47,5 +47,5 @@ export function ProUserAdvantages({ price }: ProCallSectionProps) {
 
       </div>
     </div>
-  )
+  );
 }

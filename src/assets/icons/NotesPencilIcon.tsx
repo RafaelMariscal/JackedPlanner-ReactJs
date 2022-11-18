@@ -1,6 +1,6 @@
 import { SVGAttributes } from "react";
 
-interface NotesPencilIconProps extends SVGAttributes<HTMLOrSVGElement> { }
+type NotesPencilIconProps = SVGAttributes<HTMLOrSVGElement>
 
 export function NotesPencilIcon(props: NotesPencilIconProps) {
   return (
@@ -30,5 +30,5 @@ export function NotesPencilIcon(props: NotesPencilIconProps) {
         strokeLinejoin="round"
       />
     </svg>
-  )
-} 
+  );
+}

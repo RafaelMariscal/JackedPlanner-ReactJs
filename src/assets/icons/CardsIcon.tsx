@@ -1,6 +1,6 @@
 import { SVGAttributes } from "react";
 
-interface CardsIconProps extends SVGAttributes<HTMLOrSVGElement> { }
+type CardsIconProps = SVGAttributes<HTMLOrSVGElement>
 
 export function CardsIcon(props: CardsIconProps) {
   return (
@@ -39,5 +39,5 @@ export function CardsIcon(props: CardsIconProps) {
         strokeLinejoin="round"
       />
     </svg>
-  )
-} 
+  );
+}

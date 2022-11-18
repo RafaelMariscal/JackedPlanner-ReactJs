@@ -16,8 +16,8 @@ const MonthsLabels = ["January", "February", "March", "April", "May", "June", "J
   "August", "September", "October", "November", "December"];
 
 export function NotesHistoryCards({ month, dates, selected = false }: NotesHistoryCardsProps) {
-  const monthIndex = MonthsLabels.indexOf(month)
-  const datesIncluded = dates.filter(date => date.date.getMonth() === monthIndex)
+  const monthIndex = MonthsLabels.indexOf(month);
+  const datesIncluded = dates.filter(date => date.date.getMonth() === monthIndex);
   return (
     <>
       {
@@ -26,13 +26,13 @@ export function NotesHistoryCards({ month, dates, selected = false }: NotesHisto
             <div key={useId()} className={clsx(
               "h-9 pl-4 rounded-md font-medium flex items-center justify-start",
               {
-                'bg-cyan-500': selected === true,
-                'bg-gray-100': selected === false,
+                "bg-cyan-500": selected === true,
+                "bg-gray-100": selected === false,
               }
             )}>
               <div className="w-[11ch] flex justify-between">
                 <span className="tracking-wide">
-                  {new Intl.DateTimeFormat('pt-BR').format(dateObj.date)}
+                  {new Intl.DateTimeFormat("pt-BR").format(dateObj.date)}
                 </span>
                 <span>-</span>
               </div>
@@ -41,9 +41,9 @@ export function NotesHistoryCards({ month, dates, selected = false }: NotesHisto
                 {dateObj.splitDay}
               </span>
             </div>
-          )
+          );
         })
       }
     </>
-  )
+  );
 }

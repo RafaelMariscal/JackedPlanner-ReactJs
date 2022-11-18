@@ -1,6 +1,6 @@
 import { SVGAttributes } from "react";
 
-interface FacebookLogoProps extends SVGAttributes<HTMLOrSVGElement> { }
+type FacebookLogoProps = SVGAttributes<HTMLOrSVGElement>
 
 export function FacebookLogo(props: FacebookLogoProps) {
   return (
@@ -20,5 +20,5 @@ export function FacebookLogo(props: FacebookLogoProps) {
         fill="#3B5998"
       />
     </svg>
-  )
-} 
+  );
+}

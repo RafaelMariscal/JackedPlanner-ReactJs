@@ -1,10 +1,10 @@
-import { Outlet } from 'react-router-dom'
-import { DashboardHeader } from '../../components/Dashboard/DashboardHeader'
-import { Navbar } from '../../components/Dashboard/Navbar'
-import { useUserContext } from '../../contexts/userContext/hook'
+import { Outlet } from "react-router-dom";
+import { DashboardHeader } from "../../components/Dashboard/DashboardHeader";
+import { Navbar } from "../../components/Dashboard/Navbar";
+import { useUserContext } from "../../contexts/userContext/hook";
 
 export function Dashboard() {
-  const { UserLogged } = useUserContext()
+  const { UserLogged } = useUserContext();
 
   return (
     <div className='
@@ -14,27 +14,27 @@ export function Dashboard() {
       '
     >
       <DashboardHeader userName={
-        !!UserLogged?.displayName ?
+        UserLogged?.displayName ?
           UserLogged.displayName :
-          'Anonymous'
+          "Anonymous"
       } />
 
       <div className=' w-full h-full p-6 pt-[4.5rem]'>
         <div className=" m-auto
           w-full max-w-[1600px] h-full rounded-xl overflow-hidden
           flex items-center justify-center gap-6 overflow-x-auto
-          bg-gradient-to-br from-white-opac-35 to-gray-opac-35 
+          bg-gradient-to-br from-white-opac-35 to-gray-opac-35
           bg-opacity-30 backdrop-blur-md border border-gray-400
           shadow-[0_0_6px_rgba(0,0,0,0.35)]
           "
         >
           <Navbar />
-          <div className='w-full h-full py-6 ml-24 mr-4 
+          <div className='w-full h-full py-6 ml-24 mr-4
             overflow-x-auto '>
             <Outlet />
           </div>
         </div>
       </div>
     </div >
-  )
+  );
 }

@@ -77,5 +77,5 @@ export function FeaturesSection() {
         <img src="/src/assets/Snatching.png" alt="" className="m-auto" />
       </div>
     </div>
-  )
+  );
 }

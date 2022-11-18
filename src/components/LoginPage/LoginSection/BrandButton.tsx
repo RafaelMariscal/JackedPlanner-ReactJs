@@ -1,8 +1,8 @@
-import { clsx } from 'clsx'
-import { ButtonHTMLAttributes, ReactNode } from 'react';
+import { clsx } from "clsx";
+import { ButtonHTMLAttributes, ReactNode } from "react";
 
 export interface BrandButtonRootProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant: 'Anonymous' | 'Facebook' | 'Github' | 'Google';
+  variant: "Anonymous" | "Facebook" | "Github" | "Google";
   children: ReactNode;
 }
 
@@ -17,10 +17,10 @@ function Root({ children, variant, ...props }: BrandButtonRootProps) {
         "active:scale-[103%] active:transition-none",
         "disabled:brightness-90",
         {
-          'bg-gray-900 text-gray-100': variant === 'Anonymous',
-          'bg-blue text-gray-100': variant === 'Facebook',
-          'bg-gray-github text-gray-100': variant === 'Github',
-          'bg-gray-100 text-gray-800 font-semibold': variant === 'Google',
+          "bg-gray-900 text-gray-100": variant === "Anonymous",
+          "bg-blue text-gray-100": variant === "Facebook",
+          "bg-gray-github text-gray-100": variant === "Github",
+          "bg-gray-100 text-gray-800 font-semibold": variant === "Google",
         }
       )}
       {...props}
@@ -28,7 +28,7 @@ function Root({ children, variant, ...props }: BrandButtonRootProps) {
       {children}
       Sign in with {variant}
     </button >
-  )
+  );
 }
 
 export interface BrandButtonIconProps {
@@ -40,9 +40,9 @@ function Icon({ children }: BrandButtonIconProps) {
     <div className='ml-[18%]'>
       {children}
     </div>
-  )
+  );
 }
 
 export const BrandButton = {
   Root, Icon
-}
+};

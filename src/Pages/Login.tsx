@@ -19,5 +19,5 @@ export function Login() {
       <ProUserAdvantages price={4.99} />
       <Footer />
     </div>
-  )
+  );
 }

@@ -11,17 +11,17 @@ export function AccountSettings({ user }: AccountSettingsProps) {
   // SET THE STATES OR FORM DATA MANAGER
 
   function handleSubmit(e: FormEvent) {
-    e.preventDefault()
+    e.preventDefault();
   }
 
   return (
     <DashboardCard title="Account:">
-      <form onSubmit={handleSubmit} className="text-sm text-gray-100 
+      <form onSubmit={handleSubmit} className="text-sm text-gray-100
         flex flex-col gap-4
         "
       >
-        <label htmlFor="id_userName" className="w-full h-9 flex items-center gap-2 
-          [&_span]:w-24 [&_input]:w-full [&_input]:h-full [&_input]:rounded-md 
+        <label htmlFor="id_userName" className="w-full h-9 flex items-center gap-2
+          [&_span]:w-24 [&_input]:w-full [&_input]:h-full [&_input]:rounded-md
           [&_input]:px-4 [&_input]:text-gray-800 [&_input]:font-medium
           ">
           <span>User Name:</span>
@@ -29,8 +29,8 @@ export function AccountSettings({ user }: AccountSettingsProps) {
             className="w-full h-full rounded-md px-4 text-gray-800" />
         </label>
 
-        <label htmlFor="id_email" className="w-full h-9 flex items-center gap-2 
-          [&_span]:w-24 [&_input]:w-full [&_input]:h-full [&_input]:rounded-md 
+        <label htmlFor="id_email" className="w-full h-9 flex items-center gap-2
+          [&_span]:w-24 [&_input]:w-full [&_input]:h-full [&_input]:rounded-md
           [&_input]:px-4 [&_input]:text-gray-800 [&_input]:font-medium
           ">
           <span>Email:</span>
@@ -38,8 +38,8 @@ export function AccountSettings({ user }: AccountSettingsProps) {
             className="w-full h-full rounded-md px-4 text-gray-800" />
         </label>
 
-        <label htmlFor="id_altEmail" className="w-full h-9 flex items-center gap-2 
-          [&_span]:w-24 [&_input]:w-full [&_input]:h-full [&_input]:rounded-md 
+        <label htmlFor="id_altEmail" className="w-full h-9 flex items-center gap-2
+          [&_span]:w-24 [&_input]:w-full [&_input]:h-full [&_input]:rounded-md
           [&_input]:px-4 [&_input]:text-gray-800 [&_input]:font-medium
           ">
           <span>Alt. Email:</span>
@@ -47,8 +47,8 @@ export function AccountSettings({ user }: AccountSettingsProps) {
             className="w-full h-full rounded-md px-4 text-gray-800" />
         </label>
 
-        <label htmlFor="id_birthday" className="w-full h-9 flex items-center gap-2 
-          [&_span]:w-24 [&_input]:w-full [&_input]:h-full [&_input]:rounded-md 
+        <label htmlFor="id_birthday" className="w-full h-9 flex items-center gap-2
+          [&_span]:w-24 [&_input]:w-full [&_input]:h-full [&_input]:rounded-md
           [&_input]:px-4 [&_input]:text-gray-800 [&_input]:font-medium
           ">
           <span>Birthday:</span>
@@ -56,8 +56,8 @@ export function AccountSettings({ user }: AccountSettingsProps) {
             className="w-full h-full rounded-md px-4 text-gray-800" />
         </label>
 
-        <label htmlFor="id_gender" className="w-full h-9 flex items-center gap-2 
-          [&_span]:w-24 [&_input]:w-full [&_input]:h-full [&_input]:rounded-md 
+        <label htmlFor="id_gender" className="w-full h-9 flex items-center gap-2
+          [&_span]:w-24 [&_input]:w-full [&_input]:h-full [&_input]:rounded-md
           [&_input]:px-4 [&_input]:text-gray-800 [&_input]:font-medium
           ">
           <span>Gender:</span>
@@ -73,5 +73,5 @@ export function AccountSettings({ user }: AccountSettingsProps) {
         </button>
       </form>
     </DashboardCard>
-  )
+  );
 }

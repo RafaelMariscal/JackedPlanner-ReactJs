@@ -1,6 +1,6 @@
 import { SVGAttributes } from "react";
 
-interface CalendarIconProps extends SVGAttributes<HTMLOrSVGElement> { }
+type CalendarIconProps = SVGAttributes<HTMLOrSVGElement>
 
 export function CalendarIcon(props: CalendarIconProps) {
   return (
@@ -32,5 +32,5 @@ export function CalendarIcon(props: CalendarIconProps) {
         strokeLinejoin="round"
       />
     </svg>
-  )
-} 
+  );
+}

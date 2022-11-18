@@ -1,6 +1,6 @@
 import { SVGAttributes } from "react";
 
-interface LogoProps extends SVGAttributes<HTMLOrSVGElement> { }
+type LogoProps = SVGAttributes<HTMLOrSVGElement>
 
 export function Logo(props: LogoProps) {
   return (
@@ -65,5 +65,5 @@ export function Logo(props: LogoProps) {
         </filter>
       </defs>
     </svg>
-  )
+  );
 }

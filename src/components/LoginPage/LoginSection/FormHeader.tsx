@@ -25,5 +25,5 @@ export function FormHeader() {
         </div>
       </div >
     </div >
-  )
+  );
 }

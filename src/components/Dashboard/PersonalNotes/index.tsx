@@ -9,11 +9,11 @@ interface PersonalNotesProps {
 }
 
 export function PersonalNotes({ history }: PersonalNotesProps) {
-  const [Selected, setSelected] = useState('GREAT')
-  const [Notes, setNotes] = useState('')
-  const handleNotes = (notes: string) => setNotes(notes)
+  const [Selected, setSelected] = useState("GREAT");
+  const [Notes, setNotes] = useState("");
+  const handleNotes = (notes: string) => setNotes(notes);
 
-  const labels: Labels = ["BAD", "OK", "GOOD", "GREAT"]
+  const labels: Labels = ["BAD", "OK", "GOOD", "GREAT"];
 
   return (
     <DashboardCard title="Personal Notes:" extend className="min-w-[39rem]" classNameCard="overflow-y-auto">
@@ -23,7 +23,7 @@ export function PersonalNotes({ history }: PersonalNotesProps) {
           <div className="flex gap-2">
             <NotesForm.Cardio distance={5} time={35} />
 
-            <button className="h-9 rounded-lg w-fit px-2 bg-gray-100 
+            <button className="h-9 rounded-lg w-fit px-2 bg-gray-100
               flex items-center cursor-pointer"
             >
               <img src="/src/assets/icons/Dashboard/Edit.svg" alt=""
@@ -41,7 +41,7 @@ export function PersonalNotes({ history }: PersonalNotesProps) {
                   selected={Selected}
                   rate={label}
                 />
-              )
+              );
             })}
           </div>
         </div>
@@ -52,5 +52,5 @@ export function PersonalNotes({ history }: PersonalNotesProps) {
         </div>
       </NotesForm.Root>
     </DashboardCard>
-  )
+  );
 }

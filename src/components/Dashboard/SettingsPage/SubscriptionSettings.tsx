@@ -20,8 +20,8 @@ export function SubscriptionSettings({ user }: SubscriptionSettingsProps) {
             <div className={clsx(
               "h-9 w-48 px-4 rounded-md font-semibold text-gray-800 flex items-center justify-center",
               {
-                'bg-cyan-500': user.subscription === "Subscribed",
-                'bg-gray-100': user.subscription === "Not subscribed"
+                "bg-cyan-500": user.subscription === "Subscribed",
+                "bg-gray-100": user.subscription === "Not subscribed"
               }
             )}>
               {user.subscription}
@@ -31,7 +31,7 @@ export function SubscriptionSettings({ user }: SubscriptionSettingsProps) {
 
         <div className="w-full flex items-center justify-between gap-4">
           <span className="text-gray-100 text-sm w-20">
-            {user.subscription === "Subscribed" ? `To Expire: ${new Intl.DateTimeFormat('pt-BR').format(new Date())}` : ""}
+            {user.subscription === "Subscribed" ? `To Expire: ${new Intl.DateTimeFormat("pt-BR").format(new Date())}` : ""}
           </span>
 
           <div className="flex-1 flex gap-2">
@@ -41,11 +41,11 @@ export function SubscriptionSettings({ user }: SubscriptionSettingsProps) {
               text-gray-100 font-normal drop-shadow-[0_0_.15rem_#FE9016]
               "
             >
-              {user.subscription === "Subscribed" ? 'Renew Subscription' : "Get Pro"}
+              {user.subscription === "Subscribed" ? "Renew Subscription" : "Get Pro"}
             </button>
           </div>
         </div>
       </div>
     </DashboardCard>
-  )
+  );
 }

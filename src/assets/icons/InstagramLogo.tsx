@@ -1,6 +1,6 @@
 import { SVGAttributes } from "react";
 
-interface InstagramLogoProps extends SVGAttributes<HTMLOrSVGElement> { }
+type InstagramLogoProps = SVGAttributes<HTMLOrSVGElement>
 
 export function InstagramLogo(props: InstagramLogoProps) {
   return (
@@ -18,5 +18,5 @@ export function InstagramLogo(props: InstagramLogoProps) {
         fill="#EEF4F6"
       />
     </svg>
-  )
+  );
 }

@@ -3,13 +3,13 @@ import { Anchor } from "./Anchor";
 export function Header() {
   return (
     <header id="header" className="
-      w-full h-12 
-      bg-gray-800 
+      w-full h-12
+      bg-gray-800
       flex items-center justify-center
     ">
       <div className="
-        w-screen max-w-screen-2xl 
-        px-4 
+        w-screen max-w-screen-2xl
+        px-4
         flex items-center justify-between
       ">
         <Anchor href="#getPro">
@@ -25,5 +25,5 @@ export function Header() {
         </div>
       </div>
     </header>
-  )
+  );
 }

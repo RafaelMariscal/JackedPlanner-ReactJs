@@ -1,5 +1,5 @@
-import { User } from 'firebase/auth'
-import { createContext } from 'react'
+import { User } from "firebase/auth";
+import { createContext } from "react";
 
 export interface signInWithEmailProps {
   email: string;

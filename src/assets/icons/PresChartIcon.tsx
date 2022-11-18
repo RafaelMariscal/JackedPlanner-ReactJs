@@ -1,6 +1,6 @@
 import { SVGAttributes } from "react";
 
-interface PresChartIconProps extends SVGAttributes<HTMLOrSVGElement> { }
+type PresChartIconProps = SVGAttributes<HTMLOrSVGElement>
 
 export function PresChartIcon(props: PresChartIconProps) {
   return (
@@ -37,5 +37,5 @@ export function PresChartIcon(props: PresChartIconProps) {
         strokeLinejoin="round"
       />
     </svg>
-  )
-} 
+  );
+}
