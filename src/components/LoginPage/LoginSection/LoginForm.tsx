@@ -33,6 +33,10 @@ export function LoginForm() {
   } = useUserContext();
 
   const handleAuthLogin = async (provider: ProviderProps) => {
+    if (signInWithEmail === undefined || signInWithGoogle === undefined ||
+      signInWithGithub === undefined || signInWithFacebook === undefined ||
+      signWithAnonymousProvider === undefined) return;
+
     setMessage("");
     setIsLoading(true);
     let promiseResultMessage = "";
@@ -106,7 +110,7 @@ export function LoginForm() {
       </div>
 
       <BrandButton.Root disabled={IsLoading} variant="Github"
-        onClick={() => { handleAuthLogin("github"); }}
+        onClick={() => handleAuthLogin("github")}
       >
         <BrandButton.Icon>
           <GithubLogo />
@@ -114,7 +118,7 @@ export function LoginForm() {
       </BrandButton.Root>
 
       <BrandButton.Root disabled={IsLoading} variant="Google"
-        onClick={() => { handleAuthLogin("google"); }}
+        onClick={() => handleAuthLogin("google")}
       >
         <BrandButton.Icon>
           <GoogleLogo />
@@ -122,7 +126,7 @@ export function LoginForm() {
       </BrandButton.Root>
 
       <BrandButton.Root disabled={IsLoading} variant="Facebook"
-        onClick={() => { handleAuthLogin("facebook"); }}
+        onClick={() => handleAuthLogin("facebook")}
       >
         <BrandButton.Icon>
           <FacebookLogo />
@@ -130,7 +134,7 @@ export function LoginForm() {
       </BrandButton.Root>
 
       <BrandButton.Root disabled={IsLoading} variant="Anonymous"
-        onClick={() => { handleAuthLogin("anonymous"); }}
+        onClick={() => handleAuthLogin("anonymous")}
       >
         <BrandButton.Icon>
           <img src="/src/assets/icons/Anonymous.png" alt="" className="w-6" />
