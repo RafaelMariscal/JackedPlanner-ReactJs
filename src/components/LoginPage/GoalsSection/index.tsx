@@ -1,3 +1,4 @@
+import dashboardImage from "../../../assets/DashboardImg.png";
 
 export function GoalsSection() {
   return (
@@ -29,7 +30,7 @@ export function GoalsSection() {
       </div>
 
       <div className="pr-2 flex-1 flex justify-center">
-        <img src="/src/assets/DashboardImg.png" alt="" />
+        <img src={dashboardImage} alt="" />
       </div>
 
     </div >
