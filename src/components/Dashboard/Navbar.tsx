@@ -1,5 +1,11 @@
 import { Link } from "react-router-dom";
 import { useUserContext } from "../../contexts/userContext/hook";
+import Logo from "../../assets/icons/Logo.png";
+import HomeIcon from "../../assets/icons/Home.svg";
+import NotesIcon from "../../assets/icons/Notes.svg";
+import ProIcon from "../../assets/icons/PRO.svg";
+import ShopIcon from "../../assets/icons/Shop.svg";
+import ExitIcon from "../../assets/icons/Exit.svg";
 
 export function Navbar() {
   const { signOutTrigger } = useUserContext();
@@ -11,29 +17,29 @@ export function Navbar() {
       flex flex-col items-center justify-between
       "
     >
-      <img src="/src/assets/Logo.png" alt=""
+      <img src={Logo} alt=""
         className="absolute top-6 left-4 w-52"
       />
       <div className="flex flex-col items-center justify-center gap-12">
         <Link to={""}>
-          <img src="/src/assets/icons/Dashboard/Home.svg" alt="" className="w-6 hover:animate-wiggle" />
+          <img src={HomeIcon} alt="" className="w-6 hover:animate-wiggle" />
         </Link>
         <Link to={"notes"}>
-          <img src="/src/assets/icons/Dashboard/Notes.svg" alt="" className="w-6 hover:animate-wiggle" />
+          <img src={NotesIcon} alt="" className="w-6 hover:animate-wiggle" />
         </Link>
         <Link to={"settings"}>
           <img src="/src/assets/icons/Dashboard/Config.svg" alt="" className="w-6 hover:animate-wiggle" />
         </Link>
         <Link to={"pro"}>
-          <img src="/src/assets/icons/Dashboard/PRO.svg" alt="" className="w-6 hover:animate-wiggle" />
+          <img src={ProIcon} alt="" className="w-6 hover:animate-wiggle" />
         </Link>
         <Link to={"shop"}>
-          <img src="/src/assets/icons/Dashboard/Shop.svg" alt="" className="w-6 hover:animate-wiggle" />
+          <img src={ShopIcon} alt="" className="w-6 hover:animate-wiggle" />
         </Link>
 
       </div>
       <div onClick={signOutTrigger}>
-        <img src="/src/assets/icons/Dashboard/Exit.svg" alt="" className="w-6 hover:animate-wiggle" />
+        <img src={ExitIcon} alt="" className="w-6 hover:animate-wiggle" />
       </div>
     </nav>
   );
