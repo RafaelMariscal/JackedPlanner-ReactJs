@@ -3,6 +3,7 @@ import { FormEvent, useState } from "react";
 import { FacebookLogo } from "../../../assets/icons/FacebookLogo";
 import { GithubLogo } from "../../../assets/icons/GithubLogo";
 import { GoogleLogo } from "../../../assets/icons/GoogleLogo";
+import AnonymousLogo from "../../../assets/icons/Anonymous.png";
 import { Button } from "../Button";
 import TextInput from "../TextInput";
 import { BrandButton } from "./BrandButton";
@@ -137,7 +138,7 @@ export function LoginForm() {
         onClick={() => handleAuthLogin("anonymous")}
       >
         <BrandButton.Icon>
-          <img src="/src/assets/icons/Anonymous.png" alt="" className="w-6" />
+          <img src={AnonymousLogo} alt="" className="w-6" />
         </BrandButton.Icon>
       </BrandButton.Root>
     </div>
