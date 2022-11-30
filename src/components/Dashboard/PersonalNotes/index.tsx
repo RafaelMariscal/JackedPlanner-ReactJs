@@ -1,4 +1,5 @@
 import { useId, useState } from "react";
+import { EditIcon } from "../../../assets/icons/Dashboard/Edit";
 import DashboardCard from "../DashboardCard";
 import { NotesForm } from "./NotesForm";
 
@@ -26,9 +27,7 @@ export function PersonalNotes({ history }: PersonalNotesProps) {
             <button className="h-9 rounded-lg w-fit px-2 bg-gray-100
               flex items-center cursor-pointer"
             >
-              <img src="/src/assets/icons/Dashboard/Edit.svg" alt=""
-                className="w-[1.125rem]"
-              />
+              <EditIcon/>
             </button>
           </div>
 

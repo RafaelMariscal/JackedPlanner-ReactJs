@@ -1,4 +1,5 @@
 import { useId } from "react";
+import { EditIcon } from "../../../assets/icons/Dashboard/Edit";
 import DashboardCard from "../DashboardCard";
 import { SetPlan, SetPlanProps } from "./SetPlan";
 
@@ -34,9 +35,7 @@ export function ExercisePlan() {
             flex items-center cursor-pointer
             "
         >
-          <img src="/src/assets/icons/Dashboard/Edit.svg" alt=""
-            className="w-[1.125rem]"
-          />
+          <EditIcon/>
         </button>
 
 

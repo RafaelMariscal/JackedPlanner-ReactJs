@@ -1,5 +1,6 @@
 import { Button } from "../LoginPage/Button";
 import DashboardCard from "./DashboardCard";
+import Grafic from "../../assets/Grafic.png";
 
 export function WeightHistory() {
   return (
@@ -14,7 +15,7 @@ export function WeightHistory() {
           </Button>
         </div>
 
-        <img src="/src/assets/Grafic.png" alt="" className="object-contain ml-2" />
+        <img src={Grafic} alt="" className="object-contain ml-2" />
 
         <div className="flex-1 ">
           <div className="p-4 h-1/2 font-bold text-xl text-gray-800
