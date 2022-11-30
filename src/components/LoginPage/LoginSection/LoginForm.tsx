@@ -4,6 +4,7 @@ import { FacebookLogo } from "../../../assets/icons/FacebookLogo";
 import { GithubLogo } from "../../../assets/icons/GithubLogo";
 import { GoogleLogo } from "../../../assets/icons/GoogleLogo";
 import AnonymousLogo from "../../../assets/icons/Anonymous.png";
+import InfoIcon from "../../../assets/icons/Info.png";
 import { Button } from "../Button";
 import TextInput from "../TextInput";
 import { BrandButton } from "./BrandButton";
@@ -88,8 +89,8 @@ export function LoginForm() {
 
           {Message &&
             <div className="mt-2 ml-2 flex items-center gap-1">
-              <img src="/src/assets/icons/Info.png" alt="" className="w-5" />
-              <span className="text-xs text-gray-200">{Message}</span>
+              <img src={InfoIcon} alt="" className="w-5" />
+              <span className="text-xs text-gray-100 font-medium">{Message}</span>
             </div>}
         </div>
 
