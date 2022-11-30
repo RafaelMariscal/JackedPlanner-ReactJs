@@ -5,23 +5,23 @@ type DescriptionIconProps = SVGAttributes<HTMLOrSVGElement>
 export function DescriptionIcon(props: DescriptionIconProps) {
   return (
     <svg
-      width={198}
-      height={234}
+      width={17}
+      height={20}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       {...props}
     >
       <path
-        d="M144 224.884H18a9 9 0 0 1-9-9v-162a9 9 0 0 1 9-9h90l45 45v126a8.998 8.998 0 0 1-9 9Z"
+        d="M12.25 19H1.75a.75.75 0 0 1-.75-.75V4.75A.75.75 0 0 1 1.75 4h7.5L13 7.75v10.5a.75.75 0 0 1-.75.75Z"
         stroke="#343C3F"
-        strokeWidth={17.339}
+        strokeWidth={1.438}
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
-        d="M45 44.884v-27a9 9 0 0 1 9-9h90l45 45v126a8.998 8.998 0 0 1-9 9h-27M54 143.884h54M54 179.884h54"
+        d="M4 4V1.75A.75.75 0 0 1 4.75 1h7.5L16 4.75v10.5a.75.75 0 0 1-.75.75H13M4.75 12.25h4.5M4.75 15.25h4.5"
         stroke="#343C3F"
-        strokeWidth={17.339}
+        strokeWidth={1.438}
         strokeLinecap="round"
         strokeLinejoin="round"
       />

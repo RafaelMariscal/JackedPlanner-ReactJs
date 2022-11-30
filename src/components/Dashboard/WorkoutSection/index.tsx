@@ -18,7 +18,7 @@ export function WorkoutSection() {
   ];
 
   return (
-    <DashboardCard title="Workout Section:" subtitle="Chest / Shoulders" extend className="min-w-[39rem] h-"
+    <DashboardCard title="Workout Section:" subtitle="Chest / Shoulders" extend className="min-w-[39rem]"
       classNameCard="max-h-[18.75rem] overflow-y-auto"
     >
       <div className="flex flex-col gap-2">
