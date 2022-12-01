@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import PageNotFoundImg from "../assets/pageNotFoundImg.png";
 
 export function NotFound() {
   return (
@@ -40,7 +41,7 @@ export function NotFound() {
           </Link>
         </div>
 
-        <img src="/src/assets/pageNotFoundImg.png" alt="" />
+        <img src={PageNotFoundImg} alt="" />
       </div>
 
     </div>
