@@ -10,6 +10,8 @@ interface ForgotPasswordModalProps {
 
 export function ForgotPasswordModal({ IsForgotAccModalOpen, setIsForgotAccModalOpen }: ForgotPasswordModalProps) {
   const { resetPassword } = useUserContext();
+  if(resetPassword === undefined) return (<></>);
+
   const EmailInput = useRef<HTMLInputElement>(null);
 
   const [IsLoading, setIsLoading] = useState(false);

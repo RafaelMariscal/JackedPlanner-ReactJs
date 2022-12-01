@@ -1,5 +1,6 @@
 import { useId } from "react";
 import { Button } from "../Button";
+import LogoPro from "../../../assets/LogoPro.png";
 
 interface ProCallSectionProps {
   price: number
@@ -24,7 +25,7 @@ export function ProCallSection({ price }: ProCallSectionProps) {
     "
       >
         <div className="flex flex-col items-center justify-center">
-          <img src="/src/assets/LogoPro.png" alt="" className="w-[18.75rem]" />
+          <img src={LogoPro} alt="" className="w-[18.75rem]" />
           <p className="font-medium text-gray-100 text-4xl relative"
           >
             Only ${price}<span

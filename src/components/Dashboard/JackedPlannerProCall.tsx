@@ -1,6 +1,7 @@
 import { useId } from "react";
 import { Button } from "../LoginPage/Button";
 import DashboardCard from "./DashboardCard";
+import LogoPro from "../../assets/LogoPro.png";
 
 interface JackedPlannerProCallProps {
   price: number
@@ -43,7 +44,7 @@ export function JackedPlannerProCall({ price }: JackedPlannerProCallProps) {
           </ul>
 
           <div className="flex flex-col items-center justify-center gap-1 ">
-            <img src="/src/assets/LogoPro.png" alt="" className="w-[230px]" />
+            <img src={LogoPro} alt="" className="w-[230px]" />
             <p className="font-medium text-gray-100 text-2xl leading-none"
             >
               Only ${price}<span

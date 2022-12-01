@@ -1,11 +1,12 @@
 import { ContactLinks } from "./ContactLinks";
+import Logo from "../../assets/Logo.png";
 
 export function Footer() {
   return (
     <div className="bg-gray-800 w-full py-9 flex items-center justify-between">
       <div className="flex justify-center gap-20 w-full max-w-[1020px] m-auto">
         <div className=" flex flex-col gap-1">
-          <img src="/src/assets/Logo.png" alt=""
+          <img src={Logo} alt=""
             className="w-[282px]"
           />
           <div className="w-[283px]">

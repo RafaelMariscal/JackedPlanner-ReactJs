@@ -3,6 +3,8 @@ import { FormEvent, useState } from "react";
 import { FacebookLogo } from "../../../assets/icons/FacebookLogo";
 import { GithubLogo } from "../../../assets/icons/GithubLogo";
 import { GoogleLogo } from "../../../assets/icons/GoogleLogo";
+import AnonymousLogo from "../../../assets/icons/Anonymous.png";
+import InfoIcon from "../../../assets/icons/Info.png";
 import { Button } from "../Button";
 import TextInput from "../TextInput";
 import { BrandButton } from "./BrandButton";
@@ -33,6 +35,10 @@ export function LoginForm() {
   } = useUserContext();
 
   const handleAuthLogin = async (provider: ProviderProps) => {
+    if (signInWithEmail === undefined || signInWithGoogle === undefined ||
+      signInWithGithub === undefined || signInWithFacebook === undefined ||
+      signWithAnonymousProvider === undefined) return;
+
     setMessage("");
     setIsLoading(true);
     let promiseResultMessage = "";
@@ -83,8 +89,8 @@ export function LoginForm() {
 
           {Message &&
             <div className="mt-2 ml-2 flex items-center gap-1">
-              <img src="/src/assets/icons/Info.png" alt="" className="w-5" />
-              <span className="text-xs text-gray-200">{Message}</span>
+              <img src={InfoIcon} alt="" className="w-5" />
+              <span className="text-xs text-gray-100 font-medium">{Message}</span>
             </div>}
         </div>
 
@@ -106,7 +112,7 @@ export function LoginForm() {
       </div>
 
       <BrandButton.Root disabled={IsLoading} variant="Github"
-        onClick={() => { handleAuthLogin("github"); }}
+        onClick={() => handleAuthLogin("github")}
       >
         <BrandButton.Icon>
           <GithubLogo />
@@ -114,7 +120,7 @@ export function LoginForm() {
       </BrandButton.Root>
 
       <BrandButton.Root disabled={IsLoading} variant="Google"
-        onClick={() => { handleAuthLogin("google"); }}
+        onClick={() => handleAuthLogin("google")}
       >
         <BrandButton.Icon>
           <GoogleLogo />
@@ -122,7 +128,7 @@ export function LoginForm() {
       </BrandButton.Root>
 
       <BrandButton.Root disabled={IsLoading} variant="Facebook"
-        onClick={() => { handleAuthLogin("facebook"); }}
+        onClick={() => handleAuthLogin("facebook")}
       >
         <BrandButton.Icon>
           <FacebookLogo />
@@ -130,10 +136,10 @@ export function LoginForm() {
       </BrandButton.Root>
 
       <BrandButton.Root disabled={IsLoading} variant="Anonymous"
-        onClick={() => { handleAuthLogin("anonymous"); }}
+        onClick={() => handleAuthLogin("anonymous")}
       >
         <BrandButton.Icon>
-          <img src="/src/assets/icons/Anonymous.png" alt="" className="w-6" />
+          <img src={AnonymousLogo} alt="" className="w-6" />
         </BrandButton.Icon>
       </BrandButton.Root>
     </div>

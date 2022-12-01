@@ -5,6 +5,8 @@ import { NotesPencilIcon } from "../../../assets/icons/NotesPencilIcon";
 import { PresChartIcon } from "../../../assets/icons/PresChartIcon";
 import { Button } from "../Button";
 import { FeatureCard } from "./FeatureCard";
+import snatching from "../../../assets/Snatching.png";
+
 
 export function FeaturesSection() {
   return (
@@ -74,7 +76,7 @@ export function FeaturesSection() {
       </div>
 
       <div className="w-full">
-        <img src="/src/assets/Snatching.png" alt="" className="m-auto" />
+        <img src={snatching} alt="" className="m-auto" />
       </div>
     </div>
   );

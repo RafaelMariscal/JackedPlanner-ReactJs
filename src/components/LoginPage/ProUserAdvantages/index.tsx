@@ -1,5 +1,5 @@
 import { Button } from "../Button";
-
+import DashboardImg from "../../../assets/DashboardImg2.png";
 
 interface ProCallSectionProps {
   price: number
@@ -8,7 +8,7 @@ interface ProCallSectionProps {
 export function ProUserAdvantages({ price }: ProCallSectionProps) {
   return (
     <div className="max-w-[1020px] m-auto py-10 flex items-center justify-around">
-      <img src="/src/assets/DashboardImg2.png" alt="" />
+      <img src={DashboardImg} alt="" />
 
       <div className="flex flex-col gap-[1.125rem] max-w-md">
         <h2 className="font-bold text-xl text-gray-800">
