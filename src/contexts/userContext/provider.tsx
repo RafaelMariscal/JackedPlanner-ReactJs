@@ -137,12 +137,9 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
 
         message = "User logged succesfully";
         if (docSnap.data() === undefined) {
-          await setDoc(doc(db, "users", uidToken).withConverter(userConverter), {
-            name: user.displayName,
-            email: user.email,
-            authProvider: providerId,
-            createdAt: Timestamp.fromDate(new Date()),
-            subscribed: false,
+          createNewUserStandardDocs({
+            user,
+            providerId
           });
           console.log("New user created");
           message = "New user created";
@@ -178,12 +175,9 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
 
         message = "User logged succesfully";
         if (docSnap.data() === undefined) {
-          await setDoc(doc(db, "users", uidToken).withConverter(userConverter), {
-            name: user.displayName,
-            email: user.email,
-            authProvider: providerId,
-            createdAt: Timestamp.fromDate(new Date()),
-            subscribed: false,
+          createNewUserStandardDocs({
+            user,
+            providerId
           });
           console.log("New user created");
           message = "New user created";
@@ -217,12 +211,9 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
 
         message = "User logged succesfully";
         if (docSnap.data() === undefined) {
-          await setDoc(doc(db, "users", uidToken).withConverter(userConverter), {
-            name: user.displayName,
-            email: user.email,
-            authProvider: providerId,
-            createdAt: Timestamp.fromDate(new Date()),
-            subscribed: false,
+          createNewUserStandardDocs({
+            user,
+            providerId
           });
           console.log("New user created");
           message = "New user created";
