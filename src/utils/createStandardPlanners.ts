@@ -1,12 +1,15 @@
 import { Timestamp } from "firebase/firestore";
 import { UserPlannersProps } from "../@types/PlannerProps";
+import { add } from "date-fns";
 
 export function createNewUserStandardPlanners(){
+  const startDate = new Date();
+
   const plannerDocStructure: UserPlannersProps = {
     planner1: {
       name: "",
       schedule: ["a","b","c","rest","d","c","rest"],
-      startDate: Timestamp.fromDate(new Date()),
+      startDate: Timestamp.fromDate(startDate),
       splits: [
         {
           splitLabel: "a",
@@ -92,7 +95,207 @@ export function createNewUserStandardPlanners(){
             }
           ],
           splitSchedule: []
-        }
+        },
+        {
+          splitLabel: "b",
+          splitTitle: "Full Back",
+          splitStartDate: Timestamp.fromDate(add(startDate, {days: 1})),
+          splitExercises: [
+            {
+              index: 1,
+              name: "Pull-ups (Body Weight)",
+              sets: 3,
+              reps: 10,
+              description: "Tight up the hams, gluts, and lowerback. When pull-up, the arms needs to be 90° with your body and reach the sternum.",
+              weightUnd: "body",
+              setsWeight: [0, 0, 0],
+              liftedWeight: [],
+              liftedReps: []
+            },
+            {
+              index: 2,
+              name: "Pull-down machine",
+              sets: 4,
+              reps: 12,
+              description: "With the body a little bit inclined backwards, pulldown the barbell right to the sternum height and slightly in front of your body. The arms never goes completely straight.",
+              weightUnd: "plt",
+              setsWeight: [8, 12, 12, 10],
+              liftedWeight: [],
+              liftedReps: []
+            },
+            {
+              index: 3,
+              name: "Incline Barbell Rows",
+              sets: 4,
+              reps: 10,
+              description: "With the body inclined 120°, the latts needs to be fully extended. Befor row, lock your shoulders and make shure that the barbell goes right to your belly button, then return with a controlled moviment.",
+              weightUnd: "plt",
+              setsWeight: [8, 12, 12, 10],
+              liftedWeight: [],
+              liftedReps: []
+            },
+            {
+              index: 4,
+              name: "Incline Bench Cable Row",
+              sets: 3,
+              reps: 10,
+              description: "Put the bench(120°) 4 steps way of the pulldown machine. With the body leaning the bench and the kneed on the sit, start the pull down. The bar goes in the bench direction and as far as it goes, straight up your body.",
+              weightUnd: "plt",
+              setsWeight: [6, 8, 8],
+              liftedWeight: [],
+              liftedReps: []
+            },
+            {
+              index: 5,
+              name: "(w) Barbell Arms Curl",
+              sets: 4,
+              reps: 12,
+              description: "With the arms right aside your body, curl the W barbell to 70°, then return to 160°.",
+              weightUnd: "kg",
+              setsWeight: [18, 24, 24, 20],
+              liftedWeight: [],
+              liftedReps: []
+            },
+          ],
+          splitSchedule: []
+        },
+        {
+          splitLabel: "c",
+          splitTitle: "Quads and Hams",
+          splitStartDate: Timestamp.fromDate(add(startDate, {days: 2})),
+          splitExercises: [
+            {
+              index: 1,
+              name: "Squats",
+              sets: 8,
+              reps: 6,
+              description: "With the feet shoulders-with apart, toes pointed slightly out and tight the core muscles. Send hips back and bend at knees at least to more then 90°. Press trough heels back up to straight up.",
+              weightUnd: "kg",
+              setsWeight: [50, 70, 90, 100, 110, 110, 90, 90],
+              liftedWeight: [],
+              liftedReps: []
+            },
+            {
+              index: 2,
+              name: "Leg Extrension Machine",
+              sets: 4,
+              reps: 15,
+              description: "With a dorsiflexion foot, the legs needs to be fully extended, then bend the knees almost to the machines full course",
+              weightUnd: "plt",
+              setsWeight: [8, 10, 10, 10],
+              liftedWeight: [],
+              liftedReps: []
+            },
+            {
+              index: 4,
+              name: "Leg Press 45°",
+              sets: 4,
+              reps: 12,
+              description: "With the feet slightly more then shouders-with and toes pointed a bit outwards, place it right at the middle of the machines support. Bend the knees as far as you can, then push it up",
+              weightUnd: "kg",
+              setsWeight: [80, 100, 120, 120],
+              liftedWeight: [],
+              liftedReps: []
+            },
+            {
+              index: 4,
+              name: "Leg Curl Machine",
+              sets: 4,
+              reps: 15,
+              description: "With a dorsiflexion foot and tight glutes, bend the knees as far as possible withou shrink the lowerback. then return it until the machines full course",
+              weightUnd: "kg",
+              setsWeight: [6, 8, 8, 8],
+              liftedWeight: [],
+              liftedReps: []
+            },
+            {
+              index: 5,
+              name: "Barbell Stiff",
+              sets: 4,
+              reps: 12,
+              description: "Take the barbell with the arms shouders-with apart. With the core muscles tight up and legs semi-flexed durring all the moviment, send hips back and bring the barbell right to your shins, then stiff it straight up.",
+              weightUnd: "kg",
+              setsWeight: [30, 40, 50, 50],
+              liftedWeight: [],
+              liftedReps: []
+            },
+          ],
+          splitSchedule: []
+        },
+        {
+          splitLabel: "d",
+          splitTitle: "Arms / Shoulders",
+          splitStartDate: Timestamp.fromDate(add(startDate, {days: 4})),
+          splitExercises: [
+            {
+              index: 1,
+              name: "Rope Triceps Extension",
+              sets: 3,
+              reps: 12,
+              description: "with 2 steps back to the cable machine, incline your body like 20°. Go down until the arms straight up, then return to a 70° arm anglo.",
+              weightUnd: "plt",
+              setsWeight: [4, 6, 6],
+              liftedWeight: [],
+              liftedReps: []
+            },
+            {
+              index: 2,
+              name: "Close Grip Bench Press",
+              sets: 3,
+              reps: 15,
+              description: "With the hands positioned slightly more then shoulders-width, the barbell goes down until the arms reach 90°, then explode straight up to almost lock up position.",
+              weightUnd: "kg",
+              setsWeight: [40, 50, 50],
+              liftedWeight: [],
+              liftedReps: []
+            },
+            {
+              index: 2,
+              name: "Single-Arm Overhead Triceps Ext.",
+              sets: 3,
+              reps: 10,
+              description: "",
+              weightUnd: "plt",
+              setsWeight: [2, 3, 3],
+              liftedWeight: [],
+              liftedReps: []
+            },
+            {
+              index: 3,
+              name: "(Cb) Latteral Raise",
+              sets: 4,
+              reps: 12,
+              description: "Using a wrist suppot, position yourself aside the machine with the cable passing between your legs and, with a semi-flexed arm, raise the arm to shouders height then return.",
+              weightUnd: "plt",
+              setsWeight: [2, 3, 3, 3],
+              liftedWeight: [],
+              liftedReps: []
+            },
+            {
+              index: 4,
+              name: "Scott Curl Machine",
+              sets: 3,
+              reps: 10,
+              description: "The arms goes down until reach 160° and then, explosively, curl it till the arms reach slughtly less then 90°.",
+              weightUnd: "plt",
+              setsWeight: [6, 8, 10],
+              liftedWeight: [],
+              liftedReps: []
+            },
+            {
+              index: 5,
+              name: "Incline Dumbell Curl",
+              sets: 3,
+              reps: 12,
+              description: "With the bench at 110°, simultaneously and with supination, curl it till the arms reach slughtly less then 90°.",
+              weightUnd: "kg",
+              setsWeight: [10, 10, 8],
+              liftedWeight: [],
+              liftedReps: []
+            }
+          ],
+          splitSchedule: []
+        },
       ]
     },
     planner2: null,

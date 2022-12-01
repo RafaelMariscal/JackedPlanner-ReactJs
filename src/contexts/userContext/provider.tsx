@@ -16,6 +16,7 @@ import {
   signInAnonymously,
 } from "firebase/auth";
 import { userConverter } from "../../utils/typesConverters";
+import { createNewUserStandardDocs } from "../../utils/createNewUserStandartDocs";
 
 interface ProviederProps {
   children: ReactNode;
@@ -47,12 +48,10 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
         const docSnap = await getDoc(docRef);
 
         if (docSnap.data() === undefined) {
-          await setDoc(doc(db, "users", user.uid).withConverter(userConverter), {
-            name: name,
-            email: user.email,
-            authProvider: user.providerId,
-            createdAt: Timestamp.fromDate(new Date()),
-            subscribed: false,
+          createNewUserStandardDocs({
+            user,
+            providerId: user.providerId,
+            name
           });
         }
         setUserLogged(user);
@@ -100,12 +99,9 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
 
         message = "User logged succesfully";
         if (docSnap.data() === undefined) {
-          await setDoc(doc(db, "users", uidToken).withConverter(userConverter), {
-            name: user.displayName,
-            email: user.email,
-            authProvider: providerId,
-            createdAt: Timestamp.fromDate(new Date()),
-            subscribed: false,
+          createNewUserStandardDocs({
+            user,
+            providerId
           });
           console.log("New user created");
           message = "New user created";

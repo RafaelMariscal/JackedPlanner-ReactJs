@@ -8,7 +8,7 @@ import { notesConverter, plannersConverter, userConverter } from "./typesConvert
 interface createNewUserStandardDocsProps {
   user: User
   name?: string
-  providerId: string
+  providerId: string | null
 }
 
 export async function createNewUserStandardDocs({ user, name, providerId}: createNewUserStandardDocsProps) {
