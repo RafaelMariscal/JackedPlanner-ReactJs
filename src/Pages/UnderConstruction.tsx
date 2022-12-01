@@ -1,14 +1,16 @@
+import stripe from "../assets/stripe.png";
+
 export function UnderConstruction() {
   return (
     <div className="w-full h-full flex flex-col items-center justify-center">
       <div className="w-4/5 h-4/5 flex items-center justify-center relative
         "
       >
-        <img src="/src/assets/stripe.png" alt="" className="
+        <img src={stripe} alt="" className="
           absolute top-0 -translate-y-1/2 w-screen rotate-1
           "
         />
-        <img src="/src/assets/stripe.png" alt="" className="
+        <img src={stripe} alt="" className="
           absolute bottom-0 translate-y-1/2 w-screen -rotate-1
           "
         />
