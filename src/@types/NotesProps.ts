@@ -1,4 +1,5 @@
 import { Timestamp } from "firebase/firestore";
+import { ScheduleLabel } from "./PlannerProps";
 
 export interface NotesProps {
   sessionNotes: NotesTakeProps[]
@@ -6,9 +7,10 @@ export interface NotesProps {
 
 // scheduledDate Ref (planners/uid/plannerSelectd/split/splitKey/scheduledDate)
 export interface NotesTakeProps {
-  scheduledDate: Date | Timestamp
+  splitTag: ScheduleLabel
+  scheduledDate: Date | Timestamp | null
   trainingNotes: string
-  rate: "BAD" | "OK" | "GOOD" | "GREAT"
+  rate: "BAD" | "OK" | "GOOD" | "GREAT" | null
   cardio: CardioProps[]
 }
 
