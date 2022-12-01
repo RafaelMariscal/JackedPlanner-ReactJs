@@ -1,3 +1,4 @@
+import { EditIcon } from "../../../assets/icons/Dashboard/Edit";
 
 interface PlannerCardProps {
   index: number;
@@ -23,9 +24,9 @@ export function PlannerCard({ index, PlannerName }: PlannerCardProps) {
         </p>
       </div>
 
-      <img src="/src/assets/icons/Dashboard/Edit.svg" alt=""
-        className={PlannerName ? "w-[1.125rem]" : "hidden"}
-      />
+      <div className={PlannerName ? "w-[1.125rem] hover:animate-wiggle" : "hidden"}>
+        <EditIcon/>
+      </div>
     </div>
   );
 }

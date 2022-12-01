@@ -10,6 +10,7 @@ interface CreateNewUserModalProps {
 
 export function CreateNewUserModal({ IsCreateAccModalOpen, setIsCreateAccModalOpen }: CreateNewUserModalProps) {
   const { createNewUser } = useUserContext();
+  if(createNewUser === undefined) return (<></>);
 
   const NameInput = useRef<HTMLInputElement>(null);
   const EmailInput = useRef<HTMLInputElement>(null);

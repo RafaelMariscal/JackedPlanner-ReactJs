@@ -1,6 +1,7 @@
 import { Button } from "../../LoginPage/Button";
 import DashboardCard from "../DashboardCard";
 import { PlannerCard } from "./PlannerCard";
+import LogoPro from "../../../assets/LogoPro.png";
 
 interface PlannerControllerProps {
   price: number
@@ -21,7 +22,7 @@ export function PlannerController({ price }: PlannerControllerProps) {
         </Button>
 
         <div className="flex items-center justify-center gap-1 ">
-          <img src="/src/assets/LogoPro.png" alt="" className="w-44" />
+          <img src={LogoPro} alt="" className="w-44" />
           <p className="font-medium text-gray-100 text-2xl leading-none"
           >
             ${price}<span

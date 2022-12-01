@@ -1,5 +1,7 @@
 import { ReactNode } from "react";
 import { clsx } from "clsx";
+import { EditIcon } from "../../../assets/icons/Dashboard/Edit";
+import { DescriptionIcon } from "../../../assets/icons/Dashboard/Description";
 
 interface ExerciseCardRootProps {
   selected: boolean;
@@ -85,15 +87,13 @@ function DescriptionCard({ showDescription }: ExerciseCardDescriptionCardProps) 
 
   return (
     <div className={clsx(
-      "w-9 h-9 flex rounded-lg justify-center cursor-pointer bg-gray-100",
+      "w-9 h-9 flex rounded-lg justify-center items-center cursor-pointer bg-gray-100",
       {
         "bg-orange-500": showDescription === true
       }
     )}
     >
-      <img src="/src/assets/icons/Dashboard/Description.svg" alt=""
-        className="w-4"
-      />
+      <DescriptionIcon/>
     </div >
   );
 }
@@ -140,9 +140,7 @@ function Todo({ done = false }: ExerciseCardTodoProps) {
 function Edit() {
   return (
     <div className="w-9 justify-center bg-gray-100 cursor-pointer">
-      <img src="/src/assets/icons/Dashboard/Edit.svg" alt=""
-        className="w-[1.125rem]"
-      />
+      <EditIcon/>
     </div>
   );
 }
