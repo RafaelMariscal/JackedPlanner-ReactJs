@@ -25,9 +25,8 @@ export function LoginForm() {
   const [IsCreateAccModalOpen, setIsCreateAccModalOpen] = useState(false);
   const [IsForgotAccModalOpen, setIsForgotAccModalOpen] = useState(false);
 
-  const { signInWithEmail } = useUserContext();
-
   const {
+    signInWithEmail,
     signInWithGoogle,
     signInWithGithub,
     signInWithFacebook,

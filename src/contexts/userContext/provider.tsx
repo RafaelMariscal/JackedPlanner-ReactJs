@@ -1,7 +1,8 @@
 import { ReactNode, useEffect, useState } from "react";
 import { NewAccountProps, signInWithEmailProps, UserContext } from ".";
 import { auth, db, facebookProvider, githubProvider, googleProvider } from "../../services/firebase";
-import { doc, setDoc, getDoc, Timestamp, } from "firebase/firestore";
+import { createNewUserStandardDocs } from "../../utils/createNewUserStandartDocs";
+import { doc, getDoc } from "firebase/firestore";
 import { FirebaseError } from "firebase/app";
 import {
   User,
@@ -15,8 +16,6 @@ import {
   FacebookAuthProvider,
   signInAnonymously,
 } from "firebase/auth";
-import { userConverter } from "../../utils/typesConverters";
-import { createNewUserStandardDocs } from "../../utils/createNewUserStandartDocs";
 
 interface ProviederProps {
   children: ReactNode;
@@ -48,13 +47,8 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
         const docSnap = await getDoc(docRef);
 
         if (docSnap.data() === undefined) {
-          createNewUserStandardDocs({
-            user,
-            providerId: user.providerId,
-            name
-          });
+          createNewUserStandardDocs({user, name, providerId: user.providerId});
         }
-        setUserLogged(user);
         sessionStorage.setItem(USER_TOKEN, String(user.uid));
         sessionStorage.setItem(USER_KEY, JSON.stringify(user));
         return "New user created";
@@ -99,10 +93,7 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
 
         message = "User logged succesfully";
         if (docSnap.data() === undefined) {
-          createNewUserStandardDocs({
-            user,
-            providerId
-          });
+          createNewUserStandardDocs({user,providerId});
           console.log("New user created");
           message = "New user created";
         }
@@ -137,10 +128,7 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
 
         message = "User logged succesfully";
         if (docSnap.data() === undefined) {
-          createNewUserStandardDocs({
-            user,
-            providerId
-          });
+          createNewUserStandardDocs({user,providerId});
           console.log("New user created");
           message = "New user created";
         }
@@ -175,10 +163,7 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
 
         message = "User logged succesfully";
         if (docSnap.data() === undefined) {
-          createNewUserStandardDocs({
-            user,
-            providerId
-          });
+          createNewUserStandardDocs({user,providerId});
           console.log("New user created");
           message = "New user created";
         }
@@ -211,10 +196,7 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
 
         message = "User logged succesfully";
         if (docSnap.data() === undefined) {
-          createNewUserStandardDocs({
-            user,
-            providerId
-          });
+          createNewUserStandardDocs({user,providerId});
           console.log("New user created");
           message = "New user created";
         }
