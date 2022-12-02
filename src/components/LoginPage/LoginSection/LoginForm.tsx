@@ -11,6 +11,7 @@ import { BrandButton } from "./BrandButton";
 import { useUserContext } from "../../../contexts/userContext/hook";
 import { CreateNewUserModal } from "../Modals/CreateNewUserModal";
 import { ForgotPasswordModal } from "../Modals/ForgotPasswordModal";
+import LoadingModal from "../../LoadingModal";
 
 
 type ProviderProps = "emailAndPassword" | "github" | "google" | "facebook" | "anonymous"
@@ -67,6 +68,7 @@ export function LoginForm() {
     <div id="loginForm"
       className="w-full max-w-[22.5rem] flex flex-col gap-4 items-center justify-center"
     >
+      <LoadingModal visible={IsLoading} fade/>
       <form onSubmit={(e: FormEvent) => {
         e.preventDefault();
         handleAuthLogin("emailAndPassword");
