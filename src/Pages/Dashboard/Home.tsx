@@ -1,3 +1,4 @@
+import { useUserPlanner } from ".";
 import { Calendar } from "../../components/Dashboard/Calendar/Index";
 import { ExercisePlan } from "../../components/Dashboard/ExercisePlan";
 import { JackedPlannerProCall } from "../../components/Dashboard/JackedPlannerProCall";
@@ -7,11 +8,13 @@ import { WeightHistory } from "../../components/Dashboard/WeightHistory";
 import { WorkoutSection } from "../../components/Dashboard/WorkoutSection";
 
 export function Home() {
+  const {Planners,setPlanners} = useUserPlanner();
+
   return (
     <div className="h-full flex flex-col gap-4" >
       <div className="flex gap-4">
         <div className="flex justify-between gap-4 w-full max-w-[720px]">
-          <PlannerController price={4.99} />
+          <PlannerController  price={4.99} />
           <Calendar />
         </div>
         <WorkoutSection />

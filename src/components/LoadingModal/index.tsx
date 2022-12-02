@@ -10,10 +10,10 @@ export default function LoadingModal({visible, fade}:LoadingModalProps) {
 
   return (
     <div className={clsx(
-      "absolute -top-7 z-10 w-screen h-screen flex items-center justify-center bg-gray-800 pb-9 select-none",
+      "absolute z-10 w-screen h-screen flex items-center justify-center bg-gray-800 select-none",
       {
         "hidden": visible === false,
-        "bg-gray-800 bg-opacity-75": fade === true,
+        "bg-gray-800 bg-opacity-75 -top-7 pb-9": fade === true,
       }
     )}
     >
