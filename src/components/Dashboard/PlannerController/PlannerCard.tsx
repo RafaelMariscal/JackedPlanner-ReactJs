@@ -3,20 +3,24 @@ import { EditIcon } from "../../../assets/icons/Dashboard/Edit";
 import { PlannerSelectedType } from "../../../Pages/Dashboard/Home";
 
 interface PlannerCardProps {
-  index: number
+  name: PlannerSelectedType
+  index: 1 | 2 | 3
   PlannerName?: string
-  selected?: PlannerSelectedType
+  plannerSelected: PlannerSelectedType
+  setPlannerSelected: (index: PlannerSelectedType) => void
 }
 
-export function PlannerCard({ index, PlannerName, selected}: PlannerCardProps) {
+export function PlannerCard({ name, index, PlannerName, plannerSelected, setPlannerSelected}: PlannerCardProps) {
   return (
-    <div className={clsx(
-      "bg-gray-100 h-10 rounded-lg px-4 flex items-center justify-between",
-      "font-semibold text-sm leading-4 text-gray-800 cursor-pointer select-none",
-      {
-        "outline outline-2 outline-offset-1 outline-orange-500": selected === index
-      }
-    )}
+    <button
+      onClick={()=>setPlannerSelected(name)}
+      className={clsx(
+        "bg-gray-100 h-10 rounded-lg px-4 flex items-center justify-between",
+        "font-semibold text-sm leading-4 text-gray-800 cursor-pointer select-none",
+        {
+          "outline outline-2 outline-offset-1 outline-orange-500": plannerSelected === name
+        }
+      )}
     >
       <div className="flex items-center">
         <span >
@@ -31,6 +35,6 @@ export function PlannerCard({ index, PlannerName, selected}: PlannerCardProps) {
       <div className={PlannerName ? "w-[1.125rem] hover:animate-wiggle" : "hidden"}>
         <EditIcon/>
       </div>
-    </div>
+    </button>
   );
 }
