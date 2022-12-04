@@ -6,14 +6,13 @@ import { UserPlannersProps } from "../../../@types/PlannerProps";
 import { PlannerSelectedType } from "../../../Pages/Dashboard/Home";
 
 interface PlannerControllerProps {
-  planners: UserPlannersProps | null
-  plannerSelected: PlannerSelectedType
-  setPlannerSelected: (planner: PlannerSelectedType) => void
+  planners?: UserPlannersProps | null
+  plannerSelected?: PlannerSelectedType
+  setPlannerSelected?: (planner: PlannerSelectedType) => void
   price: number
 }
 
 export function PlannerController({ planners, plannerSelected, setPlannerSelected, price }: PlannerControllerProps) {
-  console.log(planners);
   return (
     <DashboardCard title="My Jacked Planners:" className="min-w-[360px] w-full">
       <div className="h-full flex flex-col gap-4">

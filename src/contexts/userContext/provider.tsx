@@ -16,6 +16,8 @@ import {
   FacebookAuthProvider,
   signInAnonymously,
 } from "firebase/auth";
+import { UserPlannersProps } from "../../@types/PlannerProps";
+import { NotesProps } from "../../@types/NotesProps";
 
 interface ProviederProps {
   children: ReactNode;
@@ -24,9 +26,14 @@ interface ProviederProps {
 export const USER_KEY = "@AuthFirebase:user";
 export const USER_TOKEN = "@AuthFirebase:token";
 export const USER_ACCESS_TOKEN = "@AuthFirebase:accessToken";
+export const USER_PLANNERS = "@FirestoreFirebase:planners";
+export const USER_NOTES = "@FirestoreFirebase:notes";
 
 export const UserContextProvider = ({ children }: ProviederProps) => {
   const [UserLogged, setUserLogged] = useState<User>();
+  const [Planners, setPlanners] = useState<UserPlannersProps>();
+  const [Notes, setNotes] = useState<NotesProps>();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const sessionStorageAuth = () => {
@@ -35,11 +42,18 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
       if (!!sessionToken && !!sessionUser) {
         setUserLogged(JSON.parse(sessionUser));
       }
+      const sessionPlanner = sessionStorage.getItem(USER_PLANNERS);
+      const sessionNotes = sessionStorage.getItem(USER_NOTES);
+      if (!!sessionPlanner && !!sessionNotes) {
+        setPlanners(JSON.parse(sessionPlanner));
+        setNotes(JSON.parse(sessionNotes));
+      }
     };
     sessionStorageAuth();
   }, []);
 
   const createNewUser = async ({ email, password, name }: NewAccountProps) => {
+    setIsLoading(true);
     return await createUserWithEmailAndPassword(auth, email, password)
       .then(async (result) => {
         const user = result.user;
@@ -61,6 +75,7 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
   };
 
   const signInWithEmail = async ({ email, password }: signInWithEmailProps) => {
+    setIsLoading(true);
     return await signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
@@ -79,6 +94,7 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
   };
 
   const signInWithGoogle = async () => {
+    setIsLoading(true);
     let message = "";
     await signInWithPopup(auth, googleProvider)
       .then(async (result) => {
@@ -114,6 +130,7 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
   };
 
   const signInWithGithub = async () => {
+    setIsLoading(true);
     let message = "";
     await signInWithPopup(auth, githubProvider)
       .then(async (result) => {
@@ -149,6 +166,7 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
   };
 
   const signInWithFacebook = async () => {
+    setIsLoading(true);
     let message = "";
     await signInWithPopup(auth, facebookProvider)
       .then(async (result) => {
@@ -184,6 +202,7 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
   };
 
   const signWithAnonymousProvider = async () => {
+    setIsLoading(true);
     let message = "";
     await signInAnonymously(auth)
       .then(async (result) => {
@@ -229,6 +248,7 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
   };
 
   const resetPassword = async (email: string) => {
+    setIsLoading(true);
     return await sendPasswordResetEmail(auth, email)
       .then((result) => {
         console.log(result);
@@ -255,6 +275,12 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
     <UserContext.Provider value={{
       UserLogged,
       setUserLogged,
+      Planners,
+      setPlanners,
+      Notes,
+      setNotes,
+      isLoading,
+      setIsLoading,
       createNewUser,
       signInWithEmail,
       signInWithGoogle,
