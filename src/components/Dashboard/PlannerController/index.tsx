@@ -2,19 +2,25 @@ import { Button } from "../../LoginPage/Button";
 import DashboardCard from "../DashboardCard";
 import { PlannerCard } from "./PlannerCard";
 import LogoPro from "../../../assets/LogoPro.png";
+import { UserPlannersProps } from "../../../@types/PlannerProps";
+import { PlannerSelectedType } from "../../../Pages/Dashboard/Home";
 
 interface PlannerControllerProps {
+  planners: UserPlannersProps | null
+  plannerSelected: PlannerSelectedType
+  setPlannerSelected: (planner: PlannerSelectedType) => void
   price: number
 }
 
-export function PlannerController({ price }: PlannerControllerProps) {
+export function PlannerController({ planners, plannerSelected, setPlannerSelected, price }: PlannerControllerProps) {
+  console.log(planners);
   return (
     <DashboardCard title="My Jacked Planners:" className="min-w-[360px] w-full">
       <div className="h-full flex flex-col gap-4">
         <div className="flex flex-col gap-4">
-          <PlannerCard index={1} PlannerName={"PUSH PULL LEGS by Jeff"} />
-          <PlannerCard index={2} PlannerName={"Mountaing Dog - Shouders focused asdfasdfdasdfasdf"} />
-          <PlannerCard index={3} />
+          <PlannerCard index={1} PlannerName={planners?.planner1?.name} selected={plannerSelected} />
+          <PlannerCard index={2} PlannerName={planners?.planner2?.name} selected={plannerSelected} />
+          <PlannerCard index={3} PlannerName={planners?.planner3?.name} selected={plannerSelected}/>
         </div>
 
         <Button variant="dark" size="custom" className="font-medium" >

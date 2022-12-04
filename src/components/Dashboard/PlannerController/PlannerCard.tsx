@@ -1,18 +1,22 @@
+import clsx from "clsx";
 import { EditIcon } from "../../../assets/icons/Dashboard/Edit";
+import { PlannerSelectedType } from "../../../Pages/Dashboard/Home";
 
 interface PlannerCardProps {
-  index: number;
-  PlannerName?: string;
+  index: number
+  PlannerName?: string
+  selected?: PlannerSelectedType
 }
 
-export function PlannerCard({ index, PlannerName }: PlannerCardProps) {
+export function PlannerCard({ index, PlannerName, selected}: PlannerCardProps) {
   return (
-    <div className="
-    bg-gray-100 h-10 rounded-lg px-4
-    flex items-center justify-between
-    font-semibold text-sm leading-4 text-gray-800
-    cursor-pointer select-none
-    "
+    <div className={clsx(
+      "bg-gray-100 h-10 rounded-lg px-4 flex items-center justify-between",
+      "font-semibold text-sm leading-4 text-gray-800 cursor-pointer select-none",
+      {
+        "outline outline-2 outline-offset-1 outline-orange-500": selected === index
+      }
+    )}
     >
       <div className="flex items-center">
         <span >

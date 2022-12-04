@@ -7,7 +7,7 @@ export function createNewUserStandardPlanners(){
 
   const plannerDocStructure: UserPlannersProps = {
     planner1: {
-      name: "",
+      name: "PUSH PULL LEGS by Jeff Nippard",
       schedule: ["a","b","c","rest","d","c","rest"],
       startDate: Timestamp.fromDate(startDate),
       splits: [

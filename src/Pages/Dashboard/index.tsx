@@ -1,32 +1,14 @@
-import { User } from "firebase/auth";
 import { useEffect, useState } from "react";
-import { Outlet, useOutletContext } from "react-router-dom";
-import { NotesProps } from "../../@types/NotesProps";
-import { UserPlannersProps } from "../../@types/PlannerProps";
+import { Outlet } from "react-router-dom";
 import { DashboardHeader } from "../../components/Dashboard/DashboardHeader";
 import { Navbar } from "../../components/Dashboard/Navbar";
 import LoadingModal from "../../components/LoadingModal";
 import { useUserContext } from "../../contexts/userContext/hook";
 import { getUserDocsData, USER_NOTES, USER_PLANNERS } from "../../utils/getUserDocs";
 
-type OutletContextType = {
-  Planners: UserPlannersProps
-  setPlanners: (planner: UserPlannersProps) => void
-  Notes: NotesProps
-  setNotes: (notes: NotesProps) => void
-  UserLogged: User
-  setUserLogged: (user: User)=>void
-}
-
-export function useUserPlanner(){
-  return useOutletContext<OutletContextType>();
-}
-
 export function Dashboard() {
-  const { UserLogged, setUserLogged } = useUserContext();
+  const { UserLogged } = useUserContext();
   const [isLoading, setisLoading] = useState(true);
-  const [Planners, setPlanners] = useState<UserPlannersProps>();
-  const [Notes, setNotes] = useState<NotesProps>();
 
   useEffect(() => {
     async function sessionStorageDocs(){
@@ -35,11 +17,8 @@ export function Dashboard() {
       const sessionPlanner = sessionStorage.getItem(USER_PLANNERS);
       const sessionNotes = sessionStorage.getItem(USER_NOTES);
 
-      if (!!sessionPlanner && !!sessionNotes) {
-        setPlanners(JSON.parse(sessionPlanner));
-        setNotes(JSON.parse(sessionPlanner));
-      } else {
-        getUserDocsData({UserLogged,setPlanners,setNotes});
+      if (!sessionPlanner && !sessionNotes) {
+        getUserDocsData(UserLogged);
       }
     }
     sessionStorageDocs();
@@ -75,9 +54,7 @@ export function Dashboard() {
             <Navbar />
             <div className='w-full h-full py-6 ml-24 mr-4
             overflow-x-auto '>
-              <Outlet context={{
-                Planners, setPlanners, Notes, setNotes
-              }}/>
+              <Outlet/>
             </div>
           </div>
         </div>
