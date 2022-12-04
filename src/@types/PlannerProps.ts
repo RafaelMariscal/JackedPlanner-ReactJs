@@ -1,34 +1,37 @@
 import { Timestamp } from "firebase/firestore";
 
-type ScheduleLabels = "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "rest"
+export interface UserPlannersProps{
+  planner1: PlannerProps | null,
+  planner2: PlannerProps | null,
+  planner3: PlannerProps | null,
+}
+
+export type ScheduleLabel = "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "rest"
 
 export interface PlannerProps {
   name: string
   startDate: Date | Timestamp
-  schedule: ScheduleLabels[]
-  split: SplitProps
+  schedule: ScheduleLabel[]
+  splits: SplitProps[]
 }
+
 
 export interface SplitProps {
-  title: string;
-  startDate: Date | Timestamp;
-  schedule: ScheduleProps
-  exercises: ExerciseProps[]
-}
-
-export interface ScheduleProps {
-  scheduledDate: Date | Timestamp
-  splitKey: ScheduleLabels
+  splitLabel: ScheduleLabel
+  splitTitle: string
+  splitStartDate: Date | Timestamp
+  splitSchedule: Date[] | Timestamp[]
+  splitExercises: ExerciseProps[]
 }
 
 export interface ExerciseProps {
   index: number
   name: string
-  weightUnd: string
-  description: string
   sets: number
   reps: number
+  weightUnd: "kg" | "plt" | "body"
+  description: string
   setsWeight: number[]
-  liftedReps: number[]
   liftedWeight: number[]
+  liftedReps: number[]
 }
