@@ -16,13 +16,13 @@ export function Home() {
   const {setIsLoading, Planners, Notes} = useUserContext();
 
   useEffect(() => {
-    if(!!Planners && !!Notes){
+    if(!!Planners && !!Notes && !!setIsLoading){
       setIsLoading(false);
     }
     return;
   },[Planners, Notes]);
 
-  if(Planners === undefined || Notes === undefined) return;
+  if(Planners === undefined || Notes === undefined) return (<></>);
   const plannerSelected = Planners[PlannerSelectedIndex];
 
   return (

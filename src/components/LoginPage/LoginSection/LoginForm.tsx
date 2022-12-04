@@ -27,7 +27,6 @@ export function LoginForm() {
 
   const {
     isLoading,
-    setIsLoading,
     signInWithEmail,
     signInWithGoogle,
     signInWithGithub,
