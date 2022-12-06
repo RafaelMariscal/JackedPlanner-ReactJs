@@ -66,7 +66,6 @@ export function LoginForm() {
     <div id="loginForm"
       className="w-full max-w-[22.5rem] flex flex-col gap-4 items-center justify-center"
     >
-      <LoadingModal visible={isLoading} fade/>
       <form onSubmit={(e: FormEvent) => {
         e.preventDefault();
         handleAuthLogin("emailAndPassword");

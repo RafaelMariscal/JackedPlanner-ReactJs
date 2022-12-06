@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { PlannerProps } from "../../@types/PlannerProps";
 import { Calendar } from "../../components/Dashboard/Calendar/Index";
 import { ExercisePlan } from "../../components/Dashboard/ExercisePlan";
 import { JackedPlannerProCall } from "../../components/Dashboard/JackedPlannerProCall";
@@ -31,8 +30,8 @@ export function Home() {
         <div className="flex justify-between gap-4 w-full max-w-[720px]">
           <PlannerController
             planners={Planners}
-            plannerSelected={PlannerSelectedIndex}
-            setPlannerSelected={setPlannerSelectedIndex}
+            plannerSelectedIndex={PlannerSelectedIndex}
+            setPlannerSelectedIndex={setPlannerSelectedIndex}
             price={4.99}
           />
           <Calendar />

@@ -7,12 +7,12 @@ import { PlannerSelectedType } from "../../../Pages/Dashboard/Home";
 
 interface PlannerControllerProps {
   planners: UserPlannersProps | undefined
-  plannerSelected: PlannerSelectedType
-  setPlannerSelected: (index: PlannerSelectedType) => void
+  plannerSelectedIndex: PlannerSelectedType
+  setPlannerSelectedIndex: (index: PlannerSelectedType) => void
   price: number
 }
 
-export function PlannerController({ planners, plannerSelected, setPlannerSelected, price }: PlannerControllerProps) {
+export function PlannerController({ planners, plannerSelectedIndex, setPlannerSelectedIndex, price }: PlannerControllerProps) {
   return (
     <DashboardCard title="My Jacked Planners:" className="min-w-[360px] w-full">
       <div className="h-full flex flex-col gap-4">
@@ -21,22 +21,22 @@ export function PlannerController({ planners, plannerSelected, setPlannerSelecte
             name={"planner1"}
             index={1}
             PlannerName={planners?.planner1?.name}
-            plannerSelected={plannerSelected}
-            setPlannerSelected={setPlannerSelected}
+            plannerSelectedIndex={plannerSelectedIndex}
+            setPlannerSelectedIndex={setPlannerSelectedIndex}
           />
           <PlannerCard
             name={"planner2"}
             index={2}
             PlannerName={planners?.planner2?.name}
-            plannerSelected={plannerSelected}
-            setPlannerSelected={setPlannerSelected}
+            plannerSelectedIndex={plannerSelectedIndex}
+            setPlannerSelectedIndex={setPlannerSelectedIndex}
           />
           <PlannerCard
             name={"planner3"}
             index={3}
             PlannerName={planners?.planner3?.name}
-            plannerSelected={plannerSelected}
-            setPlannerSelected={setPlannerSelected}
+            plannerSelectedIndex={plannerSelectedIndex}
+            setPlannerSelectedIndex={setPlannerSelectedIndex}
           />
         </div>
 
