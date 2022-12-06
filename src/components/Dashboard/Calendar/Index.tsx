@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { add, differenceInDays, format, isEqual, isSameMonth, isToday, startOfDay, startOfMonth, startOfWeek, sub } from "date-fns";
+import { add, differenceInDays, format, isEqual, isSameMonth, isToday, startOfDay, startOfWeek, sub } from "date-fns";
 import { eachDayOfInterval, endOfMonth, endOfWeek, parse } from "date-fns/esm";
 import { useState } from "react";
 import { ArrowIcon } from "../../../assets/icons/ArrowIcon";

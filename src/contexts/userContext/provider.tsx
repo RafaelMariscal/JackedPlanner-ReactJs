@@ -1,7 +1,8 @@
 import { ReactNode, useEffect, useState } from "react";
 import { NewAccountProps, signInWithEmailProps, UserContext } from ".";
 import { auth, db, facebookProvider, githubProvider, googleProvider } from "../../services/firebase";
-import { doc, setDoc, getDoc, Timestamp, } from "firebase/firestore";
+import { createNewUserStandardDocs } from "../../utils/createNewUserStandartDocs";
+import { doc, getDoc } from "firebase/firestore";
 import { FirebaseError } from "firebase/app";
 import {
   User,
@@ -15,7 +16,9 @@ import {
   FacebookAuthProvider,
   signInAnonymously,
 } from "firebase/auth";
-import { userConverter } from "../../utils/typesConverters";
+import { UserPlannersProps } from "../../@types/PlannerProps";
+import { NotesProps } from "../../@types/NotesProps";
+import { getUserDocsData } from "../../utils/getUserDocs";
 
 interface ProviederProps {
   children: ReactNode;
@@ -24,22 +27,33 @@ interface ProviederProps {
 export const USER_KEY = "@AuthFirebase:user";
 export const USER_TOKEN = "@AuthFirebase:token";
 export const USER_ACCESS_TOKEN = "@AuthFirebase:accessToken";
+export const USER_PLANNERS = "@FirestoreFirebase:planners";
+export const USER_NOTES = "@FirestoreFirebase:notes";
 
 export const UserContextProvider = ({ children }: ProviederProps) => {
   const [UserLogged, setUserLogged] = useState<User>();
+  const [Planners, setPlanners] = useState<UserPlannersProps>();
+  const [Notes, setNotes] = useState<NotesProps>();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const sessionStorageAuth = () => {
       const sessionToken = sessionStorage.getItem(USER_TOKEN);
       const sessionUser = sessionStorage.getItem(USER_KEY);
-      if (!!sessionToken && !!sessionUser) {
+      const sessionPlanner = sessionStorage.getItem(USER_PLANNERS);
+      const sessionNotes = sessionStorage.getItem(USER_NOTES);
+      if (!!sessionToken && !!sessionUser &&
+        !!sessionPlanner && !!sessionNotes) {
         setUserLogged(JSON.parse(sessionUser));
+        setPlanners(JSON.parse(sessionPlanner));
+        setNotes(JSON.parse(sessionNotes));
       }
     };
     sessionStorageAuth();
   }, []);
 
   const createNewUser = async ({ email, password, name }: NewAccountProps) => {
+    setIsLoading(true);
     return await createUserWithEmailAndPassword(auth, email, password)
       .then(async (result) => {
         const user = result.user;
@@ -47,17 +61,11 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
         const docSnap = await getDoc(docRef);
 
         if (docSnap.data() === undefined) {
-          await setDoc(doc(db, "users", user.uid).withConverter(userConverter), {
-            name: name,
-            email: user.email,
-            authProvider: user.providerId,
-            createdAt: Timestamp.fromDate(new Date()),
-            subscribed: false,
-          });
+          createNewUserStandardDocs({user, name, providerId: user.providerId});
         }
-        setUserLogged(user);
         sessionStorage.setItem(USER_TOKEN, String(user.uid));
         sessionStorage.setItem(USER_KEY, JSON.stringify(user));
+        getUserDocsData({ user, setPlanners, setNotes });
         return "New user created";
       })
       .catch((error: FirebaseError) => {
@@ -68,6 +76,7 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
   };
 
   const signInWithEmail = async ({ email, password }: signInWithEmailProps) => {
+    setIsLoading(true);
     return await signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
@@ -76,6 +85,7 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
         setUserLogged(user);
         sessionStorage.setItem(USER_TOKEN, String(token));
         sessionStorage.setItem(USER_KEY, JSON.stringify(user));
+        getUserDocsData({ user, setPlanners, setNotes });
         return "sign in successfull";
       })
       .catch((error: FirebaseError) => {
@@ -86,6 +96,7 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
   };
 
   const signInWithGoogle = async () => {
+    setIsLoading(true);
     let message = "";
     await signInWithPopup(auth, googleProvider)
       .then(async (result) => {
@@ -100,13 +111,7 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
 
         message = "User logged succesfully";
         if (docSnap.data() === undefined) {
-          await setDoc(doc(db, "users", uidToken).withConverter(userConverter), {
-            name: user.displayName,
-            email: user.email,
-            authProvider: providerId,
-            createdAt: Timestamp.fromDate(new Date()),
-            subscribed: false,
-          });
+          createNewUserStandardDocs({user,providerId});
           console.log("New user created");
           message = "New user created";
         }
@@ -115,6 +120,8 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
         sessionStorage.setItem(USER_KEY, JSON.stringify(user));
         sessionStorage.setItem(USER_TOKEN, String(uidToken));
         sessionStorage.setItem(USER_ACCESS_TOKEN, String(accessToken));
+        getUserDocsData({ user, setPlanners, setNotes });
+
         console.log("User logged succesfully");
         return message;
       })
@@ -127,6 +134,7 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
   };
 
   const signInWithGithub = async () => {
+    setIsLoading(true);
     let message = "";
     await signInWithPopup(auth, githubProvider)
       .then(async (result) => {
@@ -141,13 +149,7 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
 
         message = "User logged succesfully";
         if (docSnap.data() === undefined) {
-          await setDoc(doc(db, "users", uidToken).withConverter(userConverter), {
-            name: user.displayName,
-            email: user.email,
-            authProvider: providerId,
-            createdAt: Timestamp.fromDate(new Date()),
-            subscribed: false,
-          });
+          createNewUserStandardDocs({user,providerId});
           console.log("New user created");
           message = "New user created";
         }
@@ -156,6 +158,8 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
         sessionStorage.setItem(USER_KEY, JSON.stringify(user));
         sessionStorage.setItem(USER_TOKEN, String(uidToken));
         sessionStorage.setItem(USER_ACCESS_TOKEN, String(accessToken));
+        getUserDocsData({ user, setPlanners, setNotes });
+
         console.log("User logged succesfully");
         return message;
       })
@@ -168,6 +172,7 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
   };
 
   const signInWithFacebook = async () => {
+    setIsLoading(true);
     let message = "";
     await signInWithPopup(auth, facebookProvider)
       .then(async (result) => {
@@ -182,13 +187,7 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
 
         message = "User logged succesfully";
         if (docSnap.data() === undefined) {
-          await setDoc(doc(db, "users", uidToken).withConverter(userConverter), {
-            name: user.displayName,
-            email: user.email,
-            authProvider: providerId,
-            createdAt: Timestamp.fromDate(new Date()),
-            subscribed: false,
-          });
+          createNewUserStandardDocs({user,providerId});
           console.log("New user created");
           message = "New user created";
         }
@@ -197,6 +196,8 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
         sessionStorage.setItem(USER_KEY, JSON.stringify(user));
         sessionStorage.setItem(USER_TOKEN, String(uidToken));
         sessionStorage.setItem(USER_ACCESS_TOKEN, String(accessToken));
+        getUserDocsData({ user, setPlanners, setNotes });
+
         console.log("User logged succesfully");
         return message;
       })
@@ -209,6 +210,7 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
   };
 
   const signWithAnonymousProvider = async () => {
+    setIsLoading(true);
     let message = "";
     await signInAnonymously(auth)
       .then(async (result) => {
@@ -221,13 +223,7 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
 
         message = "User logged succesfully";
         if (docSnap.data() === undefined) {
-          await setDoc(doc(db, "users", uidToken).withConverter(userConverter), {
-            name: user.displayName,
-            email: user.email,
-            authProvider: providerId,
-            createdAt: Timestamp.fromDate(new Date()),
-            subscribed: false,
-          });
+          createNewUserStandardDocs({user,providerId});
           console.log("New user created");
           message = "New user created";
         }
@@ -236,6 +232,8 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
         sessionStorage.setItem(USER_KEY, JSON.stringify(user));
         sessionStorage.setItem(USER_TOKEN, String(uidToken));
         console.log("User logged succesfully");
+        getUserDocsData({ user, setPlanners, setNotes });
+
         return message;
       })
       .catch((error) => {
@@ -260,6 +258,7 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
   };
 
   const resetPassword = async (email: string) => {
+    setIsLoading(true);
     return await sendPasswordResetEmail(auth, email)
       .then((result) => {
         console.log(result);
@@ -286,6 +285,12 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
     <UserContext.Provider value={{
       UserLogged,
       setUserLogged,
+      Planners,
+      setPlanners,
+      Notes,
+      setNotes,
+      isLoading,
+      setIsLoading,
       createNewUser,
       signInWithEmail,
       signInWithGoogle,

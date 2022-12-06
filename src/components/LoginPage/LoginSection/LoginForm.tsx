@@ -11,6 +11,7 @@ import { BrandButton } from "./BrandButton";
 import { useUserContext } from "../../../contexts/userContext/hook";
 import { CreateNewUserModal } from "../Modals/CreateNewUserModal";
 import { ForgotPasswordModal } from "../Modals/ForgotPasswordModal";
+import LoadingModal from "../../LoadingModal";
 
 
 type ProviderProps = "emailAndPassword" | "github" | "google" | "facebook" | "anonymous"
@@ -19,15 +20,14 @@ export function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const [IsLoading, setIsLoading] = useState(false);
   const [Message, setMessage] = useState("");
 
   const [IsCreateAccModalOpen, setIsCreateAccModalOpen] = useState(false);
   const [IsForgotAccModalOpen, setIsForgotAccModalOpen] = useState(false);
 
-  const { signInWithEmail } = useUserContext();
-
   const {
+    isLoading,
+    signInWithEmail,
     signInWithGoogle,
     signInWithGithub,
     signInWithFacebook,
@@ -40,7 +40,6 @@ export function LoginForm() {
       signWithAnonymousProvider === undefined) return;
 
     setMessage("");
-    setIsLoading(true);
     let promiseResultMessage = "";
     switch (provider) {
       case "emailAndPassword":
@@ -61,7 +60,6 @@ export function LoginForm() {
     }
     promiseResultMessage !== "sign in successfull" ?
       setMessage(`Login Failed: ${String(promiseResultMessage)}`) : null;
-    setIsLoading(false);
   };
 
   return (
@@ -84,7 +82,7 @@ export function LoginForm() {
         <div className="w-full">
           <Button variant="orange" size="lg" login
             className="disabled:bg-orange-700 disabled:border-transparent">
-            <button disabled={IsLoading} >Login</button>
+            <button disabled={isLoading} >Login</button>
           </Button>
 
           {Message &&
@@ -111,7 +109,7 @@ export function LoginForm() {
         </div>
       </div>
 
-      <BrandButton.Root disabled={IsLoading} variant="Github"
+      <BrandButton.Root disabled={isLoading} variant="Github"
         onClick={() => handleAuthLogin("github")}
       >
         <BrandButton.Icon>
@@ -119,7 +117,7 @@ export function LoginForm() {
         </BrandButton.Icon>
       </BrandButton.Root>
 
-      <BrandButton.Root disabled={IsLoading} variant="Google"
+      <BrandButton.Root disabled={isLoading} variant="Google"
         onClick={() => handleAuthLogin("google")}
       >
         <BrandButton.Icon>
@@ -127,7 +125,7 @@ export function LoginForm() {
         </BrandButton.Icon>
       </BrandButton.Root>
 
-      <BrandButton.Root disabled={IsLoading} variant="Facebook"
+      <BrandButton.Root disabled={isLoading} variant="Facebook"
         onClick={() => handleAuthLogin("facebook")}
       >
         <BrandButton.Icon>
@@ -135,7 +133,7 @@ export function LoginForm() {
         </BrandButton.Icon>
       </BrandButton.Root>
 
-      <BrandButton.Root disabled={IsLoading} variant="Anonymous"
+      <BrandButton.Root disabled={isLoading} variant="Anonymous"
         onClick={() => handleAuthLogin("anonymous")}
       >
         <BrandButton.Icon>
