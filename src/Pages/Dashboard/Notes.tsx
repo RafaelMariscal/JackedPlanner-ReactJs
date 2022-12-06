@@ -1,14 +1,13 @@
-import { useState } from "react";
+import { useOutletDataContext } from ".";
 import { ExercisePlan } from "../../components/Dashboard/ExercisePlan";
 import { ImageCard } from "../../components/Dashboard/ImageCard";
 import { NotesHistory } from "../../components/Dashboard/NotesHistory";
 import { PersonalNotes } from "../../components/Dashboard/PersonalNotes";
 import { PlannerController } from "../../components/Dashboard/PlannerController";
 import { useUserContext } from "../../contexts/userContext/hook";
-import { PlannerSelectedType } from "./Home";
 
 export function Notes() {
-  const [PlannerSelectedIndex, setPlannerSelectedIndex] = useState<PlannerSelectedType>("planner1");
+  const {PlannerSelectedIndex, setPlannerSelectedIndex} = useOutletDataContext();
 
   const {Planners} = useUserContext();
 

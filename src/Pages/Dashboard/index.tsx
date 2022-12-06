@@ -1,11 +1,24 @@
-import { Outlet } from "react-router-dom";
+import { useState } from "react";
+import { Outlet, useOutletContext } from "react-router-dom";
 import { DashboardHeader } from "../../components/Dashboard/DashboardHeader";
 import { Navbar } from "../../components/Dashboard/Navbar";
 import LoadingModal from "../../components/LoadingModal";
 import { useUserContext } from "../../contexts/userContext/hook";
 
+export type PlannerSelectedType = "planner1" | "planner2" | "planner3";
+
+export type OutletContextType = {
+  PlannerSelectedIndex: PlannerSelectedType
+  setPlannerSelectedIndex: (p: PlannerSelectedType)=> void;
+}
+
+export function useOutletDataContext(){
+  return useOutletContext<OutletContextType>();
+}
+
 export function Dashboard() {
   const { UserLogged, isLoading } = useUserContext();
+  const [PlannerSelectedIndex, setPlannerSelectedIndex] = useState<PlannerSelectedType>("planner1");
 
   return (
     <>
@@ -35,12 +48,11 @@ export function Dashboard() {
             <Navbar />
             <div className='w-full h-full py-6 ml-24 mr-4
             overflow-x-auto '>
-              <Outlet/>
+              <Outlet context={{PlannerSelectedIndex, setPlannerSelectedIndex}}/>
             </div>
           </div>
         </div>
       </div >
     </>
-
   );
 }
