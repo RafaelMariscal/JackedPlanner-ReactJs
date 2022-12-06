@@ -19,8 +19,8 @@ export function Notes() {
         <div className="w-full flex justify-between gap-4">
           <PlannerController
             planners={Planners}
-            plannerSelected={PlannerSelectedIndex}
-            setPlannerSelected={setPlannerSelectedIndex}
+            plannerSelectedIndex={PlannerSelectedIndex}
+            setPlannerSelectedIndex={setPlannerSelectedIndex}
             price={4.99}
           />
           <NotesHistory />

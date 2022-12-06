@@ -18,6 +18,7 @@ import {
 } from "firebase/auth";
 import { UserPlannersProps } from "../../@types/PlannerProps";
 import { NotesProps } from "../../@types/NotesProps";
+import { getUserDocsData } from "../../utils/getUserDocs";
 
 interface ProviederProps {
   children: ReactNode;
@@ -39,12 +40,11 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
     const sessionStorageAuth = () => {
       const sessionToken = sessionStorage.getItem(USER_TOKEN);
       const sessionUser = sessionStorage.getItem(USER_KEY);
-      if (!!sessionToken && !!sessionUser) {
-        setUserLogged(JSON.parse(sessionUser));
-      }
       const sessionPlanner = sessionStorage.getItem(USER_PLANNERS);
       const sessionNotes = sessionStorage.getItem(USER_NOTES);
-      if (!!sessionPlanner && !!sessionNotes) {
+      if (!!sessionToken && !!sessionUser &&
+        !!sessionPlanner && !!sessionNotes) {
+        setUserLogged(JSON.parse(sessionUser));
         setPlanners(JSON.parse(sessionPlanner));
         setNotes(JSON.parse(sessionNotes));
       }
@@ -65,6 +65,7 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
         }
         sessionStorage.setItem(USER_TOKEN, String(user.uid));
         sessionStorage.setItem(USER_KEY, JSON.stringify(user));
+        getUserDocsData({ user, setPlanners, setNotes });
         return "New user created";
       })
       .catch((error: FirebaseError) => {
@@ -84,6 +85,7 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
         setUserLogged(user);
         sessionStorage.setItem(USER_TOKEN, String(token));
         sessionStorage.setItem(USER_KEY, JSON.stringify(user));
+        getUserDocsData({ user, setPlanners, setNotes });
         return "sign in successfull";
       })
       .catch((error: FirebaseError) => {
@@ -118,6 +120,8 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
         sessionStorage.setItem(USER_KEY, JSON.stringify(user));
         sessionStorage.setItem(USER_TOKEN, String(uidToken));
         sessionStorage.setItem(USER_ACCESS_TOKEN, String(accessToken));
+        getUserDocsData({ user, setPlanners, setNotes });
+
         console.log("User logged succesfully");
         return message;
       })
@@ -154,6 +158,8 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
         sessionStorage.setItem(USER_KEY, JSON.stringify(user));
         sessionStorage.setItem(USER_TOKEN, String(uidToken));
         sessionStorage.setItem(USER_ACCESS_TOKEN, String(accessToken));
+        getUserDocsData({ user, setPlanners, setNotes });
+
         console.log("User logged succesfully");
         return message;
       })
@@ -190,6 +196,8 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
         sessionStorage.setItem(USER_KEY, JSON.stringify(user));
         sessionStorage.setItem(USER_TOKEN, String(uidToken));
         sessionStorage.setItem(USER_ACCESS_TOKEN, String(accessToken));
+        getUserDocsData({ user, setPlanners, setNotes });
+
         console.log("User logged succesfully");
         return message;
       })
@@ -224,6 +232,8 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
         sessionStorage.setItem(USER_KEY, JSON.stringify(user));
         sessionStorage.setItem(USER_TOKEN, String(uidToken));
         console.log("User logged succesfully");
+        getUserDocsData({ user, setPlanners, setNotes });
+
         return message;
       })
       .catch((error) => {

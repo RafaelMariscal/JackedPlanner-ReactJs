@@ -1,26 +1,11 @@
-import { useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import { DashboardHeader } from "../../components/Dashboard/DashboardHeader";
 import { Navbar } from "../../components/Dashboard/Navbar";
 import LoadingModal from "../../components/LoadingModal";
 import { useUserContext } from "../../contexts/userContext/hook";
-import { USER_NOTES, USER_PLANNERS } from "../../contexts/userContext/provider";
-import { getUserDocsData } from "../../utils/getUserDocs";
 
 export function Dashboard() {
   const { UserLogged, isLoading } = useUserContext();
-
-  useEffect(() => {
-    async function sessionStorageDocs(){
-      if(UserLogged === undefined) return;
-      const sessionPlanner = sessionStorage.getItem(USER_PLANNERS);
-      const sessionNotes = sessionStorage.getItem(USER_NOTES);
-      if (!sessionPlanner && !sessionNotes) {
-        await getUserDocsData(UserLogged);
-      }
-    }
-    sessionStorageDocs();
-  }, []);
 
   return (
     <>
