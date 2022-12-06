@@ -9,6 +9,7 @@ interface CreateNewUserModalProps {
 }
 
 export function CreateNewUserModal({ IsCreateAccModalOpen, setIsCreateAccModalOpen }: CreateNewUserModalProps) {
+  const {isLoading} = useUserContext();
   const { createNewUser } = useUserContext();
   if(createNewUser === undefined) return (<></>);
 
@@ -17,7 +18,6 @@ export function CreateNewUserModal({ IsCreateAccModalOpen, setIsCreateAccModalOp
   const PasswordInput = useRef<HTMLInputElement>(null);
   const ConfirmPasswordInput = useRef<HTMLInputElement>(null);
 
-  const [IsLoading, setIsLoading] = useState(false);
   const [Message, setMessage] = useState("");
 
   const handleCreateNewUser = async (e: FormEvent) => {
@@ -31,14 +31,12 @@ export function CreateNewUserModal({ IsCreateAccModalOpen, setIsCreateAccModalOp
       return setMessage("Passwords don't match");
     }
 
-    setIsLoading(true);
     const response = await createNewUser({ email, password, name });
     if (response === "New user created") {
       setIsCreateAccModalOpen(false);
     } else {
       setMessage(`Sign up failed: ${response}`);
     }
-    setIsLoading(false);
   };
 
   return (
@@ -128,7 +126,7 @@ export function CreateNewUserModal({ IsCreateAccModalOpen, setIsCreateAccModalOp
               <Button size="lg" variant="orange" login
                 className="mt-2 outline-none focus:outline-orange-500 focus:outline-1"
               >
-                <button className="text-md disabled:bg-orange-700" disabled={IsLoading}>
+                <button className="text-md disabled:bg-orange-700" disabled={isLoading}>
                   Create account
                 </button>
               </Button>

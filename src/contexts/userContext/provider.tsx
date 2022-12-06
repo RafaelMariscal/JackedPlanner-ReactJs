@@ -63,6 +63,7 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
         if (docSnap.data() === undefined) {
           createNewUserStandardDocs({user, name, providerId: user.providerId});
         }
+        setUserLogged(user);
         sessionStorage.setItem(USER_TOKEN, String(user.uid));
         sessionStorage.setItem(USER_KEY, JSON.stringify(user));
         getUserDocsData({ user, setPlanners, setNotes });

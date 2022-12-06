@@ -11,8 +11,6 @@ import { BrandButton } from "./BrandButton";
 import { useUserContext } from "../../../contexts/userContext/hook";
 import { CreateNewUserModal } from "../Modals/CreateNewUserModal";
 import { ForgotPasswordModal } from "../Modals/ForgotPasswordModal";
-import LoadingModal from "../../LoadingModal";
-
 
 type ProviderProps = "emailAndPassword" | "github" | "google" | "facebook" | "anonymous"
 
