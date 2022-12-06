@@ -15,13 +15,27 @@ export interface PlannerProps {
   splits: SplitProps[]
 }
 
-
 export interface SplitProps {
   splitLabel: ScheduleLabel
   splitTitle: string
-  splitStartDate: Date | Timestamp
-  splitSchedule: Date[] | Timestamp[]
+  splitSchedule: splitScheduleProps[]
   splitExercises: ExerciseProps[]
+}
+
+export interface splitScheduleProps{
+  date: Date | Timestamp
+  notes: NotesProps | null
+}
+
+export interface NotesProps {
+  cardio: CardioProps[]
+  rate: "BAD" | "OK" | "GOOD" | "GREAT" | null
+  trainingNotes: string
+}
+
+export interface CardioProps {
+  distance: number
+  time: number
 }
 
 export interface ExerciseProps {

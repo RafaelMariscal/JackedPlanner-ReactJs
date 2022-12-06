@@ -1,6 +1,5 @@
 import { User } from "firebase/auth";
 import { createContext } from "react";
-import { NotesProps } from "../../@types/NotesProps";
 import { UserPlannersProps } from "../../@types/PlannerProps";
 
 export interface signInWithEmailProps {
@@ -19,9 +18,6 @@ export interface UserContextProps {
   setUserLogged?: React.Dispatch<React.SetStateAction<User | undefined>>;
   Planners?: UserPlannersProps | undefined
   setPlanners?: React.Dispatch<React.SetStateAction<UserPlannersProps | undefined>>
-  Notes?: NotesProps | undefined
-  setNotes?: React.Dispatch<React.SetStateAction<NotesProps | undefined>>
-
 
   isLoading: boolean
   setIsLoading?: (i:boolean) => void

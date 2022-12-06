@@ -13,16 +13,16 @@ export type PlannerSelectedType = "planner1" | "planner2" | "planner3"
 
 export function Home() {
   const {PlannerSelectedIndex, setPlannerSelectedIndex} = useOutletDataContext();
-  const {setIsLoading, Planners, Notes} = useUserContext();
+  const {setIsLoading, Planners} = useUserContext();
 
   useEffect(() => {
-    if(!!Planners && !!Notes && !!setIsLoading){
+    if(!!Planners && !!setIsLoading){
       setIsLoading(false);
     }
     return;
-  },[Planners, Notes]);
+  },[Planners]);
 
-  if(Planners === undefined || Notes === undefined) return (<></>);
+  if(Planners === undefined ) return (<></>);
   const plannerSelected = Planners[PlannerSelectedIndex];
   console.log(plannerSelected);
   return (

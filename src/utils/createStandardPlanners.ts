@@ -1,10 +1,8 @@
 import { Timestamp } from "firebase/firestore";
 import { UserPlannersProps } from "../@types/PlannerProps";
-import { add } from "date-fns";
 
 export function createNewUserStandardPlanners(){
   const startDate = new Date();
-
   const plannerDocStructure: UserPlannersProps = {
     planner1: {
       name: "PUSH PULL LEGS by Jeff Nippard",
@@ -14,7 +12,6 @@ export function createNewUserStandardPlanners(){
         {
           splitLabel: "a",
           splitTitle: "Chest / Shouders",
-          splitStartDate: Timestamp.fromDate(new Date()),
           splitExercises: [
             {
               index: 1,
@@ -99,7 +96,6 @@ export function createNewUserStandardPlanners(){
         {
           splitLabel: "b",
           splitTitle: "Full Back",
-          splitStartDate: Timestamp.fromDate(add(startDate, {days: 1})),
           splitExercises: [
             {
               index: 1,
@@ -162,7 +158,6 @@ export function createNewUserStandardPlanners(){
         {
           splitLabel: "c",
           splitTitle: "Quads and Hams",
-          splitStartDate: Timestamp.fromDate(add(startDate, {days: 2})),
           splitExercises: [
             {
               index: 1,
@@ -225,7 +220,6 @@ export function createNewUserStandardPlanners(){
         {
           splitLabel: "d",
           splitTitle: "Arms / Shoulders",
-          splitStartDate: Timestamp.fromDate(add(startDate, {days: 4})),
           splitExercises: [
             {
               index: 1,

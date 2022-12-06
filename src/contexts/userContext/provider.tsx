@@ -17,23 +17,20 @@ import {
   signInAnonymously,
 } from "firebase/auth";
 import { UserPlannersProps } from "../../@types/PlannerProps";
-import { NotesProps } from "../../@types/NotesProps";
 import { getUserDocsData } from "../../utils/getUserDocs";
 
 interface ProviederProps {
   children: ReactNode;
 }
 
-export const USER_KEY = "@AuthFirebase:user";
+export const USER_KEY = "@AuthFirebase:user";   // maybe USER_DATA ??
 export const USER_TOKEN = "@AuthFirebase:token";
 export const USER_ACCESS_TOKEN = "@AuthFirebase:accessToken";
 export const USER_PLANNERS = "@FirestoreFirebase:planners";
-export const USER_NOTES = "@FirestoreFirebase:notes";
 
 export const UserContextProvider = ({ children }: ProviederProps) => {
   const [UserLogged, setUserLogged] = useState<User>();
   const [Planners, setPlanners] = useState<UserPlannersProps>();
-  const [Notes, setNotes] = useState<NotesProps>();
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -41,12 +38,9 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
       const sessionToken = sessionStorage.getItem(USER_TOKEN);
       const sessionUser = sessionStorage.getItem(USER_KEY);
       const sessionPlanner = sessionStorage.getItem(USER_PLANNERS);
-      const sessionNotes = sessionStorage.getItem(USER_NOTES);
-      if (!!sessionToken && !!sessionUser &&
-        !!sessionPlanner && !!sessionNotes) {
+      if (!!sessionToken && !!sessionUser && !!sessionPlanner) {
         setUserLogged(JSON.parse(sessionUser));
         setPlanners(JSON.parse(sessionPlanner));
-        setNotes(JSON.parse(sessionNotes));
       }
     };
     sessionStorageAuth();
@@ -61,12 +55,12 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
         const docSnap = await getDoc(docRef);
 
         if (docSnap.data() === undefined) {
-          createNewUserStandardDocs({user, name, providerId: user.providerId});
+          await createNewUserStandardDocs({user, name, providerId: user.providerId});
         }
         setUserLogged(user);
-        sessionStorage.setItem(USER_TOKEN, String(user.uid));
         sessionStorage.setItem(USER_KEY, JSON.stringify(user));
-        getUserDocsData({ user, setPlanners, setNotes });
+        sessionStorage.setItem(USER_TOKEN, String(user.uid));
+        await getUserDocsData({ user, setPlanners });
         return "New user created";
       })
       .catch((error: FirebaseError) => {
@@ -79,14 +73,14 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
   const signInWithEmail = async ({ email, password }: signInWithEmailProps) => {
     setIsLoading(true);
     return await signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
+      .then(async (userCredential) => {
         const user = userCredential.user;
         const token = userCredential.user.getIdTokenResult();
 
         setUserLogged(user);
         sessionStorage.setItem(USER_TOKEN, String(token));
         sessionStorage.setItem(USER_KEY, JSON.stringify(user));
-        getUserDocsData({ user, setPlanners, setNotes });
+        await getUserDocsData({ user, setPlanners });
         return "sign in successfull";
       })
       .catch((error: FirebaseError) => {
@@ -112,16 +106,15 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
 
         message = "User logged succesfully";
         if (docSnap.data() === undefined) {
-          createNewUserStandardDocs({user,providerId});
+          await createNewUserStandardDocs({user,providerId});
           console.log("New user created");
           message = "New user created";
         }
-
         setUserLogged(user);
         sessionStorage.setItem(USER_KEY, JSON.stringify(user));
         sessionStorage.setItem(USER_TOKEN, String(uidToken));
         sessionStorage.setItem(USER_ACCESS_TOKEN, String(accessToken));
-        getUserDocsData({ user, setPlanners, setNotes });
+        await getUserDocsData({ user, setPlanners });
 
         console.log("User logged succesfully");
         return message;
@@ -150,7 +143,7 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
 
         message = "User logged succesfully";
         if (docSnap.data() === undefined) {
-          createNewUserStandardDocs({user,providerId});
+          await createNewUserStandardDocs({user,providerId});
           console.log("New user created");
           message = "New user created";
         }
@@ -159,7 +152,7 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
         sessionStorage.setItem(USER_KEY, JSON.stringify(user));
         sessionStorage.setItem(USER_TOKEN, String(uidToken));
         sessionStorage.setItem(USER_ACCESS_TOKEN, String(accessToken));
-        getUserDocsData({ user, setPlanners, setNotes });
+        await getUserDocsData({ user, setPlanners });
 
         console.log("User logged succesfully");
         return message;
@@ -188,7 +181,7 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
 
         message = "User logged succesfully";
         if (docSnap.data() === undefined) {
-          createNewUserStandardDocs({user,providerId});
+          await createNewUserStandardDocs({user,providerId});
           console.log("New user created");
           message = "New user created";
         }
@@ -197,7 +190,7 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
         sessionStorage.setItem(USER_KEY, JSON.stringify(user));
         sessionStorage.setItem(USER_TOKEN, String(uidToken));
         sessionStorage.setItem(USER_ACCESS_TOKEN, String(accessToken));
-        getUserDocsData({ user, setPlanners, setNotes });
+        await getUserDocsData({ user, setPlanners });
 
         console.log("User logged succesfully");
         return message;
@@ -224,7 +217,7 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
 
         message = "User logged succesfully";
         if (docSnap.data() === undefined) {
-          createNewUserStandardDocs({user,providerId});
+          await createNewUserStandardDocs({user,providerId});
           console.log("New user created");
           message = "New user created";
         }
@@ -233,7 +226,7 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
         sessionStorage.setItem(USER_KEY, JSON.stringify(user));
         sessionStorage.setItem(USER_TOKEN, String(uidToken));
         console.log("User logged succesfully");
-        getUserDocsData({ user, setPlanners, setNotes });
+        await getUserDocsData({ user, setPlanners });
 
         return message;
       })
@@ -288,8 +281,6 @@ export const UserContextProvider = ({ children }: ProviederProps) => {
       setUserLogged,
       Planners,
       setPlanners,
-      Notes,
-      setNotes,
       isLoading,
       setIsLoading,
       createNewUser,

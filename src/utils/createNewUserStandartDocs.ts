@@ -1,9 +1,8 @@
 import { User } from "firebase/auth";
 import { doc, setDoc, Timestamp } from "firebase/firestore";
 import { db } from "../services/firebase";
-import { createNewUserStandardNotes } from "./createStandardNotes";
 import { createNewUserStandardPlanners } from "./createStandardPlanners";
-import { notesConverter, plannersConverter, userConverter } from "./typesConverters";
+import { plannersConverter, userConverter } from "./typesConverters";
 
 interface createNewUserStandardDocsProps {
   user: User
@@ -19,9 +18,7 @@ export async function createNewUserStandardDocs({ user, name, providerId}: creat
     createdAt: Timestamp.fromDate(new Date()),
     subscribed: false,
   });
-
-  await setDoc(doc(db, "notes", user.uid)
-    .withConverter(notesConverter),createNewUserStandardNotes());
   await setDoc(doc(db, "planners", user.uid)
     .withConverter(plannersConverter), createNewUserStandardPlanners());
+  return;
 }
