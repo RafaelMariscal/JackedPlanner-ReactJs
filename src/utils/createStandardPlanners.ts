@@ -13,7 +13,7 @@ export function createNewUserStandardPlanners(){
   const cardios = [standardCardios];
   const cardioRest = [standardCardios, standardCardios];
 
-  const {scheduleByLabel} = createSplitScheduleStructure({
+  const {calendar, scheduleByLabel} = createSplitScheduleStructure({
     schedule, plannerDuration, startDate, cardios, cardioRest
   });
 
@@ -310,7 +310,8 @@ export function createNewUserStandardPlanners(){
           splitExercises: [],
           splitSchedule: scheduleByLabel["rest"]
         },
-      ]
+      ],
+      plannerCalendar: calendar
     },
     planner2: null,
     planner3: null

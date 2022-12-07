@@ -1,5 +1,5 @@
 import { add } from "date-fns";
-import { CardioProps, ScheduleLabel, splitScheduleProps } from "../@types/PlannerProps";
+import { calendarProps, CardioProps, ScheduleLabel, splitScheduleProps } from "../@types/PlannerProps";
 
 export interface createSplitScheduleStructureProps {
   schedule: ScheduleLabel[]
@@ -11,11 +11,6 @@ export interface createSplitScheduleStructureProps {
 
 interface scheduleByLabelProps {
   [key: string]: splitScheduleProps[]
-}
-
-interface calendarProps {
-  label: ScheduleLabel
-  date: Date
 }
 
 export function createSplitScheduleStructure(params:createSplitScheduleStructureProps) {

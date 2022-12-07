@@ -8,11 +8,17 @@ export interface UserPlannersProps{
 
 export type ScheduleLabel = "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "rest"
 
+export interface calendarProps {
+  label: ScheduleLabel
+  date: Date
+}
+
 export interface PlannerProps {
   name: string
   startDate: Date | Timestamp
   schedule: ScheduleLabel[]
-  splits: SplitProps[]
+  splits: SplitProps[],
+  plannerCalendar: calendarProps[]
 }
 
 export interface SplitProps {
