@@ -21,7 +21,7 @@ export function createNewUserStandardPlanners(){
     planner1: {
       name: "PUSH PULL LEGS by Jeff Nippard",
       schedule: schedule,
-      startDate: Timestamp.fromDate(startDate),
+      startDate: Timestamp.fromMillis(Date.parse(startDate.toDateString())),
       splits: [
         {
           splitLabel: "a",

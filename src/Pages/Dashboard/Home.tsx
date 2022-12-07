@@ -1,3 +1,4 @@
+import { Timestamp } from "firebase/firestore";
 import { useEffect } from "react";
 import { useOutletDataContext } from ".";
 import { Calendar } from "../../components/Dashboard/Calendar/Index";
@@ -21,8 +22,11 @@ export function Home() {
     }
     return;
   },[Planners]);
+  if(Planners === undefined) return (<></>);
+  const plannerSelected = Planners[PlannerSelectedIndex];
+  const calendar = plannerSelected!.plannerCalendar;
+  const date = calendar[0].date.toDate();
 
-  if(Planners === undefined ) return (<></>);
   return (
     <div className="h-full flex flex-col gap-4" >
       <div className="flex gap-4">

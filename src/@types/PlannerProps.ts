@@ -10,7 +10,7 @@ export type ScheduleLabel = "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" 
 
 export interface calendarProps {
   label: ScheduleLabel
-  date: Date
+  date: Timestamp
 }
 
 export interface PlannerProps {

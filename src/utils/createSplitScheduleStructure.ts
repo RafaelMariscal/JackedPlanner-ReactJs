@@ -1,4 +1,5 @@
 import { add } from "date-fns";
+import { Timestamp } from "firebase/firestore";
 import { calendarProps, CardioProps, ScheduleLabel, splitScheduleProps } from "../@types/PlannerProps";
 
 export interface createSplitScheduleStructureProps {
@@ -38,7 +39,7 @@ export function createSplitScheduleStructure(params:createSplitScheduleStructure
         cardios !== undefined ? cardios : [];
 
       const splitScheduleToAdd: splitScheduleProps = {
-        date: date,
+        date: Timestamp.fromMillis(Date.parse(date.toString())),
         notes: {
           cardio: splitCardios,
           rate: null,
@@ -48,7 +49,7 @@ export function createSplitScheduleStructure(params:createSplitScheduleStructure
 
       const calendarObject : calendarProps = {
         label: scheduleLabel,
-        date
+        date: Timestamp.fromMillis(Date.parse(date.toString()))
       };
       calendar.push(calendarObject);
 
@@ -60,8 +61,5 @@ export function createSplitScheduleStructure(params:createSplitScheduleStructure
   sortedSchedule.map((label, index)=>{
     scheduleByLabel[label] = schedulesByLabelMatrix[index];
   });
-
-  console.log(calendar);
-  console.log(scheduleByLabel);
   return {calendar, scheduleByLabel};
 }
