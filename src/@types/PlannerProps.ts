@@ -15,7 +15,7 @@ export interface calendarProps {
 
 export interface PlannerProps {
   name: string
-  startDate: Date | Timestamp
+  startDate: Timestamp
   schedule: ScheduleLabel[]
   splits: SplitProps[],
   plannerCalendar: calendarProps[]

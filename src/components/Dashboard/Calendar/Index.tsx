@@ -7,12 +7,11 @@ import { ArrowIcon } from "../../../assets/icons/ArrowIcon";
 import DashboardCard from "../DashboardCard";
 
 interface CalenderComponentProps{
-  calendar: calendarProps[]
   selectedDay: Date
   setSelectedDay: (date: Date)=>void
 }
 
-export function Calendar({calendar, selectedDay, setSelectedDay}:CalenderComponentProps) {
+export function Calendar({selectedDay, setSelectedDay}:CalenderComponentProps) {
   const today = startOfDay(new Date());
   const [CurrentMonth, setCurrentMonth] = useState(format(today, "MMM-yyyy"));
   const firsDayOfCurrentMonth = parse(CurrentMonth, "MMM-yyyy", new Date());

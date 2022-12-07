@@ -1,7 +1,7 @@
-import { isEqual, startOfDay } from "date-fns";
-import { Timestamp } from "firebase/firestore";
+import { startOfDay } from "date-fns";
 import { useEffect, useState } from "react";
 import { useOutletDataContext } from ".";
+import { NotFound } from "../NotFound";
 import { Calendar } from "../../components/Dashboard/Calendar/Index";
 import { ExercisePlan } from "../../components/Dashboard/ExercisePlan";
 import { JackedPlannerProCall } from "../../components/Dashboard/JackedPlannerProCall";
@@ -26,12 +26,18 @@ export function Home() {
     return;
   },[Planners]);
 
-  if(Planners === undefined || Planners[PlannerSelectedIndex] === null) return (<></>);
-  const plannerSelected = Planners[PlannerSelectedIndex];
-  const calendar = plannerSelected!.plannerCalendar;
-  const selectedSplitInfo = getSelectedDaySplit({calendar, selectedDay});
-  console.log(selectedSplitInfo);
+  if(Planners === undefined) return (<><NotFound/></>);
 
+  const plannerSelected = Planners[PlannerSelectedIndex];
+  let calendar = null;
+  let selectedSplitInfo = null;
+
+  if(plannerSelected !== null) {
+    const plannerStartDate = plannerSelected?.startDate;
+    calendar = plannerSelected.plannerCalendar;
+    selectedSplitInfo = getSelectedDaySplit({calendar, selectedDay, plannerStartDate});
+  }
+  console.log(selectedSplitInfo);
   return (
     <div className="h-full flex flex-col gap-4" >
       <div className="flex gap-4">
@@ -43,7 +49,6 @@ export function Home() {
             price={4.99}
           />
           <Calendar
-            calendar={calendar}
             selectedDay={selectedDay}
             setSelectedDay={setSelectedDay}
           />
