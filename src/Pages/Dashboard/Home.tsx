@@ -1,5 +1,6 @@
+import { isEqual, startOfDay } from "date-fns";
 import { Timestamp } from "firebase/firestore";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useOutletDataContext } from ".";
 import { Calendar } from "../../components/Dashboard/Calendar/Index";
 import { ExercisePlan } from "../../components/Dashboard/ExercisePlan";
@@ -9,12 +10,14 @@ import { PlannerController } from "../../components/Dashboard/PlannerController"
 import { WeightHistory } from "../../components/Dashboard/WeightHistory";
 import { WorkoutSection } from "../../components/Dashboard/WorkoutSection";
 import { useUserContext } from "../../contexts/userContext/hook";
+import { getSelectedDaySplit } from "../../utils/getSelectedDaySplit";
 
 export type PlannerSelectedType = "planner1" | "planner2" | "planner3"
 
 export function Home() {
   const {PlannerSelectedIndex, setPlannerSelectedIndex} = useOutletDataContext();
   const {setIsLoading, Planners} = useUserContext();
+  const [selectedDay, setSelectedDay] = useState<Date>(startOfDay(new Date()));
 
   useEffect(() => {
     if(!!Planners && !!setIsLoading){
@@ -22,10 +25,12 @@ export function Home() {
     }
     return;
   },[Planners]);
-  if(Planners === undefined) return (<></>);
+
+  if(Planners === undefined || Planners[PlannerSelectedIndex] === null) return (<></>);
   const plannerSelected = Planners[PlannerSelectedIndex];
   const calendar = plannerSelected!.plannerCalendar;
-  const date = calendar[0].date.toDate();
+  const selectedSplitInfo = getSelectedDaySplit({calendar, selectedDay});
+  console.log(selectedSplitInfo);
 
   return (
     <div className="h-full flex flex-col gap-4" >
@@ -37,7 +42,11 @@ export function Home() {
             setPlannerSelectedIndex={setPlannerSelectedIndex}
             price={4.99}
           />
-          <Calendar />
+          <Calendar
+            calendar={calendar}
+            selectedDay={selectedDay}
+            setSelectedDay={setSelectedDay}
+          />
         </div>
         <WorkoutSection />
       </div>

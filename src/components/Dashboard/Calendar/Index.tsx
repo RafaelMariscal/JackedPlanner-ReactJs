@@ -2,13 +2,18 @@ import clsx from "clsx";
 import { add, differenceInDays, format, isEqual, isSameMonth, isToday, startOfDay, startOfWeek, sub } from "date-fns";
 import { eachDayOfInterval, endOfMonth, endOfWeek, parse } from "date-fns/esm";
 import { useState } from "react";
+import { calendarProps } from "../../../@types/PlannerProps";
 import { ArrowIcon } from "../../../assets/icons/ArrowIcon";
 import DashboardCard from "../DashboardCard";
 
+interface CalenderComponentProps{
+  calendar: calendarProps[]
+  selectedDay: Date
+  setSelectedDay: (date: Date)=>void
+}
 
-export function Calendar() {
+export function Calendar({calendar, selectedDay, setSelectedDay}:CalenderComponentProps) {
   const today = startOfDay(new Date());
-  const [SelectedDay, setSelectedDay] = useState(today);
   const [CurrentMonth, setCurrentMonth] = useState(format(today, "MMM-yyyy"));
   const firsDayOfCurrentMonth = parse(CurrentMonth, "MMM-yyyy", new Date());
 
@@ -102,20 +107,20 @@ export function Calendar() {
                 onClick={() => setSelectedDay(day)}
                 className={clsx(
                   "w-6 h-6 mt-[.625rem] border border-transparent transition-colors duration-100",
-                  isEqual(day, SelectedDay) && "text-gray-800 bg-orange-500",
-                  !isEqual(day, SelectedDay) &&
+                  isEqual(day, selectedDay) && "text-gray-800 bg-orange-500",
+                  !isEqual(day, selectedDay) &&
                   isToday(day) && "text-orange-500",
-                  !isEqual(day, SelectedDay) && !isToday(day) &&
+                  !isEqual(day, selectedDay) && !isToday(day) &&
                   isSameMonth(day, firsDayOfCurrentMonth) && "text-gray-100",
-                  !isEqual(day, SelectedDay) && !isToday(day) &&
+                  !isEqual(day, selectedDay) && !isToday(day) &&
                   !isSameMonth(day, firsDayOfCurrentMonth) && "text-gray-400",
-                  isEqual(day, SelectedDay) &&
+                  isEqual(day, selectedDay) &&
                   isToday(day) && "bg-cyan-500",
-                  isEqual(day, SelectedDay) &&
+                  isEqual(day, selectedDay) &&
                   !isToday(day) && "bg-cyan-500",
-                  !isEqual(day, SelectedDay) &&
+                  !isEqual(day, selectedDay) &&
                   "hover:bg-gray-200 hover:text-gray-800 hover:font-semibold",
-                  (isEqual(day, SelectedDay) || isToday(day)) &&
+                  (isEqual(day, selectedDay) || isToday(day)) &&
                   "font-semibold",
                 )}
               >
@@ -127,7 +132,7 @@ export function Calendar() {
                 "block w-1 h-1 mx-auto -mt-1 rounded-full",
                 false && "bg-orange-500", // if scheduled for training
                 false && "bg-cyan-500",   // if scheduled for rest day
-                !isEqual(day, SelectedDay) && !isToday(day) &&
+                !isEqual(day, selectedDay) && !isToday(day) &&
                 !isSameMonth(day, firsDayOfCurrentMonth) &&
                 false && "bg-gray-400" // markers of other months
 
