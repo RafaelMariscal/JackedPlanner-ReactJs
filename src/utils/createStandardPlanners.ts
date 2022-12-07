@@ -1,12 +1,26 @@
 import { Timestamp } from "firebase/firestore";
-import { UserPlannersProps } from "../@types/PlannerProps";
+import { CardioProps, ScheduleLabel, UserPlannersProps } from "../@types/PlannerProps";
+import { createSplitScheduleStructure } from "./createSplitScheduleStructure";
 
 export function createNewUserStandardPlanners(){
+  const schedule: ScheduleLabel[] = ["a","b","c","rest","d","c","rest"];
+  const plannerDuration = 180;
   const startDate = new Date();
+  const standardCardios:CardioProps = {
+    distance: 5,
+    time: 35
+  };
+  const cardios = [standardCardios];
+  const cardioRest = [standardCardios, standardCardios];
+
+  const {scheduleByLabel} = createSplitScheduleStructure({
+    schedule, plannerDuration, startDate, cardios, cardioRest
+  });
+
   const plannerDocStructure: UserPlannersProps = {
     planner1: {
       name: "PUSH PULL LEGS by Jeff Nippard",
-      schedule: ["a","b","c","rest","d","c","rest"],
+      schedule: schedule,
       startDate: Timestamp.fromDate(startDate),
       splits: [
         {
@@ -91,7 +105,7 @@ export function createNewUserStandardPlanners(){
               liftedReps: []
             }
           ],
-          splitSchedule: []
+          splitSchedule: scheduleByLabel["a"]
         },
         {
           splitLabel: "b",
@@ -153,7 +167,7 @@ export function createNewUserStandardPlanners(){
               liftedReps: []
             },
           ],
-          splitSchedule: []
+          splitSchedule: scheduleByLabel["b"]
         },
         {
           splitLabel: "c",
@@ -215,7 +229,7 @@ export function createNewUserStandardPlanners(){
               liftedReps: []
             },
           ],
-          splitSchedule: []
+          splitSchedule: scheduleByLabel["c"]
         },
         {
           splitLabel: "d",
@@ -288,7 +302,13 @@ export function createNewUserStandardPlanners(){
               liftedReps: []
             }
           ],
-          splitSchedule: []
+          splitSchedule: scheduleByLabel["d"]
+        },
+        {
+          splitLabel: "rest",
+          splitTitle: "Rest day",
+          splitExercises: [],
+          splitSchedule: scheduleByLabel["rest"]
         },
       ]
     },

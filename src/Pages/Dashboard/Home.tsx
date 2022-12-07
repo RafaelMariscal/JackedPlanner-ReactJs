@@ -23,8 +23,6 @@ export function Home() {
   },[Planners]);
 
   if(Planners === undefined ) return (<></>);
-  const plannerSelected = Planners[PlannerSelectedIndex];
-  console.log(plannerSelected);
   return (
     <div className="h-full flex flex-col gap-4" >
       <div className="flex gap-4">
