@@ -17,16 +17,19 @@ export function PlannerController({ planners, PlannerSelected, price }: PlannerC
       <div className="h-full flex flex-col gap-4">
         <div className="flex flex-col gap-4">
           <PlannerCard
+            key={planners?.planner1?.uid}
             index={1}
             PlannerName={planners?.planner1?.name}
             PlannerSelected={PlannerSelected}
           />
           <PlannerCard
+            key={planners?.planner2?.uid}
             index={2}
             PlannerName={planners?.planner2?.name}
             PlannerSelected={PlannerSelected}
           />
           <PlannerCard
+            key={planners?.planner2?.uid}
             index={3}
             PlannerName={planners?.planner3?.name}
             PlannerSelected={PlannerSelected}

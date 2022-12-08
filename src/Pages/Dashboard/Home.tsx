@@ -19,6 +19,7 @@ export function Home() {
   const {PlannerSelected} = useOutletDataContext();
   const {setIsLoading, Planners} = useUserContext();
   const [selectedDay, setSelectedDay] = useState<Date>(startOfDay(new Date()));
+  const [selectedExerciseId, setSelectedExerciseId] = useState<string | null>(null);
 
   useEffect(() => {
     if(!!Planners && !!setIsLoading){
@@ -57,7 +58,11 @@ export function Home() {
             setSelectedDay={setSelectedDay}
           />
         </div>
-        <WorkoutSection exercises={selectedSplitExercides}/>
+        <WorkoutSection
+          exercises={selectedSplitExercides}
+          selectedExerciseId={selectedExerciseId}
+          setSelectedExerciseId={setSelectedExerciseId}
+        />
       </div>
 
       <div className="flex-1 flex gap-4">

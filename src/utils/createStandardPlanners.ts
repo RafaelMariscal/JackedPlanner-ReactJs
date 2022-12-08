@@ -1,4 +1,5 @@
 import { Timestamp } from "firebase/firestore";
+import { v4 as uuidV4} from "uuid";
 import { CardioProps, ScheduleLabel, UserPlannersProps } from "../@types/PlannerProps";
 import { createSplitScheduleStructure } from "./createSplitScheduleStructure";
 
@@ -19,6 +20,7 @@ export function createNewUserStandardPlanners(){
 
   const plannerDocStructure: UserPlannersProps = {
     planner1: {
+      uid: uuidV4(),
       name: "PUSH PULL LEGS by Jeff Nippard",
       schedule: schedule,
       startDate: Timestamp.fromMillis(Date.parse(startDate.toDateString())),
@@ -28,6 +30,7 @@ export function createNewUserStandardPlanners(){
           splitTitle: "Chest / Shouders",
           splitExercises: [
             {
+              uid: uuidV4(),
               index: 1,
               name: "(DB) Bench Press",
               sets: 3,
@@ -39,6 +42,7 @@ export function createNewUserStandardPlanners(){
               liftedReps: []
             },
             {
+              uid: uuidV4(),
               index: 2,
               name: "(Sm) Incline Bench Press",
               sets: 4,
@@ -50,6 +54,7 @@ export function createNewUserStandardPlanners(){
               liftedReps: []
             },
             {
+              uid: uuidV4(),
               index: 3,
               name: "(Cb) Chest Fly - Bench 90°",
               sets: 3,
@@ -61,6 +66,7 @@ export function createNewUserStandardPlanners(){
               liftedReps: []
             },
             {
+              uid: uuidV4(),
               index: 3,
               name: "Crossover",
               sets: 3,
@@ -72,6 +78,7 @@ export function createNewUserStandardPlanners(){
               liftedReps: []
             },
             {
+              uid: uuidV4(),
               index: 4,
               name: "(DB) Lateral Raises",
               sets: 4,
@@ -83,6 +90,7 @@ export function createNewUserStandardPlanners(){
               liftedReps: []
             },
             {
+              uid: uuidV4(),
               index: 5,
               name: "Military Overhead Press",
               sets: 4,
@@ -94,6 +102,7 @@ export function createNewUserStandardPlanners(){
               liftedReps: []
             },
             {
+              uid: uuidV4(),
               index: 6,
               name: "(Cb) Rope Triceps Extension",
               sets: 3,
@@ -112,6 +121,7 @@ export function createNewUserStandardPlanners(){
           splitTitle: "Full Back",
           splitExercises: [
             {
+              uid: uuidV4(),
               index: 1,
               name: "Pull-ups (Body Weight)",
               sets: 3,
@@ -123,6 +133,7 @@ export function createNewUserStandardPlanners(){
               liftedReps: []
             },
             {
+              uid: uuidV4(),
               index: 2,
               name: "Pull-down machine",
               sets: 4,
@@ -134,6 +145,7 @@ export function createNewUserStandardPlanners(){
               liftedReps: []
             },
             {
+              uid: uuidV4(),
               index: 3,
               name: "Incline Barbell Rows",
               sets: 4,
@@ -145,6 +157,7 @@ export function createNewUserStandardPlanners(){
               liftedReps: []
             },
             {
+              uid: uuidV4(),
               index: 4,
               name: "Incline Bench Cable Row",
               sets: 3,
@@ -156,6 +169,7 @@ export function createNewUserStandardPlanners(){
               liftedReps: []
             },
             {
+              uid: uuidV4(),
               index: 5,
               name: "(w) Barbell Arms Curl",
               sets: 4,
@@ -174,6 +188,7 @@ export function createNewUserStandardPlanners(){
           splitTitle: "Quads and Hams",
           splitExercises: [
             {
+              uid: uuidV4(),
               index: 1,
               name: "Squats",
               sets: 8,
@@ -185,6 +200,7 @@ export function createNewUserStandardPlanners(){
               liftedReps: []
             },
             {
+              uid: uuidV4(),
               index: 2,
               name: "Leg Extrension Machine",
               sets: 4,
@@ -196,6 +212,7 @@ export function createNewUserStandardPlanners(){
               liftedReps: []
             },
             {
+              uid: uuidV4(),
               index: 4,
               name: "Leg Press 45°",
               sets: 4,
@@ -207,6 +224,7 @@ export function createNewUserStandardPlanners(){
               liftedReps: []
             },
             {
+              uid: uuidV4(),
               index: 4,
               name: "Leg Curl Machine",
               sets: 4,
@@ -218,6 +236,7 @@ export function createNewUserStandardPlanners(){
               liftedReps: []
             },
             {
+              uid: uuidV4(),
               index: 5,
               name: "Barbell Stiff",
               sets: 4,
@@ -236,6 +255,7 @@ export function createNewUserStandardPlanners(){
           splitTitle: "Arms / Shoulders",
           splitExercises: [
             {
+              uid: uuidV4(),
               index: 1,
               name: "Rope Triceps Extension",
               sets: 3,
@@ -247,6 +267,7 @@ export function createNewUserStandardPlanners(){
               liftedReps: []
             },
             {
+              uid: uuidV4(),
               index: 2,
               name: "Close Grip Bench Press",
               sets: 3,
@@ -258,6 +279,7 @@ export function createNewUserStandardPlanners(){
               liftedReps: []
             },
             {
+              uid: uuidV4(),
               index: 2,
               name: "Single-Arm Overhead Triceps Ext.",
               sets: 3,
@@ -269,6 +291,7 @@ export function createNewUserStandardPlanners(){
               liftedReps: []
             },
             {
+              uid: uuidV4(),
               index: 3,
               name: "(Cb) Latteral Raise",
               sets: 4,
@@ -280,6 +303,7 @@ export function createNewUserStandardPlanners(){
               liftedReps: []
             },
             {
+              uid: uuidV4(),
               index: 4,
               name: "Scott Curl Machine",
               sets: 3,
@@ -291,6 +315,7 @@ export function createNewUserStandardPlanners(){
               liftedReps: []
             },
             {
+              uid: uuidV4(),
               index: 5,
               name: "Incline Dumbell Curl",
               sets: 3,

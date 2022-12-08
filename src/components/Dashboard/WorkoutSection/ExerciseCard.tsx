@@ -1,28 +1,32 @@
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import { clsx } from "clsx";
 import { EditIcon } from "../../../assets/icons/Dashboard/Edit";
 import { DescriptionIcon } from "../../../assets/icons/Dashboard/Description";
 
 interface ExerciseCardRootProps {
-  selected: boolean;
+  exerciseId: string
+  selectedExerciseId: string | null
+  setSelectedExerciseId: (e: string | null)=>void
   done: boolean;
   className?: string
   children: ReactNode
 }
 
-function Root({ selected = false, done = false, className, children }: ExerciseCardRootProps) {
+function Root({ exerciseId, selectedExerciseId, setSelectedExerciseId, done = false, className, children }: ExerciseCardRootProps) {
   return (
-    <div className={clsx(
-      "flex items-center gap-2 font-semibold text-gray-800 select-none",
-      "[&>div]:h-9 [&>div]:flex [&>div]:items-center [&>div]:rounded-lg",
-      "[&>div]:border-2 [&>div]:border-transparent",
-      "[&>span]:text-gray-100 [&_span]:text-sm [&>span]:block [&>span]:h-6",
-      {
-        "[&>div]:border-orange-500": selected === true,
-        "[&_div]:bg-cyan-500": done === true,
-      },
-      className
-    )}
+    <div
+      onClick={()=>setSelectedExerciseId(exerciseId)}
+      className={clsx(
+        "flex items-center gap-2 font-semibold text-gray-800 select-none",
+        "[&>div]:h-9 [&>div]:flex [&>div]:items-center [&>div]:rounded-lg",
+        "[&>div]:border-2 [&>div]:border-transparent",
+        "[&>span]:text-gray-100 [&_span]:text-sm [&>span]:block [&>span]:h-6",
+        {
+          "[&>div]:border-orange-500": selectedExerciseId === exerciseId,
+          "[&_div]:bg-cyan-500": done === true,
+        },
+        className
+      )}
     >
       {children}
     </div >
@@ -80,18 +84,27 @@ function Reps({ reps }: ExerciseCardRepsProps) {
 }
 
 interface ExerciseCardDescriptionCardProps {
-  showDescription: boolean
+  exerciseId: string
+  selectedExerciseId: string | null
+  IsModalOpen: boolean
 }
 
-function DescriptionCard({ showDescription }: ExerciseCardDescriptionCardProps) {
+function DescriptionCard({ exerciseId, selectedExerciseId, IsModalOpen }: ExerciseCardDescriptionCardProps) {
+  const [showDescription, setShowDescription] = useState(false);
+
+  IsModalOpen === false && showDescription === true && setShowDescription(false);
 
   return (
-    <div className={clsx(
-      "w-9 h-9 flex rounded-lg justify-center items-center cursor-pointer bg-gray-100",
-      {
-        "bg-orange-500": showDescription === true
-      }
-    )}
+    <div
+      onClick={()=> setShowDescription(true)}
+      className={clsx(
+        "w-9 h-9 flex rounded-lg justify-center items-center cursor-pointer bg-gray-100 border-2",
+        {
+          "border-transparent": selectedExerciseId !== exerciseId,
+          "border-orange-500": selectedExerciseId === exerciseId,
+          "bg-orange-500": showDescription === true
+        }
+      )}
     >
       <DescriptionIcon/>
     </div >
@@ -109,6 +122,7 @@ function Description({ done = false, description }: ExerciseCardDescriptionProps
       "static px-[.875rem] py-1 mr-1 text-sm flex flex-col justify-start rounded-lg bg-gray-100 border-2 border-orange-500",
       {
         "bg-cyan-500": done === true
+
       }
     )}
     >

@@ -1,26 +1,19 @@
-import { useId, useState } from "react";
+import {  useState } from "react";
 import { ExerciseCard } from "./ExerciseCard";
 import * as Popover from "@radix-ui/react-popover";
 import DashboardCard from "../DashboardCard";
-import { ExerciseProps, PlannerProps, ScheduleLabel } from "../../../@types/PlannerProps";
+import { ExerciseProps } from "../../../@types/PlannerProps";
 import LoadingModal from "../../LoadingModal";
 
 interface WorkoutSectionProps{
   exercises: ExerciseProps[]
+  selectedExerciseId: string | null
+  setSelectedExerciseId: (e: string | null) => void
 }
 
-export function WorkoutSection({exercises}:WorkoutSectionProps) {
-  const [isExerciseSelected, setisExerciseSelected] = useState(false);
+export function WorkoutSection({exercises, selectedExerciseId, setSelectedExerciseId}:WorkoutSectionProps) {
   const [isExerciseDone, setIsExerciseDone] = useState(false);
-  const [showDescription, setshowDescription] = useState(false);
-
-  function handleDescriptionCardClick(isOpen: boolean) {
-    if (isOpen) {
-      return setshowDescription(true);
-    } else {
-      return setshowDescription(false);
-    }
-  }
+  const [IsModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <DashboardCard title="Workout Section:" subtitle="Chest / Shoulders" extend className="min-w-[39rem]"
@@ -34,11 +27,14 @@ export function WorkoutSection({exercises}:WorkoutSectionProps) {
             </>
           ) :
             exercises.map((exercise, index) => {
-
               return (
-                <Popover.Root key={exercise.description} onOpenChange={(isOpen) => handleDescriptionCardClick(isOpen)}>
-                  <ExerciseCard.Root key={exercise.description}
-                    selected={isExerciseSelected}
+                <Popover.Root
+                  key={exercise.uid}
+                  onOpenChange={(isOpen) => setIsModalOpen(isOpen)}>
+                  <ExerciseCard.Root
+                    exerciseId={exercise.uid}
+                    selectedExerciseId={selectedExerciseId}
+                    setSelectedExerciseId={setSelectedExerciseId}
                     done={isExerciseDone}
                     className="relative"
                   >
@@ -46,7 +42,9 @@ export function WorkoutSection({exercises}:WorkoutSectionProps) {
                     <ExerciseCard.Name name={exercise.name} />
                     <Popover.Portal>
                       <Popover.Content align={index + 1 === exercises.length ? "end" : "start"} side="left">
-                        <ExerciseCard.Description done={isExerciseDone} description={exercise.description} />
+                        <ExerciseCard.Description
+                          done={isExerciseDone}
+                          description={exercise.description} />
                       </Popover.Content>
                     </Popover.Portal>
                     <ExerciseCard.Sets sets={exercise.sets} />
@@ -55,8 +53,11 @@ export function WorkoutSection({exercises}:WorkoutSectionProps) {
                     </span>
                     <ExerciseCard.Reps reps={exercise.reps} />
                     <Popover.Trigger className="closed"
-                      onClick={() => setshowDescription(!showDescription)}>
-                      <ExerciseCard.DescriptionCard showDescription={showDescription} />
+                      onClick={() => setIsModalOpen(!IsModalOpen)}>
+                      <ExerciseCard.DescriptionCard
+                        exerciseId={exercise.uid}
+                        selectedExerciseId={selectedExerciseId}
+                        IsModalOpen={IsModalOpen} />
                     </Popover.Trigger>
                     <ExerciseCard.Todo done={isExerciseDone} />
                     <ExerciseCard.Edit />
