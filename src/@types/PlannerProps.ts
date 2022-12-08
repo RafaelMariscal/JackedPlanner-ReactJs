@@ -14,6 +14,7 @@ export interface calendarProps {
 }
 
 export interface PlannerProps {
+  uid: string
   name: string
   startDate: Timestamp
   schedule: ScheduleLabel[]
@@ -45,13 +46,14 @@ export interface CardioProps {
 }
 
 export interface ExerciseProps {
+  uid: string
   index: number
   name: string
   sets: number
   reps: number
-  weightUnd: "kg" | "plt" | "body"
   description: string
-  setsWeight: number[]
-  liftedWeight: number[]
-  liftedReps: number[]
+  weightUnd?: "kg" | "plt" | "body"
+  setsWeight?: number[]
+  liftedWeight?: number[]
+  liftedReps?: number[]
 }

@@ -2,41 +2,34 @@ import { Button } from "../../LoginPage/Button";
 import DashboardCard from "../DashboardCard";
 import { PlannerCard } from "./PlannerCard";
 import LogoPro from "../../../assets/LogoPro.png";
-import { UserPlannersProps } from "../../../@types/PlannerProps";
+import { PlannerProps, UserPlannersProps } from "../../../@types/PlannerProps";
 import { PlannerSelectedType } from "../../../Pages/Dashboard/Home";
 
 interface PlannerControllerProps {
   planners: UserPlannersProps | undefined
-  plannerSelectedIndex: PlannerSelectedType
-  setPlannerSelectedIndex: (index: PlannerSelectedType) => void
+  PlannerSelected: PlannerProps | null
   price: number
 }
 
-export function PlannerController({ planners, plannerSelectedIndex, setPlannerSelectedIndex, price }: PlannerControllerProps) {
+export function PlannerController({ planners, PlannerSelected, price }: PlannerControllerProps) {
   return (
     <DashboardCard title="My Jacked Planners:" className="min-w-[360px] w-full">
       <div className="h-full flex flex-col gap-4">
         <div className="flex flex-col gap-4">
           <PlannerCard
-            name={"planner1"}
             index={1}
             PlannerName={planners?.planner1?.name}
-            plannerSelectedIndex={plannerSelectedIndex}
-            setPlannerSelectedIndex={setPlannerSelectedIndex}
+            PlannerSelected={PlannerSelected}
           />
           <PlannerCard
-            name={"planner2"}
             index={2}
             PlannerName={planners?.planner2?.name}
-            plannerSelectedIndex={plannerSelectedIndex}
-            setPlannerSelectedIndex={setPlannerSelectedIndex}
+            PlannerSelected={PlannerSelected}
           />
           <PlannerCard
-            name={"planner3"}
             index={3}
             PlannerName={planners?.planner3?.name}
-            plannerSelectedIndex={plannerSelectedIndex}
-            setPlannerSelectedIndex={setPlannerSelectedIndex}
+            PlannerSelected={PlannerSelected}
           />
         </div>
 
