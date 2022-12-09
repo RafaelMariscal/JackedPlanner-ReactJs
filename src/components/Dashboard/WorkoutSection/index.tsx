@@ -6,7 +6,7 @@ import { ExerciseProps } from "../../../@types/PlannerProps";
 import LoadingModal from "../../LoadingModal";
 
 interface WorkoutSectionProps{
-  exercises: ExerciseProps[]
+  exercises: ExerciseProps[] | null
   selectedExerciseId: string | null
   setSelectedExerciseId: (e: string | null) => void
 }
@@ -22,9 +22,23 @@ export function WorkoutSection({exercises, selectedExerciseId, setSelectedExerci
       <div className="flex flex-col gap-2">
         {
           exercises === undefined ? (
-            <>
-              <LoadingModal visible/>
-            </>
+            <LoadingModal visible/>
+          ) : exercises === null ? (
+            <span className="
+                absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
+                max-w-[16ch] text-gray-100 text-lg text-center
+              "
+            >
+              There is no split scheduled for today
+            </span>
+          ) : exercises.length === 0 ? (
+            <span className="
+                absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
+                w-max text-gray-100 text-lg
+              "
+            >
+              Rest Day
+            </span>
           ) :
             exercises.map((exercise, index) => {
               return (
@@ -66,9 +80,7 @@ export function WorkoutSection({exercises, selectedExerciseId, setSelectedExerci
               );
             })
         }
-
       </div>
-
     </DashboardCard>
   );
 }

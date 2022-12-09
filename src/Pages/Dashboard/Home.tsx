@@ -10,7 +10,7 @@ import { WeightHistory } from "../../components/Dashboard/WeightHistory";
 import { WorkoutSection } from "../../components/Dashboard/WorkoutSection";
 import { useUserContext } from "../../contexts/userContext/hook";
 import { getSelectedDaySplit } from "../../utils/getSelectedDaySplit";
-import { calendarProps, ExerciseProps } from "../../@types/PlannerProps";
+import { calendarProps, ExerciseProps, SplitProps } from "../../@types/PlannerProps";
 import LoadingModal from "../../components/LoadingModal";
 
 export type PlannerSelectedType = "planner1" | "planner2" | "planner3"
@@ -28,7 +28,7 @@ export function Home() {
   },[Planners]);
 
   let selectedSplitInfo: calendarProps | null = null;
-  let selectedSplitExercides: ExerciseProps[] = [];
+  let selectedSplit: SplitProps | null = null;
 
   if(Planners === undefined) return (<><LoadingModal visible/></>);
 
@@ -42,8 +42,9 @@ export function Home() {
     const splitSelectedIndex =  PlannerSelected.splits.findIndex(split=>
       split.splitLabel === selectedSplitInfo?.label);
     splitSelectedIndex === -1 ? null :
-      selectedSplitExercides = PlannerSelected.splits[splitSelectedIndex].splitExercises;
+      selectedSplit = PlannerSelected.splits[splitSelectedIndex];
   }
+
   return (
     <div className="h-full flex flex-col gap-4" >
       <div className="flex gap-4">
@@ -59,7 +60,7 @@ export function Home() {
           />
         </div>
         <WorkoutSection
-          exercises={selectedSplitExercides}
+          exercises={selectedSplit ? selectedSplit.splitExercises : null}
           selectedExerciseId={selectedExerciseId}
           setSelectedExerciseId={setSelectedExerciseId}
         />
