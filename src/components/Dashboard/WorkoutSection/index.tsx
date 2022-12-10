@@ -8,12 +8,13 @@ import LoadingModal from "../../LoadingModal";
 interface WorkoutSectionProps{
   exercises: ExerciseProps[] | null
   selectedExerciseId: string | null
-  setSelectedExerciseId: (e: string | null) => void
+  setSelectedExerciseId: (id: string | null) => void
 }
 
 export function WorkoutSection({exercises, selectedExerciseId, setSelectedExerciseId}:WorkoutSectionProps) {
   const [isExerciseDone, setIsExerciseDone] = useState(false);
   const [IsModalOpen, setIsModalOpen] = useState(false);
+  const [isFirstRender, setIsFirstRender] = useState(true);
 
   return (
     <DashboardCard title="Workout Section:" subtitle="Chest / Shoulders" extend className="min-w-[39rem]"
@@ -41,6 +42,10 @@ export function WorkoutSection({exercises, selectedExerciseId, setSelectedExerci
             </span>
           ) :
             exercises.map((exercise, index) => {
+              if(isFirstRender && index === 0){
+                setSelectedExerciseId(exercise.uid);
+                setIsFirstRender(false);
+              }
               return (
                 <Popover.Root
                   key={exercise.uid}

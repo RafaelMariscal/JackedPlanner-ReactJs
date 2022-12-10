@@ -1,3 +1,4 @@
+import { startOfDay } from "date-fns";
 import { useEffect, useState } from "react";
 import { Outlet, useOutletContext } from "react-router-dom";
 import { PlannerProps } from "../../@types/PlannerProps";
@@ -11,6 +12,10 @@ export type PlannerSelectedType = "planner1" | "planner2" | "planner3";
 export type OutletContextType = {
   PlannerSelected: PlannerProps | null
   setPlannerSelected: (p: PlannerProps | null)=> void;
+  selectedExerciseId: string | null
+  setSelectedExerciseId: (id: string | null) => void
+  selectedDay: Date
+  setSelectedDay: (date: Date)=>void
 }
 
 export function useOutletDataContext(){
@@ -20,13 +25,14 @@ export function useOutletDataContext(){
 export function Dashboard() {
   const { UserLogged, Planners,  isLoading } = useUserContext();
   const [PlannerSelected, setPlannerSelected] = useState<PlannerProps | null>(null);
+  const [selectedExerciseId, setSelectedExerciseId] = useState<string | null>(null);
+  const [selectedDay, setSelectedDay] = useState<Date>(startOfDay(new Date()));
 
   useEffect(() => {
     if(Planners !== undefined){
       setPlannerSelected(Planners.planner1);
     }
   }, [Planners]);
-
 
   return (
     <>
@@ -56,7 +62,14 @@ export function Dashboard() {
             <Navbar />
             <div className='w-full h-full py-6 ml-24 mr-4
             overflow-x-auto '>
-              <Outlet context={{PlannerSelected, setPlannerSelected}}/>
+              <Outlet context={
+                {
+                  PlannerSelected, setPlannerSelected,
+                  selectedExerciseId, setSelectedExerciseId,
+                  selectedDay, setSelectedDay
+                }
+              }
+              />
             </div>
           </div>
         </div>

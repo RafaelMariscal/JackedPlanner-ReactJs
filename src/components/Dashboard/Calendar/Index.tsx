@@ -104,7 +104,7 @@ export function Calendar({selectedDay, setSelectedDay}:CalenderComponentProps) {
               <button type="button"
                 onClick={() => setSelectedDay(day)}
                 className={clsx(
-                  "w-6 h-6 mt-[.625rem] border border-transparent transition-colors duration-100",
+                  "w-6 h-6 mt-[.625rem] border border-transparent transition-colors duration-100 select-none",
                   isEqual(day, selectedDay) && "text-gray-800 bg-orange-500",
                   !isEqual(day, selectedDay) &&
                   isToday(day) && "text-orange-500",

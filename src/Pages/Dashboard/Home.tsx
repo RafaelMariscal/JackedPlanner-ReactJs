@@ -11,15 +11,16 @@ import { WorkoutSection } from "../../components/Dashboard/WorkoutSection";
 import { useUserContext } from "../../contexts/userContext/hook";
 import { getSelectedDaySplit } from "../../utils/getSelectedDaySplit";
 import { calendarProps, SplitProps } from "../../@types/PlannerProps";
-import LoadingModal from "../../components/LoadingModal";
 
 export type PlannerSelectedType = "planner1" | "planner2" | "planner3"
 
 export function Home() {
-  const {PlannerSelected} = useOutletDataContext();
+  const {
+    PlannerSelected,
+    selectedExerciseId, setSelectedExerciseId,
+    selectedDay, setSelectedDay
+  } = useOutletDataContext();
   const {setIsLoading, Planners} = useUserContext();
-  const [selectedDay, setSelectedDay] = useState<Date>(startOfDay(new Date()));
-  const [selectedExerciseId, setSelectedExerciseId] = useState<string | null>(null);
 
   useEffect(() => {
     if(!!Planners && !!setIsLoading){
