@@ -66,7 +66,10 @@ export function Home() {
 
       <div className="flex-1 flex gap-4">
         <WeightHistory />
-        <ExercisePlan />
+        <ExercisePlan
+          exercises={selectedSplit ? selectedSplit.splitExercises : null}
+          selectedExerciseId={selectedExerciseId}
+        />
       </div>
 
       <div className="flex-1 flex gap-4">

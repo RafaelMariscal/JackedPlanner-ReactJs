@@ -1,16 +1,17 @@
-import { useId } from "react";
+import { v4 as uuidV4 } from "uuid";
+import { ExerciseProps } from "../../../@types/PlannerProps";
 import { EditIcon } from "../../../assets/icons/Dashboard/Edit";
 import DashboardCard from "../DashboardCard";
 import { SetPlan, SetPlanProps } from "./SetPlan";
 
+interface ExercisePlanProps {
+  exercises: ExerciseProps[] | null
+  selectedExerciseId: string | null
+}
 
-export function ExercisePlan() {
-
-  const ExercisePlan: SetPlanProps[] = [
-    { index: 1, und: "pl", weight: 3, used: "", reps: "", done: false },
-    { index: 2, und: "pl", weight: 3, used: "", reps: "", done: false },
-    { index: 3, und: "pl", weight: 3, used: "", reps: "", done: false },
-  ];
+export function ExercisePlan({exercises, selectedExerciseId}:ExercisePlanProps) {
+  const selectedExercise = exercises?.find(exercise => exercise.uid === selectedExerciseId);
+  const setsPlan =  selectedExercise ?  selectedExercise.setsWeight : null;
 
   return (
     <DashboardCard title="Exercise Plan:" extend className="min-w-[39rem]" classNameCard="px-4 py-4">
@@ -23,9 +24,13 @@ export function ExercisePlan() {
         </div>
 
         <div className="flex items-center gap-2">
-          {ExercisePlan.map(set => {
+          {setsPlan?.map((weight, index) => {
             return (
-              <SetPlan key={useId()} index={set.index} und={set.und} weight={set.weight} />
+              <SetPlan
+                key={uuidV4()}
+                index={index + 1}
+                und={selectedExercise?.weightUnd}
+                weight={weight} />
             );
           })}
         </div>

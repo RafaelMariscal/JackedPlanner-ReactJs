@@ -3,7 +3,7 @@ import { FormEvent, useState } from "react";
 
 export interface SetPlanProps {
   index: number
-  und: "kg" | "lbs" | "pl";
+  und: "kg" | "body" | "plt" | undefined;
   weight: number;
   used?: string;
   reps?: string;
