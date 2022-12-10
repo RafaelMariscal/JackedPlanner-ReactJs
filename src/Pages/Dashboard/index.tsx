@@ -30,7 +30,7 @@ export function Dashboard() {
 
   return (
     <>
-      <LoadingModal visible={isLoading}/>
+      <LoadingModal visible={isLoading} />
 
       <div className='
       w-screen h-screen

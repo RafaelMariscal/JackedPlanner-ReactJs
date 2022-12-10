@@ -50,7 +50,7 @@ export function WorkoutSection({exercises, selectedExerciseId, setSelectedExerci
                     selectedExerciseId={selectedExerciseId}
                     setSelectedExerciseId={setSelectedExerciseId}
                     done={isExerciseDone}
-                    className="relative"
+                    className="relative cursor-pointer"
                   >
                     <ExerciseCard.Index index={exercise.index} />
                     <ExerciseCard.Name name={exercise.name} />

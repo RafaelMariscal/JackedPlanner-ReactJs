@@ -99,6 +99,7 @@ function DescriptionCard({ exerciseId, selectedExerciseId, IsModalOpen }: Exerci
       onClick={()=> setShowDescription(true)}
       className={clsx(
         "w-9 h-9 flex rounded-lg justify-center items-center cursor-pointer bg-gray-100 border-2",
+        "hover:animate-wiggle",
         {
           "border-transparent": selectedExerciseId !== exerciseId,
           "border-orange-500": selectedExerciseId === exerciseId,

@@ -10,7 +10,7 @@ import { WeightHistory } from "../../components/Dashboard/WeightHistory";
 import { WorkoutSection } from "../../components/Dashboard/WorkoutSection";
 import { useUserContext } from "../../contexts/userContext/hook";
 import { getSelectedDaySplit } from "../../utils/getSelectedDaySplit";
-import { calendarProps, ExerciseProps, SplitProps } from "../../@types/PlannerProps";
+import { calendarProps, SplitProps } from "../../@types/PlannerProps";
 import LoadingModal from "../../components/LoadingModal";
 
 export type PlannerSelectedType = "planner1" | "planner2" | "planner3"
@@ -29,8 +29,6 @@ export function Home() {
 
   let selectedSplitInfo: calendarProps | null = null;
   let selectedSplit: SplitProps | null = null;
-
-  if(Planners === undefined) return (<><LoadingModal visible/></>);
 
   if(PlannerSelected !== null){
     const plannerStartDate = PlannerSelected?.startDate;
