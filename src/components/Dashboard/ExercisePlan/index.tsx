@@ -1,8 +1,9 @@
+import clsx from "clsx";
 import { v4 as uuidV4 } from "uuid";
 import { ExerciseProps } from "../../../@types/PlannerProps";
 import { EditIcon } from "../../../assets/icons/Dashboard/Edit";
 import DashboardCard from "../DashboardCard";
-import { SetPlan, SetPlanProps } from "./SetPlan";
+import { SetPlan } from "./SetPlan";
 
 interface ExercisePlanProps {
   exercises: ExerciseProps[] | null
@@ -14,8 +15,8 @@ export function ExercisePlan({exercises, selectedExerciseId}:ExercisePlanProps) 
   const setsPlan =  selectedExercise ?  selectedExercise.setsWeight : null;
 
   return (
-    <DashboardCard title="Exercise Plan:" extend className="min-w-[39rem]" classNameCard="px-4 py-4">
-      <div className="w-full h-full flex items-center gap-2">
+    <DashboardCard title="Exercise Plan:" extend className="min-w-[39rem]" classNameCard="px-4 py-4 overflow-x-auto">
+      <div className="h-full flex items-center gap-2">
         <div className="pb-8 flex flex-col gap-4 text-xs text-gray-100">
           <span>Set:</span>
           <span>W8:</span>
@@ -35,15 +36,13 @@ export function ExercisePlan({exercises, selectedExerciseId}:ExercisePlanProps) 
           })}
         </div>
 
-        <button className="ml-2
-            h-9 rounded-lg w-fit px-2 bg-gray-100
-            flex items-center cursor-pointer
-            "
+        <button className={clsx(
+          "ml-2 h-9 rounded-lg w-fit px-2 bg-gray-100 flex items-center cursor-pointer",
+          {"hidden" : selectedExercise === undefined}
+        )}
         >
           <EditIcon/>
         </button>
-
-
       </div>
     </DashboardCard>
   );
