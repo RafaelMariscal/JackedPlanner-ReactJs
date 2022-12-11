@@ -44,7 +44,8 @@ export function createSplitScheduleStructure(params:createSplitScheduleStructure
           cardio: splitCardios,
           rate: null,
           trainingNotes: "",
-        }
+        },
+        exerciseNotes: []
       };
 
       const calendarObject : calendarProps = {
