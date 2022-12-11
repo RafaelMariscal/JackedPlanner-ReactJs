@@ -10,7 +10,7 @@ import { WeightHistory } from "../../components/Dashboard/WeightHistory";
 import { WorkoutSection } from "../../components/Dashboard/WorkoutSection";
 import { useUserContext } from "../../contexts/userContext/hook";
 import { getSelectedDaySplit } from "../../utils/getSelectedDaySplit";
-import { calendarProps, SplitProps } from "../../@types/PlannerProps";
+import { calendarProps, ExerciseNotes, ExerciseProps, SplitProps } from "../../@types/PlannerProps";
 
 export type PlannerSelectedType = "planner1" | "planner2" | "planner3"
 
@@ -30,6 +30,8 @@ export function Home() {
 
   let selectedSplitInfo: calendarProps | null = null;
   let selectedSplit: SplitProps | null = null;
+  let selectedExerciseList: ExerciseProps[] | null = null;
+  const selectedExerciseNotes: ExerciseNotes[] = [];
 
   if(PlannerSelected !== null){
     const plannerStartDate = PlannerSelected?.startDate;
@@ -42,8 +44,18 @@ export function Home() {
       split.splitLabel === selectedSplitInfo?.label);
     splitSelectedIndex === -1 ? null :
       selectedSplit = PlannerSelected.splits[splitSelectedIndex];
+    selectedExerciseList = selectedSplit ? selectedSplit.splitExercises : null;
   }
 
+  if(selectedExerciseList){
+    selectedExerciseList.map(exercise=>{
+      selectedExerciseNotes.push({
+        setsWeight: exercise.setsWeight,
+        liftedWeight: exercise.liftedWeight,
+        liftedReps: exercise.liftedReps
+      });
+    });
+  }
   return (
     <div className="h-full flex flex-col gap-4" >
       <div className="flex gap-4">
@@ -59,7 +71,7 @@ export function Home() {
           />
         </div>
         <WorkoutSection
-          exercises={selectedSplit ? selectedSplit.splitExercises : null}
+          exercises={selectedExerciseList}
           selectedExerciseId={selectedExerciseId}
           setSelectedExerciseId={setSelectedExerciseId}
         />

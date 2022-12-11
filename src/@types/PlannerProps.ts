@@ -32,6 +32,7 @@ export interface SplitProps {
 export interface splitScheduleProps{
   date: Date | Timestamp
   notes: NotesProps | null
+  exerciseNotes: ExerciseNotes[] | null
 }
 
 export interface NotesProps {
@@ -53,6 +54,12 @@ export interface ExerciseProps {
   reps: number
   description: string
   weightUnd?: "kg" | "plt" | "body"
+  setsWeight?: number[]
+  liftedWeight?: number[]
+  liftedReps?: number[]
+}
+
+export interface ExerciseNotes {
   setsWeight?: number[]
   liftedWeight?: number[]
   liftedReps?: number[]
