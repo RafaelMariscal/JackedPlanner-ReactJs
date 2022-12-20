@@ -1,38 +1,42 @@
 import { startOfDay } from "date-fns";
 import { useEffect, useState } from "react";
 import { Outlet, useOutletContext } from "react-router-dom";
-import { PlannerProps } from "../../@types/PlannerProps";
+import { CardioProps, PlannerProps, ScheduleLabel } from "../../@types/PlannerProps";
 import { DashboardHeader } from "../../components/Dashboard/DashboardHeader";
 import { Navbar } from "../../components/Dashboard/Navbar";
 import LoadingModal from "../../components/LoadingModal";
 import { useUserContext } from "../../contexts/userContext/hook";
+import { createSplitScheduleStructure } from "../../utils/createSplitScheduleStructure";
+import { createNewUserStandardPlanners } from "../../utils/createStandardPlanners";
 
 export type PlannerSelectedType = "planner1" | "planner2" | "planner3";
 
 export type OutletContextType = {
   PlannerSelected: PlannerProps | null
-  setPlannerSelected: (p: PlannerProps | null)=> void;
+  setPlannerSelected: (p: PlannerProps | null) => void;
   selectedExerciseId: string | null
   setSelectedExerciseId: (id: string | null) => void
   selectedDay: Date
-  setSelectedDay: (date: Date)=>void
+  setSelectedDay: (date: Date) => void
 }
 
-export function useOutletDataContext(){
+export function useOutletDataContext() {
   return useOutletContext<OutletContextType>();
 }
 
 export function Dashboard() {
-  const { UserLogged, Planners,  isLoading } = useUserContext();
+  const { UserLogged, Planners, isLoading } = useUserContext();
   const [PlannerSelected, setPlannerSelected] = useState<PlannerProps | null>(null);
   const [selectedExerciseId, setSelectedExerciseId] = useState<string | null>(null);
   const [selectedDay, setSelectedDay] = useState<Date>(startOfDay(new Date()));
 
   useEffect(() => {
-    if(Planners !== undefined){
+    if (Planners !== undefined) {
       setPlannerSelected(Planners.planner1);
     }
   }, [Planners]);
+
+  console.log(Planners?.planner1?.splits);
 
   return (
     <>

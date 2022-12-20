@@ -35,11 +35,12 @@ export function createSplitScheduleStructure(params:createSplitScheduleStructure
     schedule.forEach((scheduleLabel, index)=>{
       const daysCounter = i === 0 ? index : (index + (i * schedule.length));
       const date = add(startDate, {days: daysCounter});
+      const dateWithoutTime = new Date(date.toDateString());
       const splitCardios: CardioProps[] = cardioRest !== undefined && scheduleLabel === "rest" ? cardioRest :
         cardios !== undefined ? cardios : [];
 
       const splitScheduleToAdd: splitScheduleProps = {
-        date: Timestamp.fromMillis(Date.parse(date.toString())),
+        date: Timestamp.fromDate(dateWithoutTime),
         notes: {
           cardio: splitCardios,
           rate: null,
@@ -50,7 +51,7 @@ export function createSplitScheduleStructure(params:createSplitScheduleStructure
 
       const calendarObject : calendarProps = {
         label: scheduleLabel,
-        date: Timestamp.fromMillis(Date.parse(date.toString()))
+        date: Timestamp.fromDate(dateWithoutTime)
       };
       calendar.push(calendarObject);
 

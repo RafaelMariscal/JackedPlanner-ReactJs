@@ -20,39 +20,38 @@ export function Home() {
     selectedExerciseId, setSelectedExerciseId,
     selectedDay, setSelectedDay
   } = useOutletDataContext();
-  const {setIsLoading, Planners} = useUserContext();
+  const { setIsLoading, Planners } = useUserContext();
 
   useEffect(() => {
-    if(!!Planners && !!setIsLoading){
+    if (!!Planners && !!setIsLoading) {
       setIsLoading(false);
     }
-  },[Planners]);
+  }, [Planners]);
 
   let selectedSplitInfo: calendarProps | null = null;
   let selectedSplit: SplitProps | null = null;
   let selectedExerciseList: ExerciseProps[] | null = null;
   const selectedExerciseNotes: ExerciseNotes[] = [];
 
-  if(PlannerSelected !== null){
+  if (PlannerSelected !== null) {
     const plannerStartDate = PlannerSelected?.startDate;
     selectedSplitInfo = getSelectedDaySplit({
-      calendar:  PlannerSelected.plannerCalendar,
+      calendar: PlannerSelected.plannerCalendar,
       selectedDay,
-      plannerStartDate});
+      plannerStartDate
+    });
 
-    const splitSelectedIndex =  PlannerSelected.splits.findIndex(split=>
+    const splitSelectedIndex = PlannerSelected.splits.findIndex(split =>
       split.splitLabel === selectedSplitInfo?.label);
     splitSelectedIndex === -1 ? null :
       selectedSplit = PlannerSelected.splits[splitSelectedIndex];
     selectedExerciseList = selectedSplit ? selectedSplit.splitExercises : null;
   }
 
-  if(selectedExerciseList){
-    selectedExerciseList.map(exercise=>{
+  if (selectedExerciseList) {
+    selectedExerciseList.map(exercise => {
       selectedExerciseNotes.push({
         setsWeight: exercise.setsWeight,
-        liftedWeight: exercise.liftedWeight,
-        liftedReps: exercise.liftedReps
       });
     });
   }
