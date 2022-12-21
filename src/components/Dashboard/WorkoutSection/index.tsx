@@ -1,34 +1,35 @@
-import {  useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { ExerciseCard } from "./ExerciseCard";
 import * as Popover from "@radix-ui/react-popover";
 import DashboardCard from "../DashboardCard";
 import { ExerciseProps } from "../../../@types/PlannerProps";
 import LoadingModal from "../../LoadingModal";
+import { useOutletDataContext } from "../../../Pages/Dashboard";
 
-interface WorkoutSectionProps{
+interface WorkoutSectionProps {
   exercises: ExerciseProps[] | null
-  selectedExerciseId: string | null
   setSelectedExerciseId: (id: string | null) => void
 }
 
-export function WorkoutSection({exercises, selectedExerciseId, setSelectedExerciseId}:WorkoutSectionProps) {
+export function WorkoutSection({ exercises, setSelectedExerciseId }: WorkoutSectionProps) {
+  const { selectedExerciseId, selectedSplit } = useOutletDataContext();
   const [isExerciseDone, setIsExerciseDone] = useState(true);
   const [IsModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    if(exercises && exercises.length > 0){
+    if (exercises && exercises.length > 0) {
       setSelectedExerciseId(exercises[0].uid);
     }
   }, [exercises]);
 
   return (
-    <DashboardCard title="Workout Section:" subtitle="Chest / Shoulders" extend className="min-w-[39rem]"
+    <DashboardCard title="Workout Section:" subtitle={selectedSplit?.splitTitle} extend className="min-w-[39rem]"
       classNameCard="max-h-[18.75rem] overflow-y-auto"
     >
       <div className="flex flex-col gap-2">
         {
           exercises === undefined ? (
-            <LoadingModal visible/>
+            <LoadingModal visible />
           ) : exercises === null ? (
             <span className="
                 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
@@ -79,7 +80,7 @@ export function WorkoutSection({exercises, selectedExerciseId, setSelectedExerci
                     </Popover.Portal>
                     <ExerciseCard.Sets sets={exercise.sets} />
                     <span className="mt-1">
-                    x
+                      x
                     </span>
                     <ExerciseCard.Reps reps={exercise.reps} />
                     <Popover.Trigger className="closed"

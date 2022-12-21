@@ -1,22 +1,71 @@
 import clsx from "clsx";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
+import { ExerciseNotes } from "../../../@types/PlannerProps";
+import { useOutletDataContext } from "../../../Pages/Dashboard";
 
 export interface SetPlanProps {
   index: number
-  und: "kg" | "body" | "plt" | undefined;
+  und: "kg" | "body" | "plt" | undefined
   weight: number;
-  used?: string;
-  reps?: string;
-  done?: boolean;
+  exerciseIndex: number | undefined
+  weightUsed?: number | "empty" | undefined
+  liftedReps?: number | "empty" | undefined
 }
 
-export function SetPlan({ index, und, weight, used, reps, done = false }: SetPlanProps) {
+export function SetPlan({ index, und, weight, exerciseIndex, weightUsed, liftedReps }: SetPlanProps) {
+  const { exercisesNotes, setExercisesNotes } = useOutletDataContext();
+  const [liftedWeightValue, setLiftedWeightValue] = useState<number | "empty">("empty");
+  const [liftedRepsValue, setLiftedRepsValue] = useState<number | "empty">("empty");
   const [IsSetDone, setIsSetDone] = useState(false);
-  done = IsSetDone;
+
+  useEffect(() => {
+    weightUsed === "empty" ? setLiftedWeightValue("empty") : setLiftedWeightValue(Number(weightUsed));
+    liftedReps === "empty" ? setLiftedRepsValue("empty") : setLiftedRepsValue(Number(liftedReps));
+    if (weightUsed !== "empty" && liftedReps !== "empty") { setIsSetDone(true); }
+
+  }, []);
+
+  function handleInput(value: string, type: "weight" | "reps") {
+    if (type === "weight") {
+      return value === "" ? setLiftedWeightValue("empty")
+        : setLiftedWeightValue(Number(value));
+    } else {
+      return value === "" ? setLiftedRepsValue("empty")
+        : setLiftedRepsValue(Number(value));
+    }
+  }
+
   function handleButtonClick(event: FormEvent) {
     event.preventDefault();
+    if (liftedRepsValue === 0 || liftedRepsValue === 0) {
+      setLiftedWeightValue("empty");
+      setLiftedRepsValue("empty");
+      return;
+    }
+
+    if (exercisesNotes && !IsSetDone) {
+      const newExerciseNotes = [...exercisesNotes];
+
+      const selectedExerciseNotes = newExerciseNotes.find((note, i) => i === exerciseIndex);
+      if (selectedExerciseNotes === undefined) return;
+
+      const liftedWeightUpdated = selectedExerciseNotes.liftedWeight?.map((weight, i) => {
+        if (i === index) return liftedRepsValue;
+        return weight;
+      });
+      const liftedRepsUpdated = selectedExerciseNotes.liftedReps?.map((rep, i) => {
+        if (i === index) return liftedRepsValue;
+        return rep;
+      });
+
+      selectedExerciseNotes.liftedWeight = liftedWeightUpdated;
+      selectedExerciseNotes.liftedReps = liftedRepsUpdated;
+      setExercisesNotes(newExerciseNotes);
+      setIsSetDone(!IsSetDone);
+    }
     setIsSetDone(!IsSetDone);
   }
+
   return (
     <form className="flex flex-col gap-1 w-20" onSubmit={handleButtonClick}>
       <div className={clsx(
@@ -29,13 +78,13 @@ export function SetPlan({ index, und, weight, used, reps, done = false }: SetPla
         }
 
       )}>
-        <span className="rounded-t-md">Set {index}</span>
-        <span>{weight} {und}</span>
+        <span className="rounded-t-md">Set {index + 1}</span>
+        <span>{und === "body" ? null : weight} {und}</span>
         <input type="number" min={0} placeholder={`W8 ${und}`} disabled={IsSetDone} required
-          className="border border-t-0"
+          className="border border-t-0" value={liftedWeightValue} onChange={(e) => handleInput(e.target.value, "weight")}
         />
         <input type="number" min={0} placeholder="Reps" disabled={IsSetDone} required
-          className="border rounded-b-md"
+          className="border rounded-b-md" value={liftedRepsValue} onChange={(e) => handleInput(e.target.value, "reps")}
         />
       </div>
       <button className={clsx(

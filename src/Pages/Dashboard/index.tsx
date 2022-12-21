@@ -1,13 +1,12 @@
-import { startOfDay } from "date-fns";
+import { isEqual, startOfDay } from "date-fns";
+import { Timestamp } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { Outlet, useOutletContext } from "react-router-dom";
-import { CardioProps, PlannerProps, ScheduleLabel } from "../../@types/PlannerProps";
+import { ExerciseNotes, PlannerProps, ScheduleLabel, SplitProps, splitScheduleProps } from "../../@types/PlannerProps";
 import { DashboardHeader } from "../../components/Dashboard/DashboardHeader";
 import { Navbar } from "../../components/Dashboard/Navbar";
 import LoadingModal from "../../components/LoadingModal";
 import { useUserContext } from "../../contexts/userContext/hook";
-import { createSplitScheduleStructure } from "../../utils/createSplitScheduleStructure";
-import { createNewUserStandardPlanners } from "../../utils/createStandardPlanners";
 
 export type PlannerSelectedType = "planner1" | "planner2" | "planner3";
 
@@ -18,6 +17,9 @@ export type OutletContextType = {
   setSelectedExerciseId: (id: string | null) => void
   selectedDay: Date
   setSelectedDay: (date: Date) => void
+  selectedSplit: SplitProps | null
+  exercisesNotes: ExerciseNotes[] | null | undefined
+  setExercisesNotes: (notes: ExerciseNotes[] | null | undefined) => void
 }
 
 export function useOutletDataContext() {
@@ -27,8 +29,11 @@ export function useOutletDataContext() {
 export function Dashboard() {
   const { UserLogged, Planners, isLoading } = useUserContext();
   const [PlannerSelected, setPlannerSelected] = useState<PlannerProps | null>(null);
-  const [selectedExerciseId, setSelectedExerciseId] = useState<string | null>(null);
   const [selectedDay, setSelectedDay] = useState<Date>(startOfDay(new Date()));
+  const [selectedExerciseId, setSelectedExerciseId] = useState<string | null>(null);
+
+  const [selectedSplit, setSelectedSplit] = useState<SplitProps | null>(null);
+  const [exercisesNotes, setExercisesNotes] = useState<ExerciseNotes[] | null | undefined>(null);
 
   useEffect(() => {
     if (Planners !== undefined) {
@@ -36,7 +41,37 @@ export function Dashboard() {
     }
   }, [Planners]);
 
-  console.log(Planners?.planner1?.splits);
+  // let selectedSplit: SplitProps | null = null;
+  // let ExercisesNotes: ExerciseNotes[] | null | undefined = null;
+
+  useEffect(() => {
+    // let selectedSplitLabel: ScheduleLabel | undefined = undefined;
+    // let selectedSplitIndex: number | undefined = undefined;
+    if (PlannerSelected) {
+      const selectedSplitLabel = PlannerSelected.plannerCalendar.find(schedule => {
+        const dateToCompare = new Timestamp(
+          schedule.date.seconds,
+          schedule.date.nanoseconds
+        ).toDate();
+        return isEqual(dateToCompare, selectedDay);
+      })?.label;
+
+      const selectedSplitIndex = PlannerSelected.splits.findIndex(split =>
+        split.splitLabel === selectedSplitLabel);
+      const NewSelectedSplit = selectedSplitIndex !== -1 ?
+        PlannerSelected.splits[selectedSplitIndex] : null;
+      setSelectedSplit(NewSelectedSplit);
+
+      const selectedSchedule = NewSelectedSplit?.splitSchedule.find(schedule => {
+        const dateToCompare = new Timestamp(
+          schedule.date.seconds,
+          schedule.date.nanoseconds
+        ).toDate();
+        return isEqual(dateToCompare, selectedDay);
+      });
+      setExercisesNotes(selectedSchedule?.exerciseNotes);
+    }
+  }, [PlannerSelected, selectedDay]);
 
   return (
     <>
@@ -70,7 +105,8 @@ export function Dashboard() {
                 {
                   PlannerSelected, setPlannerSelected,
                   selectedExerciseId, setSelectedExerciseId,
-                  selectedDay, setSelectedDay
+                  selectedDay, setSelectedDay,
+                  selectedSplit, exercisesNotes, setExercisesNotes
                 }
               }
               />

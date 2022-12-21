@@ -14,19 +14,20 @@ export function Notes() {
     selectedExerciseId, setSelectedExerciseId,
     selectedDay, setSelectedDay
   } = useOutletDataContext();
-  const {Planners} = useUserContext();
+  const { Planners } = useUserContext();
 
   let selectedSplitInfo: calendarProps | null = null;
   let selectedSplit: SplitProps | null = null;
 
-  if(PlannerSelected !== null){
+  if (PlannerSelected !== null) {
     const plannerStartDate = PlannerSelected?.startDate;
     selectedSplitInfo = getSelectedDaySplit({
-      calendar:  PlannerSelected.plannerCalendar,
+      calendar: PlannerSelected.plannerCalendar,
       selectedDay,
-      plannerStartDate});
+      plannerStartDate
+    });
 
-    const splitSelectedIndex =  PlannerSelected.splits.findIndex(split=>
+    const splitSelectedIndex = PlannerSelected.splits.findIndex(split =>
       split.splitLabel === selectedSplitInfo?.label);
     splitSelectedIndex === -1 ? null :
       selectedSplit = PlannerSelected.splits[splitSelectedIndex];
@@ -49,7 +50,6 @@ export function Notes() {
 
         <ExercisePlan
           exercises={selectedSplit ? selectedSplit.splitExercises : null}
-          selectedExerciseId={selectedExerciseId}
         />
       </div>
 

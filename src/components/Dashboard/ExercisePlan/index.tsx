@@ -1,19 +1,24 @@
 import clsx from "clsx";
 import { v4 as uuidV4 } from "uuid";
-import { ExerciseProps } from "../../../@types/PlannerProps";
+import { ExerciseNotes, ExerciseProps } from "../../../@types/PlannerProps";
 import { EditIcon } from "../../../assets/icons/Dashboard/Edit";
+import { useOutletDataContext } from "../../../Pages/Dashboard";
 import DashboardCard from "../DashboardCard";
 import { SetPlan } from "./SetPlan";
 
 interface ExercisePlanProps {
   exercises: ExerciseProps[] | null
-  selectedExerciseId: string | null
 }
+export function ExercisePlan({ exercises }: ExercisePlanProps) {
+  const { selectedExerciseId, exercisesNotes } = useOutletDataContext();
 
-export function ExercisePlan({exercises, selectedExerciseId}:ExercisePlanProps) {
+  const exerciseIndex = exercises?.findIndex(exercise => exercise.uid === selectedExerciseId);
+  let selectedExerciseNotes: null | ExerciseNotes = null;
+
+  if (exercisesNotes) {
+    exerciseIndex !== undefined ? selectedExerciseNotes = exercisesNotes[exerciseIndex] : null;
+  }
   const selectedExercise = exercises?.find(exercise => exercise.uid === selectedExerciseId);
-  const setsPlan =  selectedExercise ?  selectedExercise.setsWeight : null;
-
   return (
     <DashboardCard title="Exercise Plan:" extend className="min-w-[39rem]" classNameCard="px-4 py-4 overflow-x-auto">
       <div className="h-full flex items-center gap-2">
@@ -25,23 +30,27 @@ export function ExercisePlan({exercises, selectedExerciseId}:ExercisePlanProps) 
         </div>
 
         <div className="flex items-center gap-2">
-          {setsPlan?.map((weight, index) => {
+          {selectedExerciseNotes?.setsWeight?.map((weight, index) => {
             return (
               <SetPlan
                 key={uuidV4()}
-                index={index + 1}
+                index={index}
                 und={selectedExercise?.weightUnd}
-                weight={weight} />
+                weight={weight}
+                exerciseIndex={exerciseIndex}
+                weightUsed={selectedExerciseNotes?.liftedReps![index]}
+                liftedReps={selectedExerciseNotes?.liftedReps![index]}
+              />
             );
           })}
         </div>
 
         <button className={clsx(
           "ml-2 h-9 rounded-lg w-fit px-2 bg-gray-100 flex items-center cursor-pointer",
-          {"hidden" : selectedExercise === undefined}
+          { "hidden": selectedExercise === undefined }
         )}
         >
-          <EditIcon/>
+          <EditIcon />
         </button>
       </div>
     </DashboardCard>

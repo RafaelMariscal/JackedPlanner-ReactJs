@@ -1,5 +1,5 @@
-import { startOfDay } from "date-fns";
-import { useEffect, useState } from "react";
+import { isEqual, } from "date-fns";
+import { useEffect, } from "react";
 import { useOutletDataContext } from ".";
 import { Calendar } from "../../components/Dashboard/Calendar/Index";
 import { ExercisePlan } from "../../components/Dashboard/ExercisePlan";
@@ -9,8 +9,7 @@ import { PlannerController } from "../../components/Dashboard/PlannerController"
 import { WeightHistory } from "../../components/Dashboard/WeightHistory";
 import { WorkoutSection } from "../../components/Dashboard/WorkoutSection";
 import { useUserContext } from "../../contexts/userContext/hook";
-import { getSelectedDaySplit } from "../../utils/getSelectedDaySplit";
-import { calendarProps, ExerciseNotes, ExerciseProps, SplitProps } from "../../@types/PlannerProps";
+import { ExerciseProps } from "../../@types/PlannerProps";
 
 export type PlannerSelectedType = "planner1" | "planner2" | "planner3"
 
@@ -18,7 +17,8 @@ export function Home() {
   const {
     PlannerSelected,
     selectedExerciseId, setSelectedExerciseId,
-    selectedDay, setSelectedDay
+    selectedDay, setSelectedDay,
+    selectedSplit
   } = useOutletDataContext();
   const { setIsLoading, Planners } = useUserContext();
 
@@ -28,32 +28,9 @@ export function Home() {
     }
   }, [Planners]);
 
-  let selectedSplitInfo: calendarProps | null = null;
-  let selectedSplit: SplitProps | null = null;
   let selectedExerciseList: ExerciseProps[] | null = null;
-  const selectedExerciseNotes: ExerciseNotes[] = [];
-
   if (PlannerSelected !== null) {
-    const plannerStartDate = PlannerSelected?.startDate;
-    selectedSplitInfo = getSelectedDaySplit({
-      calendar: PlannerSelected.plannerCalendar,
-      selectedDay,
-      plannerStartDate
-    });
-
-    const splitSelectedIndex = PlannerSelected.splits.findIndex(split =>
-      split.splitLabel === selectedSplitInfo?.label);
-    splitSelectedIndex === -1 ? null :
-      selectedSplit = PlannerSelected.splits[splitSelectedIndex];
     selectedExerciseList = selectedSplit ? selectedSplit.splitExercises : null;
-  }
-
-  if (selectedExerciseList) {
-    selectedExerciseList.map(exercise => {
-      selectedExerciseNotes.push({
-        setsWeight: exercise.setsWeight,
-      });
-    });
   }
   return (
     <div className="h-full flex flex-col gap-4" >
@@ -71,7 +48,6 @@ export function Home() {
         </div>
         <WorkoutSection
           exercises={selectedExerciseList}
-          selectedExerciseId={selectedExerciseId}
           setSelectedExerciseId={setSelectedExerciseId}
         />
       </div>
@@ -80,7 +56,6 @@ export function Home() {
         <WeightHistory />
         <ExercisePlan
           exercises={selectedSplit ? selectedSplit.splitExercises : null}
-          selectedExerciseId={selectedExerciseId}
         />
       </div>
 
