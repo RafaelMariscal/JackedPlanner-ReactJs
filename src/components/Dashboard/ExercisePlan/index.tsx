@@ -21,7 +21,7 @@ export function ExercisePlan({ exercises }: ExercisePlanProps) {
   return (
     <DashboardCard title="Exercise Plan:" extend className="min-w-[39rem]" classNameCard="px-4 py-4 overflow-x-auto">
       <div className="h-full flex items-center gap-2">
-        <div className="pb-8 flex flex-col gap-4 text-xs text-gray-100">
+        <div className="pb-8 flex flex-col gap-4 text-xs text-gray-100 select-none">
           <span>Set:</span>
           <span>W8:</span>
           <span>Used:</span>

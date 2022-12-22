@@ -1,6 +1,8 @@
 import clsx from "clsx";
 import { FormEvent, useEffect, useState } from "react";
+import { useUserContext } from "../../../contexts/userContext/hook";
 import { useOutletDataContext } from "../../../Pages/Dashboard";
+import { updatePlannersCollection } from "../../../utils/updatePlannersCollection";
 
 export interface SetPlanProps {
   index: number
@@ -13,6 +15,7 @@ export interface SetPlanProps {
 }
 
 export function SetPlan({ index, und, weight, exerciseIndex, weightUsed, liftedReps, disabled }: SetPlanProps) {
+  const { UserLogged, Planners } = useUserContext();
   const { exercisesNotes, setExercisesNotes } = useOutletDataContext();
   const [liftedWeightValue, setLiftedWeightValue] = useState<number | "empty">("empty");
   const [liftedRepsValue, setLiftedRepsValue] = useState<number | "empty">("empty");
@@ -33,15 +36,7 @@ export function SetPlan({ index, und, weight, exerciseIndex, weightUsed, liftedR
         : setLiftedRepsValue(Number(value));
     }
   }
-
-  function handleButtonClick(event: FormEvent) {
-    event.preventDefault();
-    if (liftedRepsValue === 0 || liftedWeightValue === 0) {
-      setLiftedWeightValue("empty");
-      setLiftedRepsValue("empty");
-      return;
-    }
-
+  async function updateCurrentSetData() {
     if (exercisesNotes) {
       const newExerciseNotes = [...exercisesNotes];
       const selectedExerciseNotes = newExerciseNotes.find((note, i) => i === exerciseIndex);
@@ -63,10 +58,21 @@ export function SetPlan({ index, und, weight, exerciseIndex, weightUsed, liftedR
     }
   }
 
+  async function handleButtonClick(event: FormEvent) {
+    event.preventDefault();
+    if (liftedRepsValue === 0 || liftedWeightValue === 0) {
+      setLiftedWeightValue("empty");
+      setLiftedRepsValue("empty");
+      return;
+    }
+    await updateCurrentSetData();
+    if (UserLogged && Planners) updatePlannersCollection(UserLogged, Planners);
+  }
+
   return (
     <form className="flex flex-col gap-1 w-20" onSubmit={handleButtonClick}>
       <div className={clsx(
-        "font-semibold text-sm text-gray-800 flex flex-col [&_*]:h-9 [&_*]:flex [&_*]:items-center [&_*]:justify-center [&_:nth-child(2)]:bg-gray-100 [&_input]:text-center",
+        "font-semibold text-sm text-gray-800 flex flex-col [&_*]:select-none [&_*]:h-9 [&_*]:flex [&_*]:items-center [&_*]:justify-center [&_:nth-child(2)]:bg-gray-100 [&_input]:text-center",
         {
           "[&_:nth-child(1)]:bg-cyan-500": IsSetDone === true,
           "[&_:nth-child(1)]:bg-orange-500": IsSetDone === false,
@@ -88,7 +94,7 @@ export function SetPlan({ index, und, weight, exerciseIndex, weightUsed, liftedR
       <button
         disabled={disabled}
         className={clsx(
-          "w-full h-8 rounded-md text-gray-800 font-semibold flex items-center justify-center",
+          "select-none w-full h-8 rounded-md text-gray-800 font-semibold flex items-center justify-center",
           {
             "bg-cyan-500": IsSetDone === true,
             "bg-gray-100": IsSetDone === false,
