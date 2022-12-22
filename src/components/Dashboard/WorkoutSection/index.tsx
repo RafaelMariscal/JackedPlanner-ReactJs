@@ -88,7 +88,9 @@ export function WorkoutSection({ exercises }: WorkoutSectionProps) {
                       <ExerciseCard.DescriptionCard
                         exerciseId={exercise.uid}
                         selectedExerciseId={selectedExerciseId}
-                        IsModalOpen={IsModalOpen} />
+                        IsModalOpen={IsModalOpen}
+                        done={done}
+                      />
                     </Popover.Trigger>
                     <ExerciseCard.Todo done={done} />
                     <ExerciseCard.Edit />
