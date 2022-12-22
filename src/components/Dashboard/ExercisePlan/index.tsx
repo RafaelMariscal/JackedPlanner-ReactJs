@@ -30,6 +30,14 @@ export function ExercisePlan({ exercises }: ExercisePlanProps) {
 
         <div className="flex items-center gap-2">
           {selectedExerciseNotes?.setsWeight?.map((weight, index) => {
+            let disable = false;
+            if (index > 0 && selectedExerciseNotes?.liftedWeight &&
+              selectedExerciseNotes?.liftedReps) {
+              const preveousSetLiftedWeight = selectedExerciseNotes?.liftedWeight[index - 1];
+              const preveousSetLiftedReps = selectedExerciseNotes?.liftedWeight[index - 1];
+              preveousSetLiftedWeight === "empty" || preveousSetLiftedReps === "empty" ?
+                disable = true : false;
+            }
             return (
               <SetPlan
                 key={uuidV4()}
@@ -37,8 +45,9 @@ export function ExercisePlan({ exercises }: ExercisePlanProps) {
                 und={selectedExercise?.weightUnd}
                 weight={weight}
                 exerciseIndex={exerciseIndex}
-                weightUsed={selectedExerciseNotes?.liftedReps![index]}
+                weightUsed={selectedExerciseNotes?.liftedWeight![index]}
                 liftedReps={selectedExerciseNotes?.liftedReps![index]}
+                disabled={disable}
               />
             );
           })}
