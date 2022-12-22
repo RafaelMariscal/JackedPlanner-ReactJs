@@ -1,8 +1,8 @@
+import { useEffect, useState } from "react";
+import { ExerciseNotes, PlannerProps, SplitProps } from "../../@types/PlannerProps";
+import { Outlet, useOutletContext } from "react-router-dom";
 import { isEqual, startOfDay } from "date-fns";
 import { Timestamp } from "firebase/firestore";
-import { useEffect, useState } from "react";
-import { Outlet, useOutletContext } from "react-router-dom";
-import { ExerciseNotes, PlannerProps, ScheduleLabel, SplitProps, splitScheduleProps } from "../../@types/PlannerProps";
 import { DashboardHeader } from "../../components/Dashboard/DashboardHeader";
 import { Navbar } from "../../components/Dashboard/Navbar";
 import LoadingModal from "../../components/LoadingModal";
@@ -41,12 +41,7 @@ export function Dashboard() {
     }
   }, [Planners]);
 
-  // let selectedSplit: SplitProps | null = null;
-  // let ExercisesNotes: ExerciseNotes[] | null | undefined = null;
-
   useEffect(() => {
-    // let selectedSplitLabel: ScheduleLabel | undefined = undefined;
-    // let selectedSplitIndex: number | undefined = undefined;
     if (PlannerSelected) {
       const selectedSplitLabel = PlannerSelected.plannerCalendar.find(schedule => {
         const dateToCompare = new Timestamp(

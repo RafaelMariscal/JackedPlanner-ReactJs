@@ -8,12 +8,15 @@ import { useOutletDataContext } from "../../../Pages/Dashboard";
 
 interface WorkoutSectionProps {
   exercises: ExerciseProps[] | null
-  setSelectedExerciseId: (id: string | null) => void
 }
 
-export function WorkoutSection({ exercises, setSelectedExerciseId }: WorkoutSectionProps) {
-  const { selectedExerciseId, selectedSplit } = useOutletDataContext();
-  const [isExerciseDone, setIsExerciseDone] = useState(true);
+export function WorkoutSection({ exercises }: WorkoutSectionProps) {
+  const {
+    selectedExerciseId, selectedSplit,
+    setSelectedExerciseId,
+    exercisesNotes
+  } = useOutletDataContext();
+
   const [IsModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
@@ -48,16 +51,13 @@ export function WorkoutSection({ exercises, setSelectedExerciseId }: WorkoutSect
             </span>
           ) :
             exercises.map((exercise, index) => {
-              const done = false;
-              // if(exercise.liftedWeight?.length === exercise.liftedReps?.length &&
-              //   exercise.liftedWeight?.length === exercise.sets){
-              //   done = true;
-              // }
-              // console.log({
-              //   weight: exercise.liftedWeight,
-              //   lifted: exercise.liftedReps,
-              //   sets: exercise.sets
-              // });
+              const exerciseNotes = exercisesNotes ? exercisesNotes[index] : null;
+              const liftedRepsSorted = exerciseNotes?.liftedReps?.filter(item => item !== "empty");
+              const liftedWeightSorted = exerciseNotes?.liftedWeight?.filter(item => item !== "empty");
+
+              const done = liftedRepsSorted?.length === exercise.sets &&
+                liftedWeightSorted?.length === exercise.sets ? true : false;
+
               return (
                 <Popover.Root
                   key={exercise.uid}

@@ -14,7 +14,6 @@ export function ExercisePlan({ exercises }: ExercisePlanProps) {
 
   const exerciseIndex = exercises?.findIndex(exercise => exercise.uid === selectedExerciseId);
   let selectedExerciseNotes: null | ExerciseNotes = null;
-
   if (exercisesNotes) {
     exerciseIndex !== undefined ? selectedExerciseNotes = exercisesNotes[exerciseIndex] : null;
   }

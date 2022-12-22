@@ -1,4 +1,3 @@
-import { isEqual, } from "date-fns";
 import { useEffect, } from "react";
 import { useOutletDataContext } from ".";
 import { Calendar } from "../../components/Dashboard/Calendar/Index";
@@ -16,7 +15,6 @@ export type PlannerSelectedType = "planner1" | "planner2" | "planner3"
 export function Home() {
   const {
     PlannerSelected,
-    selectedExerciseId, setSelectedExerciseId,
     selectedDay, setSelectedDay,
     selectedSplit
   } = useOutletDataContext();
@@ -48,7 +46,6 @@ export function Home() {
         </div>
         <WorkoutSection
           exercises={selectedExerciseList}
-          setSelectedExerciseId={setSelectedExerciseId}
         />
       </div>
 

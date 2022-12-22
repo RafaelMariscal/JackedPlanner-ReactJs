@@ -1,6 +1,5 @@
 import clsx from "clsx";
 import { FormEvent, useEffect, useState } from "react";
-import { ExerciseNotes } from "../../../@types/PlannerProps";
 import { useOutletDataContext } from "../../../Pages/Dashboard";
 
 export interface SetPlanProps {
@@ -22,7 +21,6 @@ export function SetPlan({ index, und, weight, exerciseIndex, weightUsed, liftedR
     weightUsed === "empty" ? setLiftedWeightValue("empty") : setLiftedWeightValue(Number(weightUsed));
     liftedReps === "empty" ? setLiftedRepsValue("empty") : setLiftedRepsValue(Number(liftedReps));
     if (weightUsed !== "empty" && liftedReps !== "empty") { setIsSetDone(true); }
-
   }, []);
 
   function handleInput(value: string, type: "weight" | "reps") {
@@ -43,18 +41,17 @@ export function SetPlan({ index, und, weight, exerciseIndex, weightUsed, liftedR
       return;
     }
 
-    if (exercisesNotes && !IsSetDone) {
+    if (exercisesNotes) {
       const newExerciseNotes = [...exercisesNotes];
-
       const selectedExerciseNotes = newExerciseNotes.find((note, i) => i === exerciseIndex);
       if (selectedExerciseNotes === undefined) return;
 
       const liftedWeightUpdated = selectedExerciseNotes.liftedWeight?.map((weight, i) => {
-        if (i === index) return liftedRepsValue;
+        if (i === index) return !IsSetDone ? liftedRepsValue : "empty";
         return weight;
       });
       const liftedRepsUpdated = selectedExerciseNotes.liftedReps?.map((rep, i) => {
-        if (i === index) return liftedRepsValue;
+        if (i === index) return !IsSetDone ? liftedRepsValue : "empty";
         return rep;
       });
 
@@ -63,7 +60,6 @@ export function SetPlan({ index, und, weight, exerciseIndex, weightUsed, liftedR
       setExercisesNotes(newExerciseNotes);
       setIsSetDone(!IsSetDone);
     }
-    setIsSetDone(!IsSetDone);
   }
 
   return (
