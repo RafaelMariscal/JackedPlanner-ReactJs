@@ -41,9 +41,11 @@ export interface ExerciseNotes {
   liftedReps?: ("empty" | number)[]
 }
 
+export type RateProps = "BAD" | "OK" | "GOOD" | "GREAT"
+
 export interface NotesProps {
   cardio: CardioProps[]
-  rate: "BAD" | "OK" | "GOOD" | "GREAT" | null
+  rate: RateProps
   trainingNotes: string
 }
 

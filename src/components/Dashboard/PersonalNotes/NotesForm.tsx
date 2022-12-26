@@ -1,14 +1,16 @@
 import clsx from "clsx";
-import { FormHTMLAttributes, LabelHTMLAttributes, ReactNode, useState } from "react";
+import { FormEvent, FormHTMLAttributes, LabelHTMLAttributes, ReactNode, useState } from "react";
+import { RateProps } from "../../../@types/PlannerProps";
 
 interface NotesFormRootProps extends FormHTMLAttributes<HTMLFormElement> {
   className?: string;
   children: ReactNode;
+  handleSubmitNotes: (event: FormEvent) => void
 }
 
-function Root({ className, children }: NotesFormRootProps) {
+function Root({ className, children, handleSubmitNotes }: NotesFormRootProps) {
   return (
-    <form onSubmit={(e => e.preventDefault())} className={clsx(
+    <form onSubmit={handleSubmitNotes} className={clsx(
       "h-full flex justify-between gap-9 [&_span]:text-sm",
       className
     )}>
@@ -45,7 +47,7 @@ function Cardio({ distance, time }: NotesFormCardioProps) {
 }
 
 interface NotesFormRateProps extends LabelHTMLAttributes<HTMLLabelElement> {
-  rate: "BAD" | "OK" | "GOOD" | "GREAT"
+  rate: RateProps
   selected?: string
 }
 

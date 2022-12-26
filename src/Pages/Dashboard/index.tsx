@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ExerciseNotes, PlannerProps, SplitProps } from "../../@types/PlannerProps";
+import { ExerciseNotes, NotesProps, PlannerProps, SplitProps, splitScheduleProps } from "../../@types/PlannerProps";
 import { Outlet, useOutletContext } from "react-router-dom";
 import { isEqual, startOfDay } from "date-fns";
 import { Timestamp } from "firebase/firestore";
@@ -18,6 +18,9 @@ export type OutletContextType = {
   selectedDay: Date
   setSelectedDay: (date: Date) => void
   selectedSplit: SplitProps | null
+  setSelectedSplit: (split: SplitProps | null) => void
+  selectedSchedule: splitScheduleProps | null | undefined
+  setSelectedSchedule: (schedule: splitScheduleProps | null | undefined) => void
   exercisesNotes: ExerciseNotes[] | null | undefined
   setExercisesNotes: (notes: ExerciseNotes[] | null | undefined) => void
 }
@@ -33,6 +36,7 @@ export function Dashboard() {
   const [selectedExerciseId, setSelectedExerciseId] = useState<string | null>(null);
 
   const [selectedSplit, setSelectedSplit] = useState<SplitProps | null>(null);
+  const [selectedSchedule, setSelectedSchedule] = useState<splitScheduleProps | null | undefined>(null);
   const [exercisesNotes, setExercisesNotes] = useState<ExerciseNotes[] | null | undefined>(null);
 
   useEffect(() => {
@@ -64,6 +68,7 @@ export function Dashboard() {
         ).toDate();
         return isEqual(dateToCompare, selectedDay);
       });
+      setSelectedSchedule(selectedSchedule);
       setExercisesNotes(selectedSchedule?.exerciseNotes);
     }
   }, [PlannerSelected, selectedDay]);
@@ -101,7 +106,9 @@ export function Dashboard() {
                   PlannerSelected, setPlannerSelected,
                   selectedExerciseId, setSelectedExerciseId,
                   selectedDay, setSelectedDay,
-                  selectedSplit, exercisesNotes, setExercisesNotes
+                  selectedSplit, setSelectedSplit,
+                  selectedSchedule, setSelectedSchedule,
+                  exercisesNotes, setExercisesNotes,
                 }
               }
               />

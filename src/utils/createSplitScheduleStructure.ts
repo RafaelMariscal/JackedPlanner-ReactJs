@@ -43,7 +43,7 @@ export function createSplitScheduleStructure(params:createSplitScheduleStructure
         date: Timestamp.fromDate(dateWithoutTime),
         notes: {
           cardio: splitCardios,
-          rate: null,
+          rate: "GREAT",
           trainingNotes: "",
         },
         exerciseNotes: []

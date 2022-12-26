@@ -44,9 +44,7 @@ export function Home() {
             setSelectedDay={setSelectedDay}
           />
         </div>
-        <WorkoutSection
-          exercises={selectedExerciseList}
-        />
+        <WorkoutSection exercises={selectedExerciseList} />
       </div>
 
       <div className="flex-1 flex gap-4">
