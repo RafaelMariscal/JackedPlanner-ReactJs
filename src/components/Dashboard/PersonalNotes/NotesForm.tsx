@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { FormEvent, FormHTMLAttributes, LabelHTMLAttributes, ReactNode, useState } from "react";
-import { RateProps } from "../../../@types/PlannerProps";
+import { CardioProps, RateProps } from "../../../@types/PlannerProps";
 
 interface NotesFormRootProps extends FormHTMLAttributes<HTMLFormElement> {
   className?: string;
@@ -34,11 +34,35 @@ function Label({ label }: NotesFormLabelProps) {
 interface NotesFormCardioProps {
   distance: number;
   time: number;
+  done: boolean;
+  index: number;
+  setCardios: React.Dispatch<React.SetStateAction<CardioProps[]>>
 }
 
-function Cardio({ distance, time }: NotesFormCardioProps) {
+function Cardio({ distance, time, done, index, setCardios }: NotesFormCardioProps) {
+  function handleCardioClick() {
+    return setCardios(prev => {
+      return prev.map((cardio, j) => {
+        if (index === j) {
+          const newCardio: CardioProps = { ...cardio, done: !done };
+          return newCardio;
+        }
+        return cardio;
+      });
+    });
+  }
+
   return (
-    <div className="h-9 rounded-lg w-fit px-3 bg-gray-100 flex items-center select-none">
+    <div
+      onClick={handleCardioClick}
+      className={clsx(
+        "h-9 rounded-lg w-fit px-3 flex items-center select-none",
+        {
+          "bg-gray-100": done === false,
+          "bg-cyan-500": done === true,
+        }
+
+      )}>
       <span className="text-gray-800 font-semibold">
         {distance} km / {time} min
       </span>

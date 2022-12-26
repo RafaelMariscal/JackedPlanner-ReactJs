@@ -9,7 +9,8 @@ export function createNewUserStandardPlanners(){
   const startDate = new Date();
   const standardCardios:CardioProps = {
     distance: 5,
-    time: 35
+    time: 35,
+    done: false
   };
   const cardios = [standardCardios];
   const cardioRest = [standardCardios, standardCardios];

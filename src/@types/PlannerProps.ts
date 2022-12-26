@@ -52,6 +52,7 @@ export interface NotesProps {
 export interface CardioProps {
   distance: number
   time: number
+  done: boolean
 }
 
 export interface ExerciseProps {

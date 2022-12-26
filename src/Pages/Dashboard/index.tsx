@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ExerciseNotes, NotesProps, PlannerProps, SplitProps, splitScheduleProps } from "../../@types/PlannerProps";
+import { ExerciseNotes, PlannerProps, SplitProps, splitScheduleProps } from "../../@types/PlannerProps";
 import { Outlet, useOutletContext } from "react-router-dom";
 import { isEqual, startOfDay } from "date-fns";
 import { Timestamp } from "firebase/firestore";

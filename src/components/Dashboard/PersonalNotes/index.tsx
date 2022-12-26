@@ -1,8 +1,6 @@
-import { isEqual } from "date-fns";
-import { Timestamp } from "firebase/firestore";
-import { FormEvent, useEffect, useId, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { v4 as uuidV4 } from "uuid";
-import { RateProps } from "../../../@types/PlannerProps";
+import { CardioProps, RateProps } from "../../../@types/PlannerProps";
 import { EditIcon } from "../../../assets/icons/Dashboard/Edit";
 import { useUserContext } from "../../../contexts/userContext/hook";
 import { useOutletDataContext } from "../../../Pages/Dashboard";
@@ -18,18 +16,18 @@ const labels: RateProps[] = ["BAD", "OK", "GOOD", "GREAT"];
 
 export function PersonalNotes({ history }: PersonalNotesProps) {
   const { UserLogged, Planners } = useUserContext();
-  const {
-    selectedSplit, setSelectedSplit,
-    selectedSchedule, setSelectedSchedule,
-  } = useOutletDataContext();
+  const { selectedSplit, selectedSchedule, setSelectedSchedule, } = useOutletDataContext();
 
+  const [cardios, setCardios] = useState<CardioProps[]>([]);
   const [rate, setRate] = useState<RateProps>("GREAT");
   const [trainingNotes, setTrainingNotes] = useState("");
 
   useEffect(() => {
     if (selectedSchedule) {
-      const savedTrainingNotes = selectedSchedule.notes ? selectedSchedule.notes.trainingNotes : "";
+      const savedCardios: CardioProps[] = selectedSchedule.notes ? selectedSchedule.notes.cardio : [];
       const savedRate: RateProps = selectedSchedule.notes ? selectedSchedule.notes.rate : "GREAT";
+      const savedTrainingNotes = selectedSchedule.notes ? selectedSchedule.notes.trainingNotes : "";
+      setCardios(savedCardios);
       setTrainingNotes(savedTrainingNotes);
       setRate(savedRate);
     }
@@ -39,6 +37,7 @@ export function PersonalNotes({ history }: PersonalNotesProps) {
     if (selectedSchedule) {
       const newSchedule = { ...selectedSchedule };
       if (newSchedule.notes === null) return;
+      newSchedule.notes.cardio = cardios;
       newSchedule.notes.rate = rate;
       newSchedule.notes.trainingNotes = trainingNotes;
       setSelectedSchedule(newSchedule);
@@ -58,9 +57,20 @@ export function PersonalNotes({ history }: PersonalNotesProps) {
         <div className="h-full flex flex-col gap-2">
           <NotesForm.Label label="Cardio" />
           <div className="flex gap-2">
-            <NotesForm.Cardio distance={5} time={35} />
+            {cardios.map((cardio, index) => (
+              <NotesForm.Cardio
+                key={uuidV4()}
+                distance={cardio.distance}
+                time={cardio.time}
+                done={cardio.done}
+                index={index}
+                setCardios={setCardios}
+              />
+            ))}
 
-            <button className="h-9 rounded-lg w-fit px-2 bg-gray-100
+            <button
+              type="button"
+              className="h-9 rounded-lg w-fit px-2 bg-gray-100
               flex items-center cursor-pointer"
             >
               <EditIcon />
@@ -69,16 +79,14 @@ export function PersonalNotes({ history }: PersonalNotesProps) {
 
           <NotesForm.Label label="Rate Workout" />
           <div className="flex gap-2">
-            {labels.map(label => {
-              return (
-                <NotesForm.Rate
-                  key={uuidV4()}
-                  onClick={() => setRate(label)}
-                  selected={rate}
-                  rate={label}
-                />
-              );
-            })}
+            {labels.map(label => (
+              <NotesForm.Rate
+                key={uuidV4()}
+                onClick={() => setRate(label)}
+                selected={rate}
+                rate={label}
+              />
+            ))}
           </div>
         </div>
 
