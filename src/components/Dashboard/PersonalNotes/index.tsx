@@ -5,6 +5,7 @@ import { EditIcon } from "../../../assets/icons/Dashboard/Edit";
 import { useUserContext } from "../../../contexts/userContext/hook";
 import { useOutletDataContext } from "../../../Pages/Dashboard";
 import { updatePlannersCollection } from "../../../utils/updatePlannersCollection";
+import LoadingModal from "../../LoadingModal";
 import DashboardCard from "../DashboardCard";
 import { NotesForm } from "./NotesForm";
 
@@ -18,6 +19,7 @@ export function PersonalNotes({ history }: PersonalNotesProps) {
   const { UserLogged, Planners } = useUserContext();
   const { selectedSplit, selectedSchedule, setSelectedSchedule, } = useOutletDataContext();
 
+  const [isLoading, setisLoading] = useState(false);
   const [cardios, setCardios] = useState<CardioProps[]>([]);
   const [rate, setRate] = useState<RateProps>("GREAT");
   const [trainingNotes, setTrainingNotes] = useState("");
@@ -46,55 +48,69 @@ export function PersonalNotes({ history }: PersonalNotesProps) {
 
   async function handleSubmitNotes(event: FormEvent) {
     event.preventDefault();
+    setisLoading(true);
+
     await updateCurrentNotesData();
+
     if (UserLogged && Planners) updatePlannersCollection(UserLogged, Planners);
-    return;
+
+    setTimeout(() => {
+      setisLoading(false);
+    }, 200);
   }
 
   return (
     <DashboardCard title="Personal Notes:" extend className="min-w-[39rem]" classNameCard="overflow-y-auto">
-      <NotesForm.Root handleSubmitNotes={handleSubmitNotes}>
-        <div className="h-full flex flex-col gap-2">
-          <NotesForm.Label label="Cardio" />
-          <div className="flex gap-2">
-            {cardios.map((cardio, index) => (
-              <NotesForm.Cardio
-                key={uuidV4()}
-                distance={cardio.distance}
-                time={cardio.time}
-                done={cardio.done}
-                index={index}
-                setCardios={setCardios}
-              />
-            ))}
+      {isLoading ? (
+        <LoadingModal component visible={isLoading} />
+      ) : (
+        <NotesForm.Root handleSubmitNotes={handleSubmitNotes}>
+          <div className="h-full flex flex-col gap-2">
+            <NotesForm.Label label="Cardio" />
+            <div className="flex gap-2">
+              {cardios.map((cardio, index) => (
+                <NotesForm.Cardio
+                  key={uuidV4()}
+                  distance={cardio.distance}
+                  time={cardio.time}
+                  done={cardio.done}
+                  index={index}
+                  setCardios={setCardios}
+                />
+              ))}
 
-            <button
-              type="button"
-              className="h-9 rounded-lg w-fit px-2 bg-gray-100
+              <button
+                type="button"
+                className="h-9 rounded-lg w-fit px-2 bg-gray-100
               flex items-center cursor-pointer"
-            >
-              <EditIcon />
-            </button>
+              >
+                <EditIcon />
+              </button>
+            </div>
+
+            <NotesForm.Label label="Rate Workout" />
+            <div className="flex gap-2">
+              {labels.map(label => (
+                <NotesForm.Rate
+                  key={uuidV4()}
+                  onClick={() => setRate(label)}
+                  selected={rate}
+                  rate={label}
+                />
+              ))}
+            </div>
           </div>
 
-          <NotesForm.Label label="Rate Workout" />
-          <div className="flex gap-2">
-            {labels.map(label => (
-              <NotesForm.Rate
-                key={uuidV4()}
-                onClick={() => setRate(label)}
-                selected={rate}
-                rate={label}
-              />
-            ))}
+          <div className="flex-1 flex flex-col gap-2">
+            <NotesForm.Label label="Notes" />
+            <NotesForm.TextBox
+              notes={trainingNotes}
+              SetNotes={setTrainingNotes}
+              isLoading={isLoading}
+              history={history} />
           </div>
-        </div>
-
-        <div className="flex-1 flex flex-col gap-2">
-          <NotesForm.Label label="Notes" />
-          <NotesForm.TextBox notes={trainingNotes} SetNotes={setTrainingNotes} history={history} />
-        </div>
-      </NotesForm.Root>
+        </NotesForm.Root>
+      )}
     </DashboardCard>
   );
 }

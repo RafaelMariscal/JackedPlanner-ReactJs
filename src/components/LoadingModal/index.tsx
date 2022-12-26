@@ -1,12 +1,13 @@
 import "./styles.css";
 import clsx from "clsx";
 
-interface LoadingModalProps{
+interface LoadingModalProps {
   visible: boolean
   fade?: boolean
+  component?: boolean
 }
 
-export default function LoadingModal({visible, fade}:LoadingModalProps) {
+export default function LoadingModal({ visible, fade, component }: LoadingModalProps) {
 
   return (
     <div className={clsx(
@@ -14,6 +15,7 @@ export default function LoadingModal({visible, fade}:LoadingModalProps) {
       {
         "hidden": visible === false,
         "bg-gray-800 bg-opacity-75": fade === true,
+        "w-fit h-fit left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2": component === true
       }
     )}
     >

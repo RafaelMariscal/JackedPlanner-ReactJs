@@ -53,7 +53,8 @@ function Cardio({ distance, time, done, index, setCardios }: NotesFormCardioProp
   }
 
   return (
-    <div
+    <button
+      type="button"
       onClick={handleCardioClick}
       className={clsx(
         "h-9 rounded-lg w-fit px-3 flex items-center select-none",
@@ -66,7 +67,7 @@ function Cardio({ distance, time, done, index, setCardios }: NotesFormCardioProp
       <span className="text-gray-800 font-semibold">
         {distance} km / {time} min
       </span>
-    </div>
+    </button>
   );
 }
 
@@ -99,10 +100,11 @@ function Rate({ rate, selected, ...props }: NotesFormRateProps) {
 
 interface NotesFormTextBoxProps {
   notes: string;
-  history?: boolean;
   SetNotes: (notes: string) => void
+  isLoading: boolean
+  history?: boolean;
 }
-function TextBox({ notes, history, SetNotes }: NotesFormTextBoxProps) {
+function TextBox({ notes, SetNotes, history, isLoading }: NotesFormTextBoxProps) {
   const [IsUserEditing, setIsUserEditing] = useState(history === undefined ? true : false);
 
   function handleClick() {
@@ -125,13 +127,16 @@ function TextBox({ notes, history, SetNotes }: NotesFormTextBoxProps) {
         )}
         name="Notes" placeholder="Take your notes here!" value={notes} disabled={!IsUserEditing}
       />
-      <button onClick={handleClick} className={clsx(
-        "w-full py-2 rounded-lg border-2 text-sm text-gray-800 font-semibold",
-        {
-          "bg-gray-100 border-orange-500": IsUserEditing === false,
-          "bg-orange-500 border-transparent": IsUserEditing === true,
-        }
-      )}
+      <button
+        disabled={isLoading}
+        onClick={handleClick}
+        className={clsx(
+          "w-full py-2 rounded-lg border-2 text-sm text-gray-800 font-semibold",
+          {
+            "bg-gray-100 border-orange-500": IsUserEditing === false,
+            "bg-orange-500 border-transparent": IsUserEditing === true,
+          }
+        )}
       >
         {IsUserEditing ? "Confirm Notes" : "Edit Notes"}
       </button>
