@@ -39,6 +39,7 @@ export function Dashboard() {
   const [selectedSchedule, setSelectedSchedule] = useState<splitScheduleProps | null | undefined>(null);
   const [exercisesNotes, setExercisesNotes] = useState<ExerciseNotes[] | null | undefined>(null);
 
+
   useEffect(() => {
     if (Planners !== undefined) {
       setPlannerSelected(Planners.planner1);

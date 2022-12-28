@@ -3,7 +3,6 @@ import DashboardCard from "../DashboardCard";
 import { PlannerCard } from "./PlannerCard";
 import LogoPro from "../../../assets/LogoPro.png";
 import { PlannerProps, UserPlannersProps } from "../../../@types/PlannerProps";
-import { PlannerSelectedType } from "../../../Pages/Dashboard/Home";
 
 interface PlannerControllerProps {
   planners: UserPlannersProps | undefined
