@@ -36,7 +36,6 @@ export function Home() {
         <div className="flex justify-between gap-4 w-full max-w-[720px]">
           <PlannerController
             planners={Planners}
-            PlannerSelected={PlannerSelected}
             price={4.99}
           />
           <Calendar

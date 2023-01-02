@@ -2,26 +2,27 @@
 import clsx from "clsx";
 import { useState } from "react";
 import { PlannerProps } from "../../../@types/PlannerProps";
-import { EditIcon } from "../../../assets/icons/Dashboard/Edit";
 import { useUserContext } from "../../../contexts/userContext/hook";
 import { useOutletDataContext } from "../../../Pages/Dashboard";
 import PlannerModal from "../Modals/PlannerModal";
 
 interface PlannerCardProps {
   index: 1 | 2 | 3
-  PlannerName?: string
-  PlannerSelected: PlannerProps | null
+  planner: PlannerProps | null
 }
 
-export function PlannerCard({ index, PlannerName, PlannerSelected }: PlannerCardProps) {
+export function PlannerCard({ index, planner }: PlannerCardProps) {
   const { Planners } = useUserContext();
-  const { setPlannerSelected } = useOutletDataContext();
+  const { PlannerSelected, setPlannerSelected } = useOutletDataContext();
 
   const [isModalVisible, setIsModalVisible] = useState(false);
 
-  function handlePlannerSelector(planner: 1 | 2 | 3) {
+  const PlannerSelectedUid = PlannerSelected?.uid;
+  const IfPlannerSelected = !!PlannerSelected && PlannerSelectedUid === planner?.uid ? true : false;
+
+  function handlePlannerSelector(index: 1 | 2 | 3) {
     if (Planners === undefined) return;
-    switch (planner) {
+    switch (index) {
       case 1:
         setPlannerSelected(Planners.planner1);
         break;
@@ -36,13 +37,9 @@ export function PlannerCard({ index, PlannerName, PlannerSelected }: PlannerCard
         break;
     }
   }
-
-  const PlannerSelectedName = PlannerSelected?.name;
-  const IfPlannerSelected = !!PlannerSelected && PlannerSelectedName === PlannerName ? true : false;
-
   return (
     <>
-      {PlannerName ? (
+      {planner ? (
         <button
           onClick={() => handlePlannerSelector(index)}
           className={clsx(
@@ -59,12 +56,12 @@ export function PlannerCard({ index, PlannerName, PlannerSelected }: PlannerCard
             </span>
 
             <p className="pl-2 truncate max-w-[240px]">
-              {PlannerName}
+              {planner.name}
             </p>
           </div>
 
           <PlannerModal
-            PlannerName={PlannerName}
+            planner={planner}
             visible={isModalVisible}
             setVisible={setIsModalVisible}
           />
@@ -75,32 +72,7 @@ export function PlannerCard({ index, PlannerName, PlannerSelected }: PlannerCard
           visible={isModalVisible}
           setVisible={setIsModalVisible}
         />
-
-        // <button
-        //   onClick={() => handlePlannerSelector(index)}
-        //   className="
-        //   bg-gray-100 h-10 rounded-lg px-4 flex items-center justify-between
-        //   font-semibold text-sm leading-4 text-gray-800 cursor-pointer select-none"
-        // >
-        //   <div className="flex items-center">
-        //     <span >
-        //       {index}
-        //     </span>
-
-        //     <p className="font-medium text-gray-400 pl-2">
-        //       {"Add a New Planner"}
-        //     </p>
-        //   </div>
-
-        //   <PlannerModal
-        //     PlannerName={PlannerName}
-        //     visible={isModalVisible}
-        //     setVisible={setIsModalVisible}
-        //   />
-        // </button>
       )}
-
     </>
-
   );
 }
