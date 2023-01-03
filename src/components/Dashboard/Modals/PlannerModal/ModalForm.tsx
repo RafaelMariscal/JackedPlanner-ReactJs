@@ -1,11 +1,13 @@
 import { Timestamp } from "firebase/firestore";
 import { v4 as uuidV4 } from "uuid";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useState } from "react";
 import { PlannerProps, ScheduleLabel } from "../../../../@types/PlannerProps";
-import { ArrowIcon } from "../../../../assets/icons/ArrowIcon";
 import { useUserContext } from "../../../../contexts/userContext/hook";
 import { useOutletDataContext } from "../../../../Pages/Dashboard";
 import { Button } from "../../../LoginPage/Button";
+import { SplitsInputsControllers } from "./SplitsInputsControllers";
+import { ScheduleDaysSelector } from "./ScheduleDaysSelector";
+import { SplitNameInput } from "./SplitNameInput";
 
 interface ModalFormProps {
   planner: PlannerProps | undefined
@@ -56,7 +58,6 @@ export function ModalForm({ planner }: ModalFormProps) {
       return [["a"]];
     }
   });
-
   const [StartDate, setStartDate] = useState(() => {
     if (planner && PlannerSelected) {
       const timestamp = PlannerSelected.startDate;
@@ -67,67 +68,13 @@ export function ModalForm({ planner }: ModalFormProps) {
       return new Date();
     }
   });
-
   const splitsLabels = scheduleLabels.filter((label, i) => {
     if (SplitsQuantity && i < SplitsQuantity) {
       return true;
     }
   });
-  const splitsRest: "rest"[] = [];
-  for (let i = 0; i < RestsQuantity; i++) {
-    splitsRest.push("rest");
-  }
-  const scheduleOptions: ScheduleLabel[] = [...splitsLabels, ...splitsRest];
-  if (DaysOptions.length === 0) {
-    setDaysOptions([scheduleOptions]);
-  }
 
   const DateDefaultValue = `${StartDate.getFullYear()}-${StartDate.getMonth()}-${StartDate.getDate()}`;
-
-  useEffect(() => {
-    const currentScheduleOptions = [...DaysOptions];
-    if (currentScheduleOptions.length === 0) {
-      setDaysOptions([scheduleOptions]);
-    }
-    const updatedScheduleOptions = currentScheduleOptions.map(day => {
-      return scheduleOptions;
-    });
-    setDaysOptions(updatedScheduleOptions);
-  }, [SplitsQuantity, RestsQuantity]);
-
-
-  function handleQuantity(state: "split" | "rest", action: "acc" | "dec") {
-    if (state === "split") {
-      let updatedState = SplitsQuantity;
-      action === "acc" ? updatedState += 1 : updatedState -= 1;
-      const min = 1;
-      const max = 10;
-      const validatedValue = Math.max(min, Math.min(max, Number(updatedState)));
-
-      return setSplitsQuantity(validatedValue);
-    } else {
-      let updatedState = RestsQuantity;
-      action === "acc" ? updatedState += 1 : updatedState -= 1;
-      const min = 0;
-      const max = 10;
-      const validatedValue = Math.max(min, Math.min(max, Number(updatedState)));
-      return setRestsQuantity(validatedValue);
-    }
-  }
-
-  function handleSplitDaysAmount(action: "add" | "dec") {
-    if (action === "add") {
-      setDaysOptions(prev => {
-        if (prev.length < 12) return [...prev, scheduleOptions];
-        return prev;
-      });
-    } else {
-      setDaysOptions(prev => {
-        if (prev.length > 1) return prev.filter((opt, i) => i !== prev.length - 1);
-        return prev;
-      });
-    }
-  }
 
   const handleCreateNewPlanner = async (e: FormEvent) => {
     e.preventDefault();
@@ -156,138 +103,29 @@ export function ModalForm({ planner }: ModalFormProps) {
         />
       </label>
 
-      <div>
-        <div className="flex gap-3 items-end">
-          <div className="flex flex-col text-sm gap-1 text-gray-100 text-center">
-            <span>Qty of <span className="text-orange-500 font-medium">Splits</span> :</span>
-            <div className="bg-gray-100 h-10 rounded-lg flex items-center justify-center relative">
-              <span className="text-gray-800 font-semibold">{SplitsQuantity}</span>
-              <div className="flex flex-col absolute right-1">
-                <button
-                  type="button"
-                  className="[&_path]:hover:stroke-orange-500"
-                  onClick={() => handleQuantity("split", "acc")}
-                >
-                  <ArrowIcon className="[&_path]:stroke-gray-800 scale-50" />
-                </button>
-                <button
-                  type="button"
-                  className="[&_path]:hover:stroke-orange-500"
-                  onClick={() => handleQuantity("split", "dec")}
-                >
-                  <ArrowIcon className="[&_path]:stroke-gray-800 scale-50 rotate-180" />
-                </button>
-              </div>
-            </div>
-          </div>
-          <div className="flex flex-col text-sm gap-1 text-gray-100 text-center">
-            <span><span className="text-orange-500 font-medium">Rest Days</span> :</span>
-            <div className="bg-gray-100 h-10 rounded-lg flex items-center justify-center relative">
-              <span className="text-gray-800 font-semibold">{RestsQuantity}</span>
-              <div className="flex flex-col absolute right-1">
-                <button
-                  type="button"
-                  className="[&_path]:hover:stroke-orange-500"
-                  onClick={() => handleQuantity("rest", "acc")}
-                >
-                  <ArrowIcon className="[&_path]:stroke-gray-800 scale-50" />
-                </button>
-                <button
-                  type="button"
-                  className="[&_path]:hover:stroke-orange-500"
-                  onClick={() => handleQuantity("rest", "dec")}
-                >
-                  <ArrowIcon className="[&_path]:stroke-gray-800 scale-50 rotate-180" />
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <SplitsInputsControllers
+        splitsQuantity={SplitsQuantity}
+        setSplitsQuantity={setSplitsQuantity}
+        restsQuantity={RestsQuantity}
+        setRestsQuantity={setRestsQuantity}
+      />
 
       {splitsLabels.map(label => (
-        <label
+        <SplitNameInput
           key={uuidV4()}
-          htmlFor={`split${label}`}
-        >
-          <span className="ml-1">
-            Name for split
-            <span className="text-orange-500 font-medium">
-              {` "${label}" `}
-            </span>
-            :
-          </span>
-          <input type="text" name="SpltX" id="SpltX"
-            placeholder="Split name..." className="pl-4" required
-          />
-
-          {/*
-          IT NEEDS A INPLEMENTATIONS OF HOW TO DEAL WITH THESE STATES
-      */}
-        </label>
+          planner={planner}
+          label={label}
+        />
       ))}
 
-      <label htmlFor="SplitSchedule">
-        <div className="grid grid-cols-5 gap-1">
+      <ScheduleDaysSelector
+        SplitsQuantity={SplitsQuantity}
+        RestsQuantity={RestsQuantity}
+        DaysOptions={DaysOptions}
+        setDaysOptions={setDaysOptions}
+      />
 
-          {DaysOptions.map((day, i) => {
-            return (
-              <label
-                key={uuidV4()}
-                htmlFor="Day1"
-                className="text-center">
-                <span>Day
-                  <span className="text-orange-500 font-medium">
-                    {` ${i + 1}`}
-                  </span>
-                </span>
-
-                <select id="Day1" name="Day1"
-                  className="w-14 h-10 rounded-md text-gray-800 font-semibold [&_option]:font-semibold"
-                >
-                  {day.map(option => (
-                    <option
-                      key={uuidV4()}
-                      value={`split${option}`}
-                      className="text-center"
-                    >
-                      {option}
-                    </option>
-                  ))}
-                </select>
-              </label>
-            );
-          })}
-        </div>
-      </label>
-
-      <div className="flex gap-4">
-        <button
-          type="button"
-          onClick={() => handleSplitDaysAmount("add")}
-          className="
-        w-full h-10 rounded-lg text-gray-100 text-sm
-        border-2 border-cyan-500 shadow-[0_0_.25rem_#72D6FD]
-        transition-all duration-150 hover:shadow-[0_0_.5rem_#72D6FD]
-      "
-        >
-          Add new day
-        </button>
-
-        <button
-          type="button"
-          onClick={() => handleSplitDaysAmount("dec")}
-          className="
-        w-full h-10 rounded-lg text-gray-100 text-sm
-        border-2 border-red shadow-[0_0_.25rem_#FF463A]
-        transition-all duration-150 hover:shadow-[0_0_.5rem_#FF463A]
-      "
-        >
-          Remove last day
-        </button>
-      </div>
-
-      <label htmlFor="SpltX">
+      <label htmlFor="Date">
         <span className="ml-1">
           Start Date
           <span className="text-orange-500 font-medium">
@@ -295,7 +133,7 @@ export function ModalForm({ planner }: ModalFormProps) {
           </span>
           :
         </span>
-        <input type="date" name="SpltX" id="SpltX" required
+        <input type="date" name="Date" id="Date" required
           className="p-4 select-none" defaultValue={DateDefaultValue}
           onChange={(e) => {
             const dateParsed = e.target.value.split("-");
