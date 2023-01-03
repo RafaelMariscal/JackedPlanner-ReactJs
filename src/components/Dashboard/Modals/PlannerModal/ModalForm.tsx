@@ -7,7 +7,7 @@ import { Button } from "../../../LoginPage/Button";
 import { SplitsInputsControllers } from "./SplitsInputsControllers";
 import { ScheduleDaysSelector } from "./ScheduleDaysSelector";
 import { SplitNameInput } from "./SplitNameInput";
-import { format } from "date-fns";
+import { format, isValid } from "date-fns";
 
 interface ModalFormProps {
   planner: PlannerProps | undefined
@@ -129,9 +129,12 @@ export function ModalForm({ planner }: ModalFormProps) {
               Number(dateParsed[1]) - 1,
               Number(dateParsed[2])
             );
-            dateSelected ? setStartDate(dateSelected) : null;
+            isValid(dateSelected) ? setStartDate(dateSelected) : null;
           }}
         />
+        <span className="text-[10px] text-gray-200 mt-1">
+          {"If date doesn't change, it means that it returns an invalid date."}
+        </span>
       </label>
 
       <Button size="custom" variant="orange" login

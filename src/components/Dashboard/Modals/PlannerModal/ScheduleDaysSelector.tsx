@@ -72,13 +72,6 @@ export function ScheduleDaysSelector({ planner, SplitsQuantity, RestsQuantity, D
       setplannerSchedule(updatedPlannerSchedule);
     }
   }
-
-
-  /*
-      CRIAR LÓGICA PARA, DE FATO, CRIAR, ATUALIZAR OU DELETAR UM PLANNER
-  */
-
-
   return (
     <>
       <div className="grid grid-cols-5 gap-1">
