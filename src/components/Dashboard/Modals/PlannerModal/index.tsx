@@ -2,7 +2,7 @@ import * as Dialog from "@radix-ui/react-dialog";
 import clsx from "clsx";
 import { EditIcon } from "../../../../assets/icons/Dashboard/Edit";
 import { PlannerProps } from "../../../../@types/PlannerProps";
-import { ModalHeader } from "./modalHeader";
+import { ModalHeader } from "./ModalHeader";
 import { ModalForm } from "./ModalForm";
 
 interface PlannerModalProps {

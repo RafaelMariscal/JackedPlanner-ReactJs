@@ -1,5 +1,4 @@
 import { Timestamp } from "firebase/firestore";
-import { v4 as uuidV4 } from "uuid";
 import { FormEvent, useEffect, useState } from "react";
 import { PlannerProps, ScheduleLabel } from "../../../../@types/PlannerProps";
 import { useUserContext } from "../../../../contexts/userContext/hook";
@@ -38,12 +37,8 @@ export function ModalForm({ planner }: ModalFormProps) {
       const RestDays = PlannerSelected.splits.filter(
         split => split.splitLabel === "rest"
       );
-      const splitOptions = PlannerSelected.splits.map(
-        split => split.splitLabel
-      );
-      const schedule = PlannerSelected.schedule.map(
-        day => splitOptions
-      );
+      const splitOptions = PlannerSelected.splits.map(split => split.splitLabel);
+      const schedule = PlannerSelected.schedule.map(day => splitOptions);
       const timestamp = PlannerSelected.startDate;
       const date = new Timestamp(timestamp.seconds, timestamp.nanoseconds).toDate();
 
@@ -80,11 +75,15 @@ export function ModalForm({ planner }: ModalFormProps) {
     [&_label]:text-gray-100 [&_label]:text-sm
   "
     >
-      <label htmlFor="plannerName">
+      <label>
         <span className="ml-1">Planner Name:</span>
-        <input type="text" name="plannerName" id="plannerName"
-          placeholder="Planner name..." className="pl-4" required
-          value={PlannerNameInput} onChange={(e) => setPlannerNameInput(e.target.value)}
+        <input
+          type="text"
+          placeholder="Planner name..."
+          className="pl-4"
+          required
+          value={PlannerNameInput}
+          onChange={(e) => setPlannerNameInput(e.target.value)}
         />
       </label>
 
@@ -97,7 +96,7 @@ export function ModalForm({ planner }: ModalFormProps) {
 
       {splitsLabels.map(label => (
         <SplitNameInput
-          key={uuidV4()}
+          key={label}
           planner={planner}
           label={label}
         />
@@ -111,26 +110,26 @@ export function ModalForm({ planner }: ModalFormProps) {
         setDaysOptions={setDaysOptions}
       />
 
-      <label htmlFor="Date">
+      <label>
         <span className="ml-1">
-          Start Date
           <span className="text-orange-500 font-medium">
-            {" \"mm/dd/yyyy\" "}
+            {"Start Date "}
           </span>
           :
         </span>
-        <input type="date" name="Date" id="Date" required
+        <input
+          type="date"
+          required
           className="p-4 select-none"
           value={format(StartDate, "yyyy-MM-dd")}
           onChange={(e) => {
             const dateParsed = e.target.value.split("-");
-            console.log(dateParsed);
             const dateSelected = new Date(
               Number(dateParsed[0]),
-              Number(dateParsed[1]),
+              Number(dateParsed[1]) - 1,
               Number(dateParsed[2])
             );
-            setStartDate(dateSelected);
+            dateSelected ? setStartDate(dateSelected) : null;
           }}
         />
       </label>
