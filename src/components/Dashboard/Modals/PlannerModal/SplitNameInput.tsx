@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { v4 as uuidV4 } from "uuid";
 import { PlannerProps } from "../../../../@types/PlannerProps";
 
 interface SplitNameInputProps {
@@ -16,11 +15,10 @@ export function SplitNameInput({ planner, label }: SplitNameInputProps) {
     }
   });
 
+
+
   return (
-    <label
-      key={uuidV4()}
-      htmlFor={`split${label}`}
-    >
+    <label htmlFor={`split${label}`}>
       <span className="ml-1">
         Name for split
         <span className="text-orange-500 font-medium">

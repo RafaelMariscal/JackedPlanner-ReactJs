@@ -1,6 +1,6 @@
 import { Timestamp } from "firebase/firestore";
 import { v4 as uuidV4 } from "uuid";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { PlannerProps, ScheduleLabel } from "../../../../@types/PlannerProps";
 import { useUserContext } from "../../../../contexts/userContext/hook";
 import { useOutletDataContext } from "../../../../Pages/Dashboard";
@@ -8,6 +8,7 @@ import { Button } from "../../../LoginPage/Button";
 import { SplitsInputsControllers } from "./SplitsInputsControllers";
 import { ScheduleDaysSelector } from "./ScheduleDaysSelector";
 import { SplitNameInput } from "./SplitNameInput";
+import { format } from "date-fns";
 
 interface ModalFormProps {
   planner: PlannerProps | undefined
@@ -18,71 +19,55 @@ export function ModalForm({ planner }: ModalFormProps) {
   const { isLoading } = useUserContext();
   const { PlannerSelected } = useOutletDataContext();
 
-  const [PlannerNameInput, setPlannerNameInput] = useState<string>(() => {
-    if (planner) {
-      return planner.name;
-    } else {
-      return "";
-    }
-  });
-  const [SplitsQuantity, setSplitsQuantity] = useState(() => {
-    if (planner && PlannerSelected) {
-      const splitsWithoutRestDay = PlannerSelected.splits.filter(split => {
-        return split.splitLabel !== "rest";
-      });
-      return splitsWithoutRestDay.length;
-    } else {
-      return 1;
-    }
-  });
-  const [RestsQuantity, setRestsQuantity] = useState(() => {
-    if (planner && PlannerSelected) {
-      const RestDays = PlannerSelected.splits.filter(split => {
-        return split.splitLabel === "rest";
-      });
-      return RestDays.length;
-    } else {
-      return 0;
-    }
-  });
-  const [DaysOptions, setDaysOptions] = useState<ScheduleLabel[][]>(() => {
-    if (planner && PlannerSelected) {
-      const splitOptions = PlannerSelected.splits.map(split => {
-        return split.splitLabel;
-      });
-      const schedule = PlannerSelected.schedule.map(day => {
-        return splitOptions;
-      });
-      return schedule;
-    } else {
-      return [["a"]];
-    }
-  });
-  const [StartDate, setStartDate] = useState(() => {
-    if (planner && PlannerSelected) {
-      const timestamp = PlannerSelected.startDate;
-      const date = new Timestamp(timestamp.seconds, timestamp.nanoseconds).toDate();
-      console.log(date);
-      return date;
-    } else {
-      return new Date();
-    }
-  });
+  const [PlannerNameInput, setPlannerNameInput] = useState<string>("");
+  const [SplitsQuantity, setSplitsQuantity] = useState(1);
+  const [RestsQuantity, setRestsQuantity] = useState(0);
+  const [DaysOptions, setDaysOptions] = useState<ScheduleLabel[][]>([["a"]]);
+  const [StartDate, setStartDate] = useState(new Date());
   const splitsLabels = scheduleLabels.filter((label, i) => {
     if (SplitsQuantity && i < SplitsQuantity) {
       return true;
     }
   });
 
-  const DateDefaultValue = `${StartDate.getFullYear()}-${StartDate.getMonth()}-${StartDate.getDate()}`;
+  useEffect(() => {
+    if (planner && PlannerSelected) {
+      const splitsWithoutRestDay = PlannerSelected.splits.filter(
+        split => split.splitLabel !== "rest"
+      );
+      const RestDays = PlannerSelected.splits.filter(
+        split => split.splitLabel === "rest"
+      );
+      const splitOptions = PlannerSelected.splits.map(
+        split => split.splitLabel
+      );
+      const schedule = PlannerSelected.schedule.map(
+        day => splitOptions
+      );
+      const timestamp = PlannerSelected.startDate;
+      const date = new Timestamp(timestamp.seconds, timestamp.nanoseconds).toDate();
 
-  const handleCreateNewPlanner = async (e: FormEvent) => {
-    e.preventDefault();
+      setPlannerNameInput(planner.name);
+      setSplitsQuantity(splitsWithoutRestDay.length);
+      setRestsQuantity(RestDays.length);
+      setDaysOptions(schedule);
+      setStartDate(date);
+    }
+    return;
+  }, [planner, PlannerSelected]);
+
+  const handleCreateNewPlanner = async (event: FormEvent) => {
+    event.preventDefault();
+    if (planner) {
+      console.log("update planner");
+    } else {
+      console.log("create planner");
+    }
     return;
   };
 
   return (
-    <form onSubmit={handleCreateNewPlanner} className="
+    <form onSubmit={(event) => handleCreateNewPlanner(event)} className="
     w-full flex flex-col gap-4
 
     [&_input]:h-10 [&_input]:rounded-md [&_input]:bg-gray-100
@@ -119,6 +104,7 @@ export function ModalForm({ planner }: ModalFormProps) {
       ))}
 
       <ScheduleDaysSelector
+        planner={planner}
         SplitsQuantity={SplitsQuantity}
         RestsQuantity={RestsQuantity}
         DaysOptions={DaysOptions}
@@ -134,9 +120,11 @@ export function ModalForm({ planner }: ModalFormProps) {
           :
         </span>
         <input type="date" name="Date" id="Date" required
-          className="p-4 select-none" defaultValue={DateDefaultValue}
+          className="p-4 select-none"
+          value={format(StartDate, "yyyy-MM-dd")}
           onChange={(e) => {
             const dateParsed = e.target.value.split("-");
+            console.log(dateParsed);
             const dateSelected = new Date(
               Number(dateParsed[0]),
               Number(dateParsed[1]),
