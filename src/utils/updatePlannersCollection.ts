@@ -10,5 +10,4 @@ export async function updatePlannersCollection(user: User, updatedPlanner: UserP
     .withConverter(plannersConverter), updatedPlanner);
   sessionStorage.setItem(USER_PLANNERS,
     JSON.stringify(updatedPlanner));
-  return;
 }

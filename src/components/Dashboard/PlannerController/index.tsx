@@ -19,18 +19,18 @@ export function PlannerController({ planners, price }: PlannerControllerProps) {
           <div className="flex flex-col gap-4">
             <PlannerCard
               key={planners.planner1?.uid}
-              index={1}
+              plannerIndex={1}
               planner={planners.planner1}
             />
             <PlannerCard
               key={planners.planner2?.uid}
-              index={2}
+              plannerIndex={2}
               planner={planners.planner2}
 
             />
             <PlannerCard
               key={planners.planner2?.uid}
-              index={3}
+              plannerIndex={3}
               planner={planners.planner3}
             />
           </div>

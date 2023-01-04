@@ -1,24 +1,26 @@
-import { useState } from "react";
-import { PlannerProps } from "../../../../@types/PlannerProps";
+import { SplitInfoProps } from "./ModalForm";
 
 interface SplitNameInputProps {
-  planner: PlannerProps | undefined
   label: string
+  splitTitle: string | undefined
+  setSplitsInfo: React.Dispatch<React.SetStateAction<SplitInfoProps[]>>
 }
-export function SplitNameInput({ planner, label }: SplitNameInputProps) {
-  const [SplitName, setSplitName] = useState<string>(() => {
-    if (planner) {
-      const split = planner.splits.find(split => split.splitLabel === label);
-      return split !== undefined ? split.splitTitle : "";
-    } else {
-      return "";
-    }
-  });
-
-
-
+export function SplitNameInput({ label, splitTitle, setSplitsInfo }: SplitNameInputProps) {
+  function handleSplitInfoChanges(value: string) {
+    setSplitsInfo(prev => {
+      const updatedSplitInfo = [...prev];
+      return updatedSplitInfo.map(info => {
+        if (info.label === label) {
+          return { ...info, splitTitle: value };
+        } else {
+          return info;
+        }
+      });
+    });
+    return;
+  }
   return (
-    <label htmlFor={`split${label}`}>
+    <label>
       <span className="ml-1">
         Name for split
         <span className="text-orange-500 font-medium">
@@ -26,9 +28,13 @@ export function SplitNameInput({ planner, label }: SplitNameInputProps) {
         </span>
         :
       </span>
-      <input type="text" name="SpltX" id="SpltX"
-        placeholder="Split name..." className="pl-4"
-        value={SplitName} onChange={(e) => setSplitName(e.target.value)}
+      <input
+        type="text"
+        placeholder="Split name..."
+        className="pl-4"
+        value={splitTitle}
+        // onChange={(e) => setSplitName(e.target.value)}
+        onChange={(e) => handleSplitInfoChanges(e.target.value)}
         required
       />
     </label>

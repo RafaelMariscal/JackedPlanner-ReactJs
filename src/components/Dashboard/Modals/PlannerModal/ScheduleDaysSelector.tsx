@@ -1,4 +1,4 @@
-import { useEffect, useState, FormEvent, Dispatch, SetStateAction } from "react";
+import { useEffect, Dispatch, SetStateAction } from "react";
 import { v4 as uuidV4 } from "uuid";
 import { PlannerProps, ScheduleLabel } from "../../../../@types/PlannerProps";
 
@@ -8,32 +8,23 @@ interface ScheduleDaysSelectorProps {
   RestsQuantity: number
   DaysOptions: ScheduleLabel[][]
   setDaysOptions: Dispatch<SetStateAction<ScheduleLabel[][]>>
+  plannerSchedule: ScheduleLabel[]
+  setPlannerSchedule: React.Dispatch<React.SetStateAction<ScheduleLabel[]>>
 }
 
 const scheduleLabels: ScheduleLabel[] = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"];
 
-export function ScheduleDaysSelector({ planner, SplitsQuantity, RestsQuantity, DaysOptions, setDaysOptions }: ScheduleDaysSelectorProps) {
-  const [plannerSchedule, setplannerSchedule] = useState<(string | ScheduleLabel)[] | undefined>(() => {
-    if (planner) {
-      return planner.schedule;
-    } else {
-      return undefined;
-    }
-  });
+export function ScheduleDaysSelector({
+  planner, SplitsQuantity, RestsQuantity,
+  DaysOptions, setDaysOptions, plannerSchedule, setPlannerSchedule
+}: ScheduleDaysSelectorProps) {
 
-  const splitsLabels = scheduleLabels.filter((label, i) => {
-    if (SplitsQuantity && i < SplitsQuantity) {
-      return true;
-    }
-  });
+  const splitsLabels = scheduleLabels.filter((label, i) => SplitsQuantity && i < SplitsQuantity);
   const splitsRest: "rest"[] = [];
   for (let i = 0; i < RestsQuantity; i++) {
     splitsRest.push("rest");
   }
   const scheduleOptions: ScheduleLabel[] = [...splitsLabels, ...splitsRest];
-  if (DaysOptions.length === 0) {
-    setDaysOptions([scheduleOptions]);
-  }
 
   useEffect(() => {
     const currentScheduleOptions = [...DaysOptions];
@@ -52,32 +43,35 @@ export function ScheduleDaysSelector({ planner, SplitsQuantity, RestsQuantity, D
         if (prev.length < 12) return [...prev, scheduleOptions];
         return prev;
       });
+      const label = planner && plannerSchedule.length < planner.schedule.length ?
+        planner.schedule[plannerSchedule.length] : "a";
+      const newSchedule = [...plannerSchedule, label];
+      setPlannerSchedule(newSchedule);
     } else {
       setDaysOptions(prev => {
         if (prev.length > 1) return prev.filter((opt, i) => i !== prev.length - 1);
         return prev;
       });
+      const newSchedule = plannerSchedule.filter((label, i, array) => i !== array.length - 1);
+      setPlannerSchedule(newSchedule);
     }
   }
 
-  function handleScheduleChange(event: FormEvent<HTMLSelectElement>, index: number) {
-    if (plannerSchedule) {
-      const updatedPlannerSchedule = plannerSchedule.map((label, i) => {
-        if (i === index) {
-          return event.currentTarget.value;
-        } else {
-          return label;
-        }
-      });
-      setplannerSchedule(updatedPlannerSchedule);
-    }
+  function handleScheduleChange(value: ScheduleLabel, index: number) {
+    const updatedPlannerSchedule = plannerSchedule.map((label, i) => {
+      if (i === index) {
+        return value;
+      } else {
+        return label;
+      }
+    });
+    setPlannerSchedule(updatedPlannerSchedule);
   }
   return (
     <>
       <div className="grid grid-cols-5 gap-1">
         {DaysOptions.map((day, i) => {
-          const selectedOption = plannerSchedule ?
-            plannerSchedule[i] : undefined;
+          const selectedOption = plannerSchedule[i];
           return (
             <label
               key={uuidV4()}
@@ -89,8 +83,14 @@ export function ScheduleDaysSelector({ planner, SplitsQuantity, RestsQuantity, D
                 </span>
               </span>
 
-              <select id={`Day${i + 1}`} value={selectedOption} onChange={(e) => handleScheduleChange(e, i)}
-                className="w-14 h-10 rounded-md text-gray-800 font-semibold [&_option]:font-semibold"
+              <select
+                id={`Day${i + 1}`}
+                className="
+                  w-14 h-10 rounded-md text-gray-800 cursor-pointer
+                  font-semibold [&_option]:font-semibold
+                "
+                value={selectedOption}
+                onChange={(e) => handleScheduleChange(e.target.value as ScheduleLabel, i)}
               >
                 {day.map(options => {
                   return (
@@ -114,10 +114,10 @@ export function ScheduleDaysSelector({ planner, SplitsQuantity, RestsQuantity, D
           type="button"
           onClick={() => handleSplitDaysAmount("add")}
           className="
-        w-full h-10 rounded-lg text-gray-100 text-sm select-none
-        border-2 border-cyan-500 shadow-[0_0_.25rem_#72D6FD]
-        transition-all duration-150 hover:shadow-[0_0_.5rem_#72D6FD]
-      "
+            w-full h-10 rounded-lg text-gray-100 text-sm select-none
+            border-2 border-cyan-500 shadow-[0_0_.25rem_#72D6FD]
+            transition-all duration-150 hover:shadow-[0_0_.5rem_#72D6FD]
+          "
         >
           Add new day
         </button>
@@ -126,10 +126,10 @@ export function ScheduleDaysSelector({ planner, SplitsQuantity, RestsQuantity, D
           type="button"
           onClick={() => handleSplitDaysAmount("dec")}
           className="
-        w-full h-10 rounded-lg text-gray-100 text-sm select-none
-        border-2 border-red shadow-[0_0_.25rem_#FF463A]
-        transition-all duration-150 hover:shadow-[0_0_.5rem_#FF463A]
-      "
+            w-full h-10 rounded-lg text-gray-100 text-sm select-none
+            border-2 border-red shadow-[0_0_.25rem_#FF463A]
+            transition-all duration-150 hover:shadow-[0_0_.5rem_#FF463A]
+          "
         >
           Remove last day
         </button>

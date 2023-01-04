@@ -7,11 +7,11 @@ import { useOutletDataContext } from "../../../Pages/Dashboard";
 import PlannerModal from "../Modals/PlannerModal";
 
 interface PlannerCardProps {
-  index: 1 | 2 | 3
+  plannerIndex: 1 | 2 | 3
   planner: PlannerProps | null
 }
 
-export function PlannerCard({ index, planner }: PlannerCardProps) {
+export function PlannerCard({ plannerIndex, planner }: PlannerCardProps) {
   const { Planners } = useUserContext();
   const { PlannerSelected, setPlannerSelected } = useOutletDataContext();
 
@@ -20,9 +20,9 @@ export function PlannerCard({ index, planner }: PlannerCardProps) {
   const PlannerSelectedUid = PlannerSelected?.uid;
   const IfPlannerSelected = !!PlannerSelected && PlannerSelectedUid === planner?.uid ? true : false;
 
-  function handlePlannerSelector(index: 1 | 2 | 3) {
+  function handlePlannerSelector(plannerIndex: 1 | 2 | 3) {
     if (Planners === undefined) return;
-    switch (index) {
+    switch (plannerIndex) {
       case 1:
         setPlannerSelected(Planners.planner1);
         break;
@@ -41,7 +41,7 @@ export function PlannerCard({ index, planner }: PlannerCardProps) {
     <>
       {planner ? (
         <button
-          onClick={() => handlePlannerSelector(index)}
+          onClick={() => handlePlannerSelector(plannerIndex)}
           className={clsx(
             "bg-gray-100 h-10 rounded-lg px-4 flex items-center justify-between",
             "font-semibold text-sm leading-4 text-gray-800 cursor-pointer select-none",
@@ -52,7 +52,7 @@ export function PlannerCard({ index, planner }: PlannerCardProps) {
         >
           <div className="flex items-center">
             <span >
-              {index}
+              {plannerIndex}
             </span>
 
             <p className="pl-2 truncate max-w-[240px]">
@@ -61,6 +61,7 @@ export function PlannerCard({ index, planner }: PlannerCardProps) {
           </div>
 
           <PlannerModal
+            plannerIndex={plannerIndex}
             planner={planner}
             visible={isModalVisible}
             setVisible={setIsModalVisible}
@@ -68,7 +69,7 @@ export function PlannerCard({ index, planner }: PlannerCardProps) {
         </button>
       ) : (
         <PlannerModal
-          index={index}
+          plannerIndex={plannerIndex}
           visible={isModalVisible}
           setVisible={setIsModalVisible}
         />

@@ -7,12 +7,12 @@ import { ModalForm } from "./ModalForm";
 
 interface PlannerModalProps {
   planner?: PlannerProps
-  index?: number
+  plannerIndex: 1 | 2 | 3
   visible: boolean
   setVisible: (boolean: boolean) => void
 }
 
-export default function PlannerModal({ planner, index, visible, setVisible }: PlannerModalProps) {
+export default function PlannerModal({ planner, plannerIndex, visible, setVisible }: PlannerModalProps) {
   return (
     <Dialog.Root open={visible} modal
       onOpenChange={() => {
@@ -32,7 +32,7 @@ export default function PlannerModal({ planner, index, visible, setVisible }: Pl
           >
             <div className="flex items-center">
               <span >
-                {index}
+                {plannerIndex}
               </span>
 
               <p className="font-medium text-gray-400 pl-2">
@@ -46,22 +46,22 @@ export default function PlannerModal({ planner, index, visible, setVisible }: Pl
       <Dialog.Portal>
         <Dialog.Overlay className={clsx(
           "bg-gray-900 bg-opacity-75 fixed inset-0 flex items-center justify-center",
-          {
-            "hidden": visible === false,
-          }
+          { "hidden": visible === false }
         )}
         >
-          <Dialog.Content className="
-                w-full max-w-sm  p-6 pt-4 max-h-[80%] overflow-y-auto
-                bg-gray-800 border border-gray-900 rounded-lg
-                drop-shadow-[0_0_.25rem_#000] flex flex-col items-center
-                animate-appear duration-50
-                "
+          <Dialog.Content
+            className="
+              w-full max-w-sm  p-6 pt-4 max-h-[80%] overflow-y-auto
+              bg-gray-800 border border-gray-900 rounded-lg
+              drop-shadow-[0_0_.25rem_#000] flex flex-col items-center
+              animate-appear duration-50
+            "
           >
             <ModalHeader planner={planner} />
-
-            <ModalForm planner={planner} />
-
+            <ModalForm
+              planner={planner}
+              plannerIndex={plannerIndex}
+            />
           </Dialog.Content>
         </Dialog.Overlay>
       </Dialog.Portal>

@@ -1,15 +1,20 @@
+import { v4 as uuidV4 } from "uuid";
+import { PlannerProps } from "../../../../@types/PlannerProps";
 import { ArrowIcon } from "../../../../assets/icons/ArrowIcon";
+import { scheduleLabels, SplitInfoProps } from "./ModalForm";
 
 interface SplitsInputsControllersProps {
+  planner: PlannerProps | undefined
   splitsQuantity: number
   setSplitsQuantity: (qty: number) => void
   restsQuantity: number
   setRestsQuantity: (qty: number) => void
+  setSplitsInfo: React.Dispatch<React.SetStateAction<SplitInfoProps[]>>
 }
 
 export function SplitsInputsControllers({
-  splitsQuantity, setSplitsQuantity,
-  restsQuantity, setRestsQuantity
+  planner, splitsQuantity, setSplitsQuantity,
+  restsQuantity, setRestsQuantity, setSplitsInfo
 }: SplitsInputsControllersProps) {
 
   function handleQuantity(state: "split" | "rest", action: "acc" | "dec") {
@@ -19,14 +24,28 @@ export function SplitsInputsControllers({
       const min = 1;
       const max = 10;
       const validatedValue = Math.max(min, Math.min(max, Number(updatedState)));
+      setSplitsQuantity(validatedValue);
 
-      return setSplitsQuantity(validatedValue);
+      if (action === "dec" && splitsQuantity > min) {
+        setSplitsInfo(prev => prev.filter((split, i) => i !== prev.length - 1));
+      }
+      if (action === "acc" && splitsQuantity < max) {
+        setSplitsInfo(prev => {
+          const label = scheduleLabels[validatedValue - 1];
+          const split = planner?.splits.find(split => split.splitLabel === label);
+          const newSplit: SplitInfoProps = {
+            id: uuidV4(), label, splitTitle: split ? split.splitTitle : ""
+          };
+          return [...prev, newSplit];
+        });
+      }
     } else {
       let updatedState = restsQuantity;
       action === "acc" ? updatedState += 1 : updatedState -= 1;
       const min = 0;
       const max = 10;
       const validatedValue = Math.max(min, Math.min(max, Number(updatedState)));
+
       return setRestsQuantity(validatedValue);
     }
   }

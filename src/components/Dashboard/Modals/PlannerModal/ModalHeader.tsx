@@ -10,15 +10,21 @@ export function ModalHeader({ planner }: ModalHeaderProps) {
     <div className="w-full mb-4 p-0">
       <div className="w-full flex items-center justify-between">
         <Dialog.Title className="text-gray-100 font-medium leading-tight">
-          {planner ? "Edit Planner" : "Create new account"}
+          {planner ? "Edit Planner" : "Create new planner"}
         </Dialog.Title>
-        <Dialog.Close asChild
-          className="w-6 h-6 rounded-sm outline-none
-                  focus:outline-orange-500"
+        <Dialog.Close
+          asChild
+          className="
+            w-6 h-6 rounded-sm outline-none
+            focus:outline-orange-500
+          "
         >
-          <button aria-label="Close"
-            className="text-gray-100 font-medium text-lg select-none
-                    leading-tight hover:text-orange-500"
+          <button
+            aria-label="Close"
+            className="
+              text-gray-100 font-medium text-lg select-none
+              leading-snug hover:text-orange-500
+            "
           >
             x
           </button>
