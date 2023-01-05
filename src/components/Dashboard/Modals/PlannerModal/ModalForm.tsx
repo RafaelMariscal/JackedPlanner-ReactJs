@@ -30,6 +30,7 @@ export function ModalForm({ planner, plannerIndex }: ModalFormProps) {
   const [PlannerNameInput, setPlannerNameInput] = useState<string>("");
   const [SplitsQuantity, setSplitsQuantity] = useState(1);
   const [RestsQuantity, setRestsQuantity] = useState(0);
+  const [PlannerDuration, setPlannerDuration] = useState(30);
   const [DaysOptions, setDaysOptions] = useState<ScheduleLabel[][]>([["a"]]);
   const [plannerSchedule, setPlannerSchedule] = useState<(ScheduleLabel)[]>(["a"]);
   const [StartDate, setStartDate] = useState(new Date());
@@ -62,6 +63,7 @@ export function ModalForm({ planner, plannerIndex }: ModalFormProps) {
       setPlannerNameInput(planner.name);
       setSplitsQuantity(splitsWithoutRestDay.length);
       setRestsQuantity(RestDays.length);
+      setPlannerDuration(planner.plannerCalendar.length);
       setSplitsInfo(UpdatedSplitInfo);
       setPlannerSchedule(planner.schedule);
       setDaysOptions(schedule);
@@ -98,8 +100,15 @@ export function ModalForm({ planner, plannerIndex }: ModalFormProps) {
         startDate: Timestamp.fromDate(StartDate)
       };
       console.log(plannerToBeUpdated);
-
     }
+
+
+
+    /*
+      criar, de fato a função para realizar o update no banco de dados
+    */
+
+
 
     // const updatedPlanners: UserPlannersProps = { ...Planners };
 
@@ -139,6 +148,8 @@ export function ModalForm({ planner, plannerIndex }: ModalFormProps) {
         restsQuantity={RestsQuantity}
         setRestsQuantity={setRestsQuantity}
         setSplitsInfo={setSplitsInfo}
+        plannerDuration={PlannerDuration}
+        setPlannerDuration={setPlannerDuration}
       />
 
       {SplitsInfo.map((split, index) => (
