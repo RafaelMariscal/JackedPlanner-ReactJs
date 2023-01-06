@@ -17,6 +17,7 @@ export interface PlannerProps {
   uid: string
   name: string
   startDate: Timestamp
+  duration: number
   schedule: ScheduleLabel[]
   splits: SplitProps[],
   plannerCalendar: calendarProps[]

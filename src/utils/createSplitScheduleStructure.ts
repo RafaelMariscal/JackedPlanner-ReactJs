@@ -53,7 +53,10 @@ export function createSplitScheduleStructure(params:createSplitScheduleStructure
         label: scheduleLabel,
         date: Timestamp.fromDate(dateWithoutTime)
       };
-      calendar.push(calendarObject);
+
+      if(calendar.length < plannerDuration){
+        calendar.push(calendarObject);
+      }
 
       const indexOfLabel = sortedSchedule.findIndex((label)=>label === scheduleLabel);
       schedulesByLabelMatrix[indexOfLabel].push(splitScheduleToAdd);

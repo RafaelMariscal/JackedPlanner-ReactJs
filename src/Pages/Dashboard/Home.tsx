@@ -26,10 +26,6 @@ export function Home() {
     }
   }, [Planners]);
 
-  let selectedExerciseList: ExerciseProps[] | null = null;
-  if (PlannerSelected !== null) {
-    selectedExerciseList = selectedSplit ? selectedSplit.splitExercises : null;
-  }
   return (
     <div className="h-full flex flex-col gap-4" >
       <div className="flex gap-4">
@@ -43,7 +39,8 @@ export function Home() {
             setSelectedDay={setSelectedDay}
           />
         </div>
-        <WorkoutSection exercises={selectedExerciseList} />
+
+        <WorkoutSection />
       </div>
 
       <div className="flex-1 flex gap-4">

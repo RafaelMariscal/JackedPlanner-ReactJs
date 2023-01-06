@@ -61,6 +61,7 @@ export default function PlannerModal({ planner, plannerIndex, visible, setVisibl
             <ModalForm
               planner={planner}
               plannerIndex={plannerIndex}
+              setVisible={setVisible}
             />
           </Dialog.Content>
         </Dialog.Overlay>

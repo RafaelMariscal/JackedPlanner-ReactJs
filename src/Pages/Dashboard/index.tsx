@@ -55,13 +55,11 @@ export function Dashboard() {
         ).toDate();
         return isEqual(dateToCompare, selectedDay);
       })?.label;
-
       const selectedSplitIndex = PlannerSelected.splits.findIndex(split =>
         split.splitLabel === selectedSplitLabel);
       const NewSelectedSplit = selectedSplitIndex !== -1 ?
         PlannerSelected.splits[selectedSplitIndex] : null;
       setSelectedSplit(NewSelectedSplit);
-
       const selectedSchedule = NewSelectedSplit?.splitSchedule.find(schedule => {
         const dateToCompare = new Timestamp(
           schedule.date.seconds,

@@ -29,7 +29,7 @@ export function PlannerController({ planners, price }: PlannerControllerProps) {
 
             />
             <PlannerCard
-              key={planners.planner2?.uid}
+              key={planners.planner3?.uid}
               plannerIndex={3}
               planner={planners.planner3}
             />

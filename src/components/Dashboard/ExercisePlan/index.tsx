@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { v4 as uuidV4 } from "uuid";
-import { ExerciseNotes, ExerciseProps } from "../../../@types/PlannerProps";
+import { ExerciseNotes, ExerciseProps, SplitProps } from "../../../@types/PlannerProps";
 import { EditIcon } from "../../../assets/icons/Dashboard/Edit";
 import { useOutletDataContext } from "../../../Pages/Dashboard";
 import DashboardCard from "../DashboardCard";

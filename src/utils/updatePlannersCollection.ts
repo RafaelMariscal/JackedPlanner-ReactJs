@@ -5,9 +5,9 @@ import { USER_PLANNERS } from "../contexts/userContext/provider";
 import { db } from "../services/firebase";
 import { plannersConverter } from "./typesConverters";
 
-export async function updatePlannersCollection(user: User, updatedPlanner: UserPlannersProps){
+export async function updatePlannersCollection(user: User, updatedPlanners: UserPlannersProps){
   await setDoc(doc(db, "planners", user.uid)
-    .withConverter(plannersConverter), updatedPlanner);
+    .withConverter(plannersConverter), updatedPlanners);
   sessionStorage.setItem(USER_PLANNERS,
-    JSON.stringify(updatedPlanner));
+    JSON.stringify(updatedPlanners));
 }

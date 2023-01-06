@@ -77,10 +77,10 @@ export function SplitsInputsControllers({
   }
 
   function handleRestDaysQuantity(action: "acc" | "dec") {
+    let updatedState = restsQuantity;
+    action === "acc" ? updatedState += 1 : updatedState -= 1;
     const min = 0;
     const max = 10;
-    let updatedState = splitsQuantity;
-    action === "acc" ? updatedState += 1 : updatedState -= 1;
     const validatedValue = Math.max(min, Math.min(max, Number(updatedState)));
     return setRestsQuantity(validatedValue);
   }

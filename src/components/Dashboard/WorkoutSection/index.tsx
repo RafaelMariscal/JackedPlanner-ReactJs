@@ -6,15 +6,14 @@ import { ExerciseProps } from "../../../@types/PlannerProps";
 import LoadingModal from "../../LoadingModal";
 import { useOutletDataContext } from "../../../Pages/Dashboard";
 
-interface WorkoutSectionProps {
-  exercises: ExerciseProps[] | null
-}
+// interface WorkoutSectionProps {
+//   exercises: ExerciseProps[] | null
+// }
 
-export function WorkoutSection({ exercises }: WorkoutSectionProps) {
+export function WorkoutSection(/* { exercises }: WorkoutSectionProps */) {
   const {
-    selectedExerciseId, selectedSplit,
-    setSelectedExerciseId,
-    exercisesNotes
+    PlannerSelected, selectedExerciseId, selectedSplit,
+    setSelectedExerciseId, exercisesNotes
   } = useOutletDataContext();
 
   const [IsModalOpen, setIsModalOpen] = useState(false);
@@ -23,8 +22,16 @@ export function WorkoutSection({ exercises }: WorkoutSectionProps) {
     if (exercises && exercises.length > 0) {
       setSelectedExerciseId(exercises[0].uid);
     }
-  }, [exercises]);
+  }, [selectedSplit]);
 
+  let exercises: ExerciseProps[] | null = [];
+  let splitLabel: string | null = null;
+  if (PlannerSelected !== null) {
+    exercises = selectedSplit ? selectedSplit.splitExercises : null;
+    splitLabel = selectedSplit ? selectedSplit.splitLabel : null;
+  }
+
+  // console.log(exercises);
   return (
     <DashboardCard title="Workout Section:" subtitle={selectedSplit?.splitTitle} extend className="min-w-[39rem]"
       classNameCard="max-h-[18.75rem] overflow-y-auto"
@@ -33,7 +40,7 @@ export function WorkoutSection({ exercises }: WorkoutSectionProps) {
         {
           exercises === undefined ? (
             <LoadingModal visible />
-          ) : exercises === null ? (
+          ) : (exercises === null || splitLabel === null) ? (
             <span className="
                 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
                 max-w-[16ch] text-gray-100 text-lg text-center
@@ -72,7 +79,7 @@ export function WorkoutSection({ exercises }: WorkoutSectionProps) {
                     <ExerciseCard.Index index={exercise.index} />
                     <ExerciseCard.Name name={exercise.name} />
                     <Popover.Portal>
-                      <Popover.Content align={index + 1 === exercises.length ? "end" : "start"} side="left">
+                      <Popover.Content align={exercises && index + 1 === exercises.length ? "end" : "start"} side="left">
                         <ExerciseCard.Description
                           done={done}
                           description={exercise.description} />

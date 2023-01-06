@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import { FormEvent, useEffect, useState } from "react";
 import { v4 as uuidV4 } from "uuid";
 import { Timestamp } from "firebase/firestore";
@@ -9,10 +10,13 @@ import { SplitsInputsControllers } from "./SplitsInputsControllers";
 import { ScheduleDaysSelector } from "./ScheduleDaysSelector";
 import { SplitNameInput } from "./SplitNameInput";
 import { format, isValid } from "date-fns";
+import { createNewPlannerDoc } from "../../../../utils/createNewPlannerDoc";
+import { updatePlannersCollection } from "../../../../utils/updatePlannersCollection";
 
 interface ModalFormProps {
   planner: PlannerProps | undefined
   plannerIndex: 1 | 2 | 3
+  setVisible: (isVisible: boolean) => void
 }
 
 export interface SplitInfoProps {
@@ -23,8 +27,10 @@ export interface SplitInfoProps {
 
 export const scheduleLabels: ScheduleLabel[] = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"];
 
-export function ModalForm({ planner, plannerIndex }: ModalFormProps) {
-  const { isLoading, Planners, setPlanners } = useUserContext();
+export function ModalForm({ planner, plannerIndex, setVisible }: ModalFormProps) {
+  const { isLoading, setIsLoading, UserLogged, Planners } = useUserContext();
+  if (Planners === undefined || UserLogged === undefined || setIsLoading === undefined) return (<></>);
+
   const { PlannerSelected } = useOutletDataContext();
 
   const [PlannerNameInput, setPlannerNameInput] = useState<string>("");
@@ -63,7 +69,7 @@ export function ModalForm({ planner, plannerIndex }: ModalFormProps) {
       setPlannerNameInput(planner.name);
       setSplitsQuantity(splitsWithoutRestDay.length);
       setRestsQuantity(RestDays.length);
-      setPlannerDuration(planner.plannerCalendar.length);
+      setPlannerDuration(planner.duration);
       setSplitsInfo(UpdatedSplitInfo);
       setPlannerSchedule(planner.schedule);
       setDaysOptions(schedule);
@@ -72,8 +78,12 @@ export function ModalForm({ planner, plannerIndex }: ModalFormProps) {
     return;
   }, [planner, PlannerSelected]);
 
-  const handleCreateNewPlanner = async (event: FormEvent) => {
+  // console.log(plannerSchedule);
+
+  const handleUpdatePlannersCollection = async (event: FormEvent) => {
     event.preventDefault();
+    setIsLoading(true);
+    if (Planners === undefined || UserLogged === undefined) return;
     if (planner) {
       const updatedSplits = planner.splits.map(split => {
         const currentSplitInfo = SplitsInfo.find(splitInfo => splitInfo.label === split.splitLabel);
@@ -89,34 +99,44 @@ export function ModalForm({ planner, plannerIndex }: ModalFormProps) {
         name: PlannerNameInput,
         splits: updatedSplits,
         schedule: plannerSchedule,
-        startDate: Timestamp.fromDate(StartDate)
+        startDate: Timestamp.fromDate(StartDate),
+        duration: PlannerDuration,
       };
-      console.log(plannerToBeUpdated);
+      console.log({ plannerToBeUpdated });
     } else {
-      const plannerToBeUpdated = {
+      const newPlannerDoc = createNewPlannerDoc({
         name: PlannerNameInput,
-        splitsInfo: SplitsInfo,
+        splits: SplitsInfo,
+        restDays: RestsQuantity,
         schedule: plannerSchedule,
-        startDate: Timestamp.fromDate(StartDate)
-      };
-      console.log(plannerToBeUpdated);
+        startDate: Timestamp.fromDate(StartDate),
+        duration: PlannerDuration,
+      });
+      console.log({ newPlannerDoc });
+
+      let plannerToBeUpdated: UserPlannersProps | null = null;
+      switch (plannerIndex) {
+        case 1:
+          plannerToBeUpdated = { ...Planners, planner1: newPlannerDoc };
+          break;
+        case 2:
+          plannerToBeUpdated = { ...Planners, planner2: newPlannerDoc };
+          break;
+        case 3:
+          plannerToBeUpdated = { ...Planners, planner3: newPlannerDoc };
+          break;
+        default:
+          break;
+      }
+      // console.log({ plannerToBeUpdated });
+      // if (plannerToBeUpdated) updatePlannersCollection(UserLogged, plannerToBeUpdated);
     }
-
-
-
-    /*
-      criar, de fato a função para realizar o update no banco de dados
-    */
-
-
-
-    // const updatedPlanners: UserPlannersProps = { ...Planners };
-
-    return;
+    setIsLoading(false);
+    // setVisible(false);
   };
 
   return (
-    <form onSubmit={(event) => handleCreateNewPlanner(event)} className="
+    <form onSubmit={(event) => handleUpdatePlannersCollection(event)} className="
     w-full flex flex-col gap-4
 
     [&_input]:h-10 [&_input]:rounded-md [&_input]:bg-gray-100
