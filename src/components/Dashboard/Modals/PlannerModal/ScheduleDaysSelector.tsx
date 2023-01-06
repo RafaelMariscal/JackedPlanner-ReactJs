@@ -127,8 +127,8 @@ export function ScheduleDaysSelector({
           onClick={() => handleSplitDaysAmount("dec")}
           className="
             w-full h-10 rounded-lg text-gray-100 text-sm select-none
-            border-2 border-red shadow-[0_0_.25rem_#FF463A]
-            transition-all duration-150 hover:shadow-[0_0_.5rem_#FF463A]
+            border-2 border-dark-red shadow-[0_0_.25rem_#CC1307]
+            hover:shadow-[0_0_.75rem_#EE3529] transition-all duration-150
           "
         >
           Remove last day

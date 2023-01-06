@@ -29,7 +29,6 @@ export const scheduleLabels: ScheduleLabel[] = ["a", "b", "c", "d", "e", "f", "g
 
 export function ModalForm({ planner, plannerIndex, setVisible }: ModalFormProps) {
   const { isLoading, setIsLoading, UserLogged, Planners } = useUserContext();
-  if (Planners === undefined || UserLogged === undefined || setIsLoading === undefined) return (<></>);
 
   const { PlannerSelected } = useOutletDataContext();
 
@@ -80,9 +79,9 @@ export function ModalForm({ planner, plannerIndex, setVisible }: ModalFormProps)
 
   // console.log(plannerSchedule);
 
-  const handleUpdatePlannersCollection = async (event: FormEvent) => {
+  async function handleUpdatePlannersCollection(event: FormEvent) {
     event.preventDefault();
-    setIsLoading(true);
+    !!setIsLoading && setIsLoading(true);
     if (Planners === undefined || UserLogged === undefined) return;
     if (planner) {
       const updatedSplits = planner.splits.map(split => {
@@ -128,12 +127,17 @@ export function ModalForm({ planner, plannerIndex, setVisible }: ModalFormProps)
         default:
           break;
       }
-      // console.log({ plannerToBeUpdated });
+      console.log({ plannerToBeUpdated });
       // if (plannerToBeUpdated) updatePlannersCollection(UserLogged, plannerToBeUpdated);
     }
-    setIsLoading(false);
+    !!setIsLoading && setIsLoading(false);
     // setVisible(false);
-  };
+  }
+
+  function handleDeletePlanner() {
+    return;
+  }
+
 
   return (
     <form onSubmit={(event) => handleUpdatePlannersCollection(event)} className="
@@ -218,13 +222,34 @@ export function ModalForm({ planner, plannerIndex, setVisible }: ModalFormProps)
         </span>
       </label>
 
-      <Button size="custom" variant="orange" login
-        className="mt-2 outline-none focus:outline-orange-500 focus:outline-1"
-      >
-        <button className="text-sm disabled:bg-orange-700" disabled={isLoading}>
-          {planner ? "Udpate Planner" : "Create new account"}
-        </button>
-      </Button>
+      <div className="flex gap-4">
+
+        <Button size="custom" variant="orange" login
+          className="mt-2 outline-none focus:outline-orange-500 focus:outline-1"
+        >
+          <button className="text-sm disabled:bg-orange-700" disabled={isLoading}>
+            {planner ? "Udpate Planner" : "Create new account"}
+          </button>
+        </Button>
+        {planner ? (
+          <button
+            type="button"
+            onClick={() => handleDeletePlanner()}
+            className="
+                    w-full h-10 mt-2 rounded-lg text-gray-100 text-sm select-none
+                    border-2 border-dark-red shadow-[0_0_.25rem_#CC1307]
+                    transition-all duration-150 outline-none outline-offset-2
+                    hover:shadow-0 hover:font-medium hover:bg-dark-red
+                    focus:font-medium focus:outline-1 focus:outline-dark-red
+                    focus:bg-dark-red
+                  "
+          >
+            Delete Planner
+          </button>
+        ) : null}
+
+      </div>
+
     </form>
   );
 }
