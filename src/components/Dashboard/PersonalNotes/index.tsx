@@ -16,7 +16,7 @@ interface PersonalNotesProps {
 const labels: RateProps[] = ["BAD", "OK", "GOOD", "GREAT"];
 
 export function PersonalNotes({ history }: PersonalNotesProps) {
-  const { UserLogged, Planners } = useUserContext();
+  const { UserLogged, Planners, setPlanners } = useUserContext();
   const { selectedSplit, selectedSchedule, setSelectedSchedule, } = useOutletDataContext();
 
   const [isLoading, setisLoading] = useState(false);
@@ -52,7 +52,7 @@ export function PersonalNotes({ history }: PersonalNotesProps) {
 
     await updateCurrentNotesData();
 
-    if (UserLogged && Planners) updatePlannersCollection(UserLogged, Planners);
+    if (UserLogged && Planners && setPlanners) updatePlannersCollection(UserLogged, Planners, setPlanners);
 
     setTimeout(() => {
       setisLoading(false);

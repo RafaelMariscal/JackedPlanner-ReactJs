@@ -116,7 +116,8 @@ export function ScheduleDaysSelector({
           className="
             w-full h-10 rounded-lg text-gray-100 text-sm select-none
             border-2 border-cyan-500 shadow-[0_0_.25rem_#72D6FD]
-            transition-all duration-150 hover:shadow-[0_0_.5rem_#72D6FD]
+            hover:shadow-[0_0_.5rem_#72D6FD] hover:backdrop-brightness-90
+            transition-all duration-150
           "
         >
           Add new day
@@ -126,12 +127,13 @@ export function ScheduleDaysSelector({
           type="button"
           onClick={() => handleSplitDaysAmount("dec")}
           className="
-            w-full h-10 rounded-lg text-gray-100 text-sm select-none
+            w-3/4 h-10 rounded-lg text-gray-100 text-sm select-none
             border-2 border-dark-red shadow-[0_0_.25rem_#CC1307]
-            hover:shadow-[0_0_.75rem_#EE3529] transition-all duration-150
+            hover:shadow-[0_0_.75rem_#EE3529] hover:backdrop-brightness-90
+            transition-all duration-150
           "
         >
-          Remove last day
+          Remove day
         </button>
       </div>
     </>

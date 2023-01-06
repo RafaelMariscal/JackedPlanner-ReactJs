@@ -15,7 +15,7 @@ export interface SetPlanProps {
 }
 
 export function SetPlan({ index, und, weight, exerciseIndex, weightUsed, liftedReps, disabled }: SetPlanProps) {
-  const { UserLogged, Planners } = useUserContext();
+  const { UserLogged, Planners, setPlanners } = useUserContext();
   const { exercisesNotes, setExercisesNotes } = useOutletDataContext();
   const [liftedWeightValue, setLiftedWeightValue] = useState<number | "empty">("empty");
   const [liftedRepsValue, setLiftedRepsValue] = useState<number | "empty">("empty");
@@ -66,7 +66,7 @@ export function SetPlan({ index, und, weight, exerciseIndex, weightUsed, liftedR
       return;
     }
     await updateCurrentSetData();
-    if (UserLogged && Planners) updatePlannersCollection(UserLogged, Planners);
+    if (UserLogged && Planners && setPlanners) updatePlannersCollection(UserLogged, Planners, setPlanners);
   }
 
   return (

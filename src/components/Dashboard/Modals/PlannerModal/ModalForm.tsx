@@ -12,6 +12,7 @@ import { SplitNameInput } from "./SplitNameInput";
 import { format, isValid } from "date-fns";
 import { createNewPlannerDoc } from "../../../../utils/createNewPlannerDoc";
 import { updatePlannersCollection } from "../../../../utils/updatePlannersCollection";
+import { ConfirmationDialog } from "./ConfirmationDialog";
 
 interface ModalFormProps {
   planner: PlannerProps | undefined
@@ -28,9 +29,11 @@ export interface SplitInfoProps {
 export const scheduleLabels: ScheduleLabel[] = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"];
 
 export function ModalForm({ planner, plannerIndex, setVisible }: ModalFormProps) {
-  const { isLoading, setIsLoading, UserLogged, Planners } = useUserContext();
+  const { isLoading, setIsLoading, UserLogged, Planners, setPlanners } = useUserContext();
 
   const { PlannerSelected } = useOutletDataContext();
+
+  const [isConfirmationDialogOpen, setIsConfirmationDialogOpen] = useState(false);
 
   const [PlannerNameInput, setPlannerNameInput] = useState<string>("");
   const [SplitsQuantity, setSplitsQuantity] = useState(1);
@@ -77,8 +80,6 @@ export function ModalForm({ planner, plannerIndex, setVisible }: ModalFormProps)
     return;
   }, [planner, PlannerSelected]);
 
-  // console.log(plannerSchedule);
-
   async function handleUpdatePlannersCollection(event: FormEvent) {
     event.preventDefault();
     !!setIsLoading && setIsLoading(true);
@@ -102,6 +103,16 @@ export function ModalForm({ planner, plannerIndex, setVisible }: ModalFormProps)
         duration: PlannerDuration,
       };
       console.log({ plannerToBeUpdated });
+
+
+      /*
+          build the logic to update the a planner
+          its more about the planner calendar update by changing the planner duration
+      */
+
+
+
+
     } else {
       const newPlannerDoc = createNewPlannerDoc({
         name: PlannerNameInput,
@@ -111,7 +122,6 @@ export function ModalForm({ planner, plannerIndex, setVisible }: ModalFormProps)
         startDate: Timestamp.fromDate(StartDate),
         duration: PlannerDuration,
       });
-      console.log({ newPlannerDoc });
 
       let plannerToBeUpdated: UserPlannersProps | null = null;
       switch (plannerIndex) {
@@ -128,16 +138,11 @@ export function ModalForm({ planner, plannerIndex, setVisible }: ModalFormProps)
           break;
       }
       console.log({ plannerToBeUpdated });
-      // if (plannerToBeUpdated) updatePlannersCollection(UserLogged, plannerToBeUpdated);
+      if (plannerToBeUpdated && setPlanners) updatePlannersCollection(UserLogged, plannerToBeUpdated, setPlanners);
     }
     !!setIsLoading && setIsLoading(false);
-    // setVisible(false);
+    setVisible(false);
   }
-
-  function handleDeletePlanner() {
-    return;
-  }
-
 
   return (
     <form onSubmit={(event) => handleUpdatePlannersCollection(event)} className="
@@ -225,27 +230,19 @@ export function ModalForm({ planner, plannerIndex, setVisible }: ModalFormProps)
       <div className="flex gap-4">
 
         <Button size="custom" variant="orange" login
-          className="mt-2 outline-none focus:outline-orange-500 focus:outline-1"
+          className="mt-2 outline-none shadow shadow-gray-900 focus:outline-orange-500 focus:outline-1"
         >
           <button className="text-sm disabled:bg-orange-700" disabled={isLoading}>
             {planner ? "Udpate Planner" : "Create new account"}
           </button>
         </Button>
         {planner ? (
-          <button
-            type="button"
-            onClick={() => handleDeletePlanner()}
-            className="
-                    w-full h-10 mt-2 rounded-lg text-gray-100 text-sm select-none
-                    border-2 border-dark-red shadow-[0_0_.25rem_#CC1307]
-                    transition-all duration-150 outline-none outline-offset-2
-                    hover:shadow-0 hover:font-medium hover:bg-dark-red
-                    focus:font-medium focus:outline-1 focus:outline-dark-red
-                    focus:bg-dark-red
-                  "
-          >
-            Delete Planner
-          </button>
+          <ConfirmationDialog
+            isConfirmationDialogOpen={isConfirmationDialogOpen}
+            setIsConfirmationDialogOpen={setIsConfirmationDialogOpen}
+            setVisible={setVisible}
+            plannerIndex={plannerIndex}
+          />
         ) : null}
 
       </div>
