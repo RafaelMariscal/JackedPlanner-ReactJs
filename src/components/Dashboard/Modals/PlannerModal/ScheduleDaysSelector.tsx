@@ -33,6 +33,20 @@ export function ScheduleDaysSelector({
     }
     const updatedScheduleOptions = currentScheduleOptions.map(() => scheduleOptions);
     setDaysOptions(updatedScheduleOptions);
+
+    setPlannerSchedule(prev => {
+      const updatedSchedule = prev.map(label => {
+        if (scheduleOptions.includes(label)) {
+          return label;
+        } else {
+          return "a";
+        }
+      });
+      return updatedSchedule;
+    });
+
+    console.log(updatedScheduleOptions);
+    console.log(plannerSchedule);
   }, [SplitsQuantity, RestsQuantity]);
 
   function handleSplitDaysAmount(action: "add" | "dec") {
@@ -57,11 +71,8 @@ export function ScheduleDaysSelector({
 
   function handleScheduleChange(value: ScheduleLabel, index: number) {
     const updatedPlannerSchedule = plannerSchedule.map((label, i) => {
-      if (i === index) {
-        return value;
-      } else {
-        return label;
-      }
+      if (i === index) return value;
+      return label;
     });
     setPlannerSchedule(updatedPlannerSchedule);
   }

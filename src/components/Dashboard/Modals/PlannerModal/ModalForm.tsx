@@ -99,6 +99,25 @@ export function ModalForm({ planner, plannerIndex, setVisible }: ModalFormProps)
       });
       console.log({ newPlannerDoc });
 
+      let plannerToBeUpdated: UserPlannersProps | null = null;
+      switch (plannerIndex) {
+        case 1:
+          plannerToBeUpdated = { ...Planners, planner1: newPlannerDoc };
+          break;
+        case 2:
+          plannerToBeUpdated = { ...Planners, planner2: newPlannerDoc };
+          break;
+        case 3:
+          plannerToBeUpdated = { ...Planners, planner3: newPlannerDoc };
+          break;
+        default:
+          break;
+      }
+      console.log({ plannerToBeUpdated });
+      // if (plannerToBeUpdated && setPlanners)
+      // updatePlannersCollection(UserLogged, plannerToBeUpdated, setPlanners);
+
+
       /*
           Build the logic to update the a planner
           Its more about the planner calendar update by changing the planner duration
@@ -130,7 +149,8 @@ export function ModalForm({ planner, plannerIndex, setVisible }: ModalFormProps)
           break;
       }
       console.log({ plannerToBeUpdated });
-      if (plannerToBeUpdated && setPlanners) updatePlannersCollection(UserLogged, plannerToBeUpdated, setPlanners);
+      if (plannerToBeUpdated && setPlanners)
+        updatePlannersCollection(UserLogged, plannerToBeUpdated, setPlanners);
     }
     !!setIsLoading && setIsLoading(false);
     // setVisible(false);
