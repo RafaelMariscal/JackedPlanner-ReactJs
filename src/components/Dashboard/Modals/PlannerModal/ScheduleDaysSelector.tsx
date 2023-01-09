@@ -31,9 +31,7 @@ export function ScheduleDaysSelector({
     if (currentScheduleOptions.length === 0) {
       setDaysOptions([scheduleOptions]);
     }
-    const updatedScheduleOptions = currentScheduleOptions.map(day => {
-      return scheduleOptions;
-    });
+    const updatedScheduleOptions = currentScheduleOptions.map(() => scheduleOptions);
     setDaysOptions(updatedScheduleOptions);
   }, [SplitsQuantity, RestsQuantity]);
 

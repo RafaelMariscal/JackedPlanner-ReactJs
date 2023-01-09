@@ -13,6 +13,7 @@ import { format, isValid } from "date-fns";
 import { createNewPlannerDoc } from "../../../../utils/createNewPlannerDoc";
 import { updatePlannersCollection } from "../../../../utils/updatePlannersCollection";
 import { ConfirmationDialog } from "./ConfirmationDialog";
+import { updatePlannerDoc } from "../../../../utils/updateSelectedPlenner";
 
 interface ModalFormProps {
   planner: PlannerProps | undefined
@@ -64,7 +65,7 @@ export function ModalForm({ planner, plannerIndex, setVisible }: ModalFormProps)
       });
 
       const splitOptions = PlannerSelected.splits.map(split => split.splitLabel);
-      const schedule = PlannerSelected.schedule.map(day => splitOptions);
+      const schedule = PlannerSelected.schedule.map(() => splitOptions);
       const timestamp = PlannerSelected.startDate;
       const date = new Timestamp(timestamp.seconds, timestamp.nanoseconds).toDate();
 
@@ -84,33 +85,24 @@ export function ModalForm({ planner, plannerIndex, setVisible }: ModalFormProps)
     event.preventDefault();
     !!setIsLoading && setIsLoading(true);
     if (Planners === undefined || UserLogged === undefined) return;
+
     if (planner) {
-      const updatedSplits = planner.splits.map(split => {
-        const currentSplitInfo = SplitsInfo.find(splitInfo => splitInfo.label === split.splitLabel);
-        if (currentSplitInfo !== undefined && currentSplitInfo.splitTitle !== undefined) {
-          const updatedSplit: SplitProps = { ...split, splitTitle: currentSplitInfo.splitTitle };
-          return updatedSplit;
-        } else {
-          return split;
+      const newPlannerDoc = updatePlannerDoc({
+        planner,
+        updatedPlannerOptions: {
+          name: PlannerNameInput,
+          splitsInfo: SplitsInfo,
+          schedule: plannerSchedule,
+          startDate: Timestamp.fromDate(StartDate),
+          duration: PlannerDuration,
         }
       });
-      const plannerToBeUpdated: PlannerProps = {
-        ...planner,
-        name: PlannerNameInput,
-        splits: updatedSplits,
-        schedule: plannerSchedule,
-        startDate: Timestamp.fromDate(StartDate),
-        duration: PlannerDuration,
-      };
-      console.log({ plannerToBeUpdated });
-
+      console.log({ newPlannerDoc });
 
       /*
-          build the logic to update the a planner
-          its more about the planner calendar update by changing the planner duration
+          Build the logic to update the a planner
+          Its more about the planner calendar update by changing the planner duration
       */
-
-
 
 
     } else {
@@ -141,7 +133,7 @@ export function ModalForm({ planner, plannerIndex, setVisible }: ModalFormProps)
       if (plannerToBeUpdated && setPlanners) updatePlannersCollection(UserLogged, plannerToBeUpdated, setPlanners);
     }
     !!setIsLoading && setIsLoading(false);
-    setVisible(false);
+    // setVisible(false);
   }
 
   return (
@@ -181,7 +173,7 @@ export function ModalForm({ planner, plannerIndex, setVisible }: ModalFormProps)
         setPlannerDuration={setPlannerDuration}
       />
 
-      {SplitsInfo.map((split, index) => (
+      {SplitsInfo.map(split => (
         <SplitNameInput
           key={split.id}
           label={split.label}

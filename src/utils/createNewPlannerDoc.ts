@@ -4,7 +4,7 @@ import { CardioProps, PlannerProps, ScheduleLabel, SplitProps } from "../@types/
 import { SplitInfoProps } from "../components/Dashboard/Modals/PlannerModal/ModalForm";
 import { createSplitScheduleStructure } from "./createSplitScheduleStructure";
 
-interface createNewPlannerDocProps {
+export interface createNewPlannerDocProps {
   name: string
   splits: SplitInfoProps[]
   schedule: ScheduleLabel[]
@@ -25,8 +25,6 @@ export const createNewPlannerDoc = ({name, schedule, restDays, splits, startDate
     plannerDuration: duration,
     startDate: startDateAsDate,
   });
-
-  console.log(splits);
 
   let splitsDocs : SplitProps[] = [];
 
