@@ -6,14 +6,14 @@ import { createSplitScheduleStructure } from "./createSplitScheduleStructure";
 
 export interface createNewPlannerDocProps {
   name: string
-  splits: SplitInfoProps[]
+  splitsInfo: SplitInfoProps[]
   schedule: ScheduleLabel[]
   restDays: number
   startDate: Timestamp
   duration: number
 }
 
-export const createNewPlannerDoc = ({name, schedule, restDays, splits, startDate,duration}:createNewPlannerDocProps) => {
+export const createNewPlannerDoc = ({name, schedule, restDays, splitsInfo, startDate,duration}:createNewPlannerDocProps) => {
   const cardios:CardioProps[] = [];
   const cardioRest :CardioProps[] = [];
   const startDateAsDate = new Timestamp(startDate.seconds, startDate.nanoseconds).toDate();
@@ -28,7 +28,7 @@ export const createNewPlannerDoc = ({name, schedule, restDays, splits, startDate
 
   let splitsDocs : SplitProps[] = [];
 
-  splitsDocs = splits.map(split=>{
+  splitsDocs = splitsInfo.map(split=>{
     const splitDoc : SplitProps = {
       splitLabel: split.label,
       splitTitle: split.splitTitle ? split.splitTitle : "",

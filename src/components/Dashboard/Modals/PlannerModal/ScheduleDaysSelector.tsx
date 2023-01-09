@@ -44,9 +44,6 @@ export function ScheduleDaysSelector({
       });
       return updatedSchedule;
     });
-
-    console.log(updatedScheduleOptions);
-    console.log(plannerSchedule);
   }, [SplitsQuantity, RestsQuantity]);
 
   function handleSplitDaysAmount(action: "add" | "dec") {

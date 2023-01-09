@@ -24,7 +24,7 @@ export function createNewUserStandardPlanners(){
       uid: uuidV4(),
       name: "PUSH PULL LEGS by Jeff Nippard",
       schedule: schedule,
-      startDate: Timestamp.fromMillis(Date.parse(startDate.toDateString())),
+      startDate: Timestamp.fromDate(new Date(startDate.toDateString())),
       duration: 180,
       splits: [
         {

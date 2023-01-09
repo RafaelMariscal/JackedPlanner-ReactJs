@@ -48,6 +48,7 @@ export function ModalForm({ planner, plannerIndex, setVisible }: ModalFormProps)
   ]);
 
   useEffect(() => {
+    console.log(Planners);
     if (planner && PlannerSelected) {
       const splitsWithoutRestDay = PlannerSelected.splits.filter(
         split => split.splitLabel !== "rest"
@@ -85,75 +86,53 @@ export function ModalForm({ planner, plannerIndex, setVisible }: ModalFormProps)
     event.preventDefault();
     !!setIsLoading && setIsLoading(true);
     if (Planners === undefined || UserLogged === undefined) return;
+    let plannerToBeUpdated: UserPlannersProps | null = null;
+    let PlannerDoc: PlannerProps | null = null;
+    const dateWithoutTime = new Date(StartDate.toDateString());
 
     if (planner) {
-      const newPlannerDoc = updatePlannerDoc({
+      PlannerDoc = updatePlannerDoc({
         planner,
         updatedPlannerOptions: {
           name: PlannerNameInput,
           splitsInfo: SplitsInfo,
           schedule: plannerSchedule,
-          startDate: Timestamp.fromDate(StartDate),
+          startDate: Timestamp.fromDate(dateWithoutTime),
           duration: PlannerDuration,
         }
       });
-      console.log({ newPlannerDoc });
-
-      let plannerToBeUpdated: UserPlannersProps | null = null;
-      switch (plannerIndex) {
-        case 1:
-          plannerToBeUpdated = { ...Planners, planner1: newPlannerDoc };
-          break;
-        case 2:
-          plannerToBeUpdated = { ...Planners, planner2: newPlannerDoc };
-          break;
-        case 3:
-          plannerToBeUpdated = { ...Planners, planner3: newPlannerDoc };
-          break;
-        default:
-          break;
-      }
-      console.log({ plannerToBeUpdated });
-      // if (plannerToBeUpdated && setPlanners)
-      // updatePlannersCollection(UserLogged, plannerToBeUpdated, setPlanners);
-
-
-      /*
-          Build the logic to update the a planner
-          Its more about the planner calendar update by changing the planner duration
-      */
-
-
+      console.log("Planner Updated");
     } else {
-      const newPlannerDoc = createNewPlannerDoc({
+      PlannerDoc = createNewPlannerDoc({
         name: PlannerNameInput,
-        splits: SplitsInfo,
+        splitsInfo: SplitsInfo,
         restDays: RestsQuantity,
         schedule: plannerSchedule,
-        startDate: Timestamp.fromDate(StartDate),
+        startDate: Timestamp.fromDate(dateWithoutTime),
         duration: PlannerDuration,
       });
-
-      let plannerToBeUpdated: UserPlannersProps | null = null;
-      switch (plannerIndex) {
-        case 1:
-          plannerToBeUpdated = { ...Planners, planner1: newPlannerDoc };
-          break;
-        case 2:
-          plannerToBeUpdated = { ...Planners, planner2: newPlannerDoc };
-          break;
-        case 3:
-          plannerToBeUpdated = { ...Planners, planner3: newPlannerDoc };
-          break;
-        default:
-          break;
-      }
-      console.log({ plannerToBeUpdated });
-      if (plannerToBeUpdated && setPlanners)
-        updatePlannersCollection(UserLogged, plannerToBeUpdated, setPlanners);
+      console.log("New planner Created");
     }
+
+    switch (plannerIndex) {
+      case 1:
+        plannerToBeUpdated = { ...Planners, planner1: PlannerDoc };
+        break;
+      case 2:
+        plannerToBeUpdated = { ...Planners, planner2: PlannerDoc };
+        break;
+      case 3:
+        plannerToBeUpdated = { ...Planners, planner3: PlannerDoc };
+        break;
+      default:
+        break;
+    }
+    console.log({ plannerToBeUpdated });
+    if (plannerToBeUpdated && setPlanners)
+      updatePlannersCollection(UserLogged, plannerToBeUpdated, setPlanners);
+
     !!setIsLoading && setIsLoading(false);
-    // setVisible(false);
+    setVisible(false);
   }
 
   return (
